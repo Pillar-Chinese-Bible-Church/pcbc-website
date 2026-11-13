@@ -19,7 +19,7 @@ Editors: see [EDITING.md](EDITING.md).
 | `src/_data/ui.js` | Fixed menu and button wording in all three languages |
 | `src/index.njk`, `src/teach.njk`, `src/_includes/base.njk` | Page templates |
 | `src/assets/` | Styles and scripts (language switch, phone menu) |
-| `src/images/` | Photos (`uploads/` is where Pages CMS puts new ones) |
+| `src/images/` | Photos; Pages CMS uploads new ones here too |
 | `.pages.yml` | The editing screens Pages CMS shows |
 
 Each text in the YAML files has `zh` (简体), `en` (English) and an optional `hant` (繁體).

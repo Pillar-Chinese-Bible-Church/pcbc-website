@@ -2,9 +2,10 @@
 # Each text field has three boxes: 简体, 繁體 (optional: left empty, it is converted from 简体 automatically) and English.
 # `&line` / `&para` define those three boxes once; `*line` / `*para` reuse them.
 
+# Photos live in src/images and appear on the site as /images/… (the paths stored in the content files).
 media:
-  input: src/images/uploads
-  output: /images/uploads
+  input: src/images
+  output: /images
 
 content:
   - name: site
