@@ -1,0 +1,69 @@
+{#- Shared page frame: header, language switch, footer. Pages set `L` (language) and `pagePath` ("/" or "/teach/"). -#}
+{%- set u = ui[L.code] -%}
+{%- set home = L.prefix + "/" -%}
+<!doctype html>
+<html lang="{{ L.code }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{ pageTitle }}</title>
+<meta name="description" content="{{ site.name | t(L.code) }} · {{ site.sunday.time | t(L.code) }} · {{ site.address }}">
+{%- for l in langs %}
+<link rel="alternate" hreflang="{{ l.code }}" href="{{ l.prefix }}{{ pagePath }}">
+{%- endfor %}
+<link rel="icon" href="/images/logo-pillar.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600&family=Noto+Serif+TC:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+<script src="/assets/lang.js"></script>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="{{ home }}">
+      {% logo "mark", 27, 40 %}
+      <span><b>{{ site.name | t(L.code) }}</b><small>{{ site.name.en if L.code != "en" else site.name.zh }}</small></span>
+    </a>
+    <button class="menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav" data-open="{{ u.close }}" data-closed="{{ u.menu }}">{{ u.menu }}</button>
+    <nav class="nav" id="nav">
+      <a href="{{ home }}#about">{{ u.nav.about }}</a>
+      <a href="{{ home }}#sunday">{{ u.nav.sunday }}</a>
+      <a href="{{ home }}#groups">{{ u.nav.groups }}</a>
+      <a href="{{ L.prefix }}/teach/">{{ u.nav.beliefs }}</a>
+      <a href="#contact">{{ u.nav.contact }}</a>
+      <div class="langs" role="group" aria-label="{{ u.langGroup }}">
+        {%- for l in langs %}<a href="{{ l.prefix }}{{ pagePath }}" lang="{{ l.code }}" data-lang="{{ l.code }}"{% if l.code == L.code %} aria-current="true"{% endif %}>{{ l.label }}</a>{% endfor -%}
+      </div>
+    </nav>
+  </div>
+</header>
+
+{{ content | safe }}
+
+<footer id="contact">
+  <div class="wrap">
+    <div>
+      <div class="fname">{% logo "flogo", 22, 32 %}<h4>{{ site.name | t(L.code) }}</h4></div>
+      <p>{{ site.name.en if L.code != "en" else site.name.zh }}<br>{{ site.address }}</p>
+    </div>
+    <div>
+      <h4>{{ u.footerTimes }}</h4>
+      <p>{{ u.sundayWorship }} · {{ site.sunday.time | t(L.code) }}
+      {%- for g in homepage.week.gatherings %}<br>{{ g.name | t(L.code) }} · {{ g.time | t(L.code) }}{% endfor %}</p>
+    </div>
+    <div>
+      <h4>{{ u.footerContact }}</h4>
+      <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
+      <div class="social">
+        {%- if site.links.wechat %}<a href="{{ site.links.wechat }}">{{ u.wechat }}</a>{% endif %}
+        {%- if site.links.youtube %}<a href="{{ site.links.youtube }}">YouTube</a>{% endif %}
+        {%- if site.links.xiaohongshu %}<a href="{{ site.links.xiaohongshu }}">{{ u.xiaohongshu }}</a>{% endif -%}
+      </div>
+    </div>
+    <p class="credit">{{ site.footer_note | t(L.code) }}</p>
+  </div>
+</footer>
+<script src="/assets/site.js"></script>
+</body>
+</html>

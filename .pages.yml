@@ -1,0 +1,159 @@
+# Pages CMS (https://pagescms.org) editing screens for the church website.
+# Each text field has three boxes: 简体, 繁體 (optional: left empty, it is converted from 简体 automatically) and English.
+# `&line` / `&para` define those three boxes once; `*line` / `*para` reuse them.
+
+media:
+  input: src/images/uploads
+  output: /images/uploads
+
+content:
+  - name: site
+    label: 基本信息 Basics
+    type: file
+    path: src/_data/site.yml
+    format: yaml
+    fields:
+      - name: name
+        label: 教会名称 Church name
+        type: object
+        fields: &line
+          - { name: zh, label: 简体, type: string }
+          - { name: hant, label: 繁體（可以不填，会自动转换）, type: string }
+          - { name: en, label: English, type: string }
+      - { name: address, label: 地址 Address, type: string }
+      - { name: map_link, label: 地图链接 Map link (Google Maps), type: string }
+      - { name: email, label: 邮箱 Email, type: string }
+      - name: sunday
+        label: 主日崇拜 Sunday worship
+        type: object
+        fields:
+          - { name: time, label: 时间（显示在首页）Time, type: object, fields: *line }
+          - { name: short_time, label: 简短时间（例如 10:30am）, type: string }
+          - { name: place, label: 地点 Place, type: string }
+          - { name: note, label: 说明（例如：国语崇拜，提供英文翻译）, type: object, fields: *line }
+      - name: links
+        label: 网上链接 Links (leave empty to hide)
+        type: object
+        fields:
+          - { name: youtube, label: YouTube, type: string }
+          - { name: wechat, label: 微信公众号 WeChat, type: string }
+          - { name: xiaohongshu, label: 小红书 RedNote, type: string }
+      - { name: footer_note, label: 页面最下方的小字 Footer note, type: object, fields: *line }
+
+  - name: homepage
+    label: 首页 Homepage
+    type: file
+    path: src/_data/homepage.yml
+    format: yaml
+    fields:
+      - name: hero
+        label: 顶部大图 Top photo
+        type: object
+        fields:
+          - name: title
+            label: 标题（可以换行）Title
+            type: object
+            fields: &para
+              - { name: zh, label: 简体, type: text }
+              - { name: hant, label: 繁體（可以不填，会自动转换）, type: text }
+              - { name: en, label: English, type: text }
+          - { name: subtitle, label: 副标题 Subtitle, type: object, fields: *line }
+          - { name: button, label: 按钮文字 Button, type: object, fields: *line }
+          - { name: image, label: 照片 Photo, type: image }
+          - { name: image_alt, label: 照片说明（给看不见图片的人）Photo description, type: object, fields: *line }
+      - name: sunday
+        label: 主日崇拜 Sunday worship section
+        type: object
+        fields:
+          - { name: heading, label: 标题 Heading, type: object, fields: *line }
+          - { name: first_time, label: “第一次来？”, type: object, fields: *line }
+          - { name: first_time_link, label: “第一次来”的链接文字, type: object, fields: *line }
+          - { name: missed, label: “错过了主日？”, type: object, fields: *line }
+          - { name: missed_link, label: “错过了主日”的链接文字, type: object, fields: *line }
+          - { name: image, label: 照片 Photo, type: image }
+          - { name: image_alt, label: 照片说明 Photo description, type: object, fields: *line }
+      - name: week
+        label: 每周聚会 Weekly gatherings
+        type: object
+        fields:
+          - { name: heading, label: 标题 Heading, type: object, fields: *line }
+          - { name: intro, label: 介绍 Intro, type: object, fields: *para }
+          - name: gatherings
+            label: 聚会（可以添加、删除、拖动排序）Gatherings
+            type: object
+            list: true
+            fields:
+              - { name: name, label: 聚会名称 Name, type: object, fields: *line }
+              - { name: time, label: 时间 When, type: object, fields: *line }
+              - { name: place, label: 地点（可以不填）Where, type: object, fields: *line }
+              - { name: topic, label: 内容（可以不填）What, type: object, fields: *line }
+      - name: life
+        label: 教会生活 Church life
+        type: object
+        fields:
+          - { name: heading, label: 标题 Heading, type: object, fields: *line }
+          - name: rows
+            label: 每一行（照片 + 文字）Rows
+            type: object
+            list: true
+            fields:
+              - { name: title, label: 标题 Title, type: object, fields: *line }
+              - { name: text, label: 文字 Text, type: object, fields: *para }
+              - { name: image, label: 照片 Photo, type: image }
+              - { name: image_alt, label: 照片说明 Photo description, type: object, fields: *line }
+      - name: verse
+        label: 经文 Verse
+        type: object
+        fields:
+          - { name: text, label: 经文（可以换行）Verse, type: object, fields: *para }
+          - { name: reference, label: 出处 Reference, type: object, fields: *line }
+          - { name: note, label: 说明 Note, type: object, fields: *line }
+      - name: values
+        label: 核心价值 Values
+        type: object
+        fields:
+          - { name: heading, label: 标题 Heading, type: object, fields: *line }
+          - { name: mission, label: 使命 Mission, type: object, fields: *para }
+          - name: items
+            label: 价值（可以添加、删除、拖动排序）Values
+            type: object
+            list: true
+            fields:
+              - { name: title, label: 标题 Title, type: object, fields: *line }
+              - { name: text, label: 文字 Text, type: object, fields: *para }
+          - { name: button, label: 按钮文字 Button, type: object, fields: *line }
+
+  - name: photos
+    label: 照片墙 Photo strip
+    type: file
+    path: src/_data/photos.yml
+    format: yaml
+    fields:
+      - { name: label, label: 照片墙名称（给读屏软件）, type: object, fields: *line }
+      - name: strip
+        label: 照片（可以添加、删除、拖动排序）Photos
+        type: object
+        list: true
+        fields:
+          - { name: image, label: 照片 Photo, type: image }
+          - { name: alt, label: 照片说明 Photo description, type: object, fields: *line }
+
+  - name: beliefs
+    label: 信仰告白 Statement of faith
+    type: file
+    path: src/_data/beliefs.yml
+    format: yaml
+    fields:
+      - { name: title, label: 标题 Title, type: object, fields: *line }
+      - { name: subtitle, label: 副标题 Subtitle, type: object, fields: *line }
+      - { name: intro, label: 介绍 Intro, type: object, fields: *para }
+      - name: items
+        label: 条目（可以添加、删除、拖动排序）Points
+        type: object
+        list: true
+        fields:
+          - { name: title, label: 标题 Title, type: object, fields: *line }
+          - { name: text, label: 内容 Text, type: object, fields: *para }
+          - { name: refs, label: 经文出处 Bible references, type: object, fields: *line }
+      - { name: question, label: 页面最后的问题 Closing question, type: object, fields: *para }
+      - { name: button, label: 按钮文字 Button, type: object, fields: *line }

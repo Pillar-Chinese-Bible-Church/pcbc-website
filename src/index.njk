@@ -1,0 +1,96 @@
+---
+pagination:
+  data: langs
+  size: 1
+  alias: L
+permalink: "{{ L.prefix }}/index.html"
+pagePath: "/"
+layout: base.njk
+eleventyComputed:
+  pageTitle: "{{ site.name | t(L.code) }}"
+---
+{%- set c = L.code -%}
+{%- set h = homepage -%}
+{%- set u = ui[c] -%}
+<main id="home">
+  <section class="hero">
+    <img class="hero-img" src="{{ h.hero.image }}" alt="{{ h.hero.image_alt | t(c) }}" loading="eager" fetchpriority="high">
+    <div class="wrap">
+      <h1>{{ h.hero.title | tt(c) | safe }}</h1>
+      <p>{{ h.hero.subtitle | t(c) }}</p>
+      <a class="btn" href="#sunday">{{ h.hero.button | t(c) }}</a>
+    </div>
+  </section>
+
+  <section class="band" id="sunday">
+    <div class="wrap">
+      <img src="{{ h.sunday.image }}" alt="{{ h.sunday.image_alt | t(c) }}" sizes="(max-width: 760px) 100vw, 560px">
+      <div>
+        <h2>{{ h.sunday.heading | t(c) }}</h2>
+        <p class="big"><b>{{ site.sunday.time | t(c) }}</b> {{ u.at }} <a href="{{ site.map_link }}" target="_blank" rel="noopener">{{ site.sunday.place }}</a><br>{{ site.sunday.note | t(c) }}</p>
+        <h3>{{ h.sunday.first_time | t(c) }}</h3>
+        <a href="#about">{{ h.sunday.first_time_link | t(c) }}</a>
+        <h3>{{ h.sunday.missed | t(c) }}</h3>
+        <a href="{{ site.links.youtube or '#contact' }}">{{ h.sunday.missed_link | t(c) }}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="week wrap" id="groups">
+    <h2>{{ h.week.heading | t(c) }}</h2>
+    <p class="intro">{{ h.week.intro | t(c) }}</p>
+    <div class="boxes">
+      {%- for g in h.week.gatherings %}
+      <div class="box">
+        <h3>{{ g.name | t(c) }}</h3>
+        {%- if g.time | t(c) %}<p><b>{{ u.time }}</b>{{ g.time | t(c) }}</p>{% endif %}
+        {%- if g.place | t(c) %}<p><b>{{ u.place }}</b>{{ g.place | t(c) }}</p>{% endif %}
+        {%- if g.topic | t(c) %}<p><b>{{ u.topic }}</b>{{ g.topic | t(c) }}</p>{% endif %}
+        <a href="#contact">{{ u.more }}</a>
+      </div>
+      {%- endfor %}
+    </div>
+  </section>
+
+  <section class="together wrap" id="about">
+    <h2>{{ h.life.heading | t(c) }}</h2>
+    <div class="rows">
+      {%- for row in h.life.rows %}
+      <div class="row">
+        <div class="pic"><img src="{{ row.image }}" alt="{{ row.image_alt | t(c) }}" sizes="(max-width: 760px) 100vw, 620px"></div>
+        <div>
+          <h3>{{ row.title | t(c) }}</h3>
+          <p>{{ row.text | t(c) }}</p>
+        </div>
+      </div>
+      {%- endfor %}
+    </div>
+  </section>
+
+  <section class="verse">
+    <div class="wrap">
+      <p class="v">{{ h.verse.text | tt(c) | safe }}</p>
+      <p class="r">{{ h.verse.reference | t(c) }}</p>
+      <p class="n">{{ h.verse.note | t(c) }}</p>
+    </div>
+  </section>
+
+  <div class="strip" aria-label="{{ photos.label | t(c) }}">
+    {%- for p in photos.strip %}
+    <img src="{{ p.image }}" alt="{{ p.alt | t(c) }}" sizes="360px">
+    {%- endfor %}
+  </div>
+
+  <section class="values">
+    <div class="wrap">
+      <h2>{{ h.values.heading | t(c) }}</h2>
+      <p class="intro">{{ h.values.mission | t(c) }}</p>
+      <div class="vlist">
+        {%- for v in h.values.items %}
+        <div class="vitem"><span class="num">{{ loop.index }}</span><div><h3>{{ v.title | t(c) }}</h3><p>{{ v.text | t(c) }}</p></div></div>
+        {%- endfor %}
+      </div>
+      <p class="more"><a class="btn dark" href="{{ L.prefix }}/teach/">{{ h.values.button | t(c) }}</a></p>
+    </div>
+  </section>
+</main>

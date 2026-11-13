@@ -1,0 +1,38 @@
+---
+pagination:
+  data: langs
+  size: 1
+  alias: L
+permalink: "{{ L.prefix }}/teach/index.html"
+pagePath: "/teach/"
+layout: base.njk
+eleventyComputed:
+  pageTitle: "{{ beliefs.title | t(L.code) }} · {{ site.name | t(L.code) }}"
+---
+{%- set c = L.code -%}
+{%- set b = beliefs -%}
+<main id="teach">
+  <section class="thead">
+    <div class="wrap">
+      <h1>{{ b.title | t(c) }}</h1>
+      <p>{{ b.subtitle | t(c) }}</p>
+    </div>
+  </section>
+  <section class="wrap tbody">
+    <p class="intro">{{ b.intro | t(c) }}</p>
+    <ol class="tlist">
+      {%- for item in b.items %}
+      <li>
+        <h2>{{ item.title | t(c) }}</h2>
+        <p>{{ item.text | t(c) }}</p>
+        <p class="refs">{{ item.refs | t(c) }}</p>
+      </li>
+      {%- endfor %}
+    </ol>
+    <div class="task">
+      <p>{{ b.question | t(c) }}</p>
+      <a class="btn dark" href="#contact">{{ b.button | t(c) }}</a>
+    </div>
+    <a class="back" href="{{ L.prefix }}/">{{ ui[c].back }}</a>
+  </section>
+</main>

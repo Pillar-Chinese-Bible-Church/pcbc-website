@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 88" fill="currentColor">
+  <!-- Redrawn from the 柱石 logo: capped pillar with a cross inside, on a stepped base -->
+  <rect x="22.5" y="0" width="15" height="4"/>
+  <rect x="22" y="3" width="4" height="14"/><rect x="34" y="3" width="4" height="14"/>
+  <rect x="14" y="13" width="12" height="4"/><rect x="34" y="13" width="12" height="4"/>
+  <path d="M24 5.5C19 5.5 15.5 8.5 15.5 13.5M36 5.5C41 5.5 44.5 8.5 44.5 13.5" fill="none" stroke="currentColor" stroke-width="3"/>
+  <rect x="14" y="13" width="3" height="55"/><rect x="43" y="13" width="3" height="55"/>
+  <rect x="22" y="26" width="4" height="42"/><rect x="34" y="26" width="4" height="42"/>
+  <rect x="14" y="65" width="12" height="3"/><rect x="34" y="65" width="12" height="3"/>
+  <rect x="28.5" y="10" width="3" height="51"/><rect x="20" y="20" width="20" height="3"/>
+  <path d="M11 71H49L51.5 77H8.5Z"/>
+  <rect x="0" y="80" width="60" height="8"/>
+</svg>

@@ -1,0 +1,169 @@
+# 首页内容
+# 每段文字有三个格子：zh = 简体，en = English，hant = 繁體（可以不填，网站会自动从简体转换）。
+
+hero:
+  title:
+    zh: |-
+      柱石华人圣经教会
+      欢迎你！
+    en: |-
+      Welcome to
+      Pillar Chinese Bible Church
+  subtitle:
+    zh: Welcome to Pillar Chinese Bible Church
+    en: 柱石华人圣经教会欢迎你
+  button:
+    zh: 第一次来？
+    en: New here?
+  image: /images/hero.jpg
+  image_alt:
+    zh: 全教会在十字架前的大合照
+    en: The whole church together in front of the cross
+sunday:
+  heading:
+    zh: 主日崇拜
+    en: Sunday Worship
+  first_time:
+    zh: 第一次来？
+    en: First time?
+  first_time_link:
+    zh: 来之前可以先看看这里
+    en: Here’s what to expect
+  missed:
+    zh: 错过了主日？
+    en: Missed a Sunday?
+  missed_link:
+    zh: 在 YouTube 收看最新讲道
+    en: Watch the latest sermon on YouTube
+  image: /images/building.jpg
+  image_alt:
+    zh: 弟兄姊妹站在教会门口的台阶上
+    en: Church members on the front steps of the church
+week:
+  heading:
+    zh: 每周聚会
+    en: During the Week
+  intro:
+    zh: 我们所有的聚会都以耶稣为中心。不管是祷告、查经还是团契，都是为了让我们更爱祂，也更明白祂的真理。
+    en: Everything we do during the week points back to Jesus. Whether we’re praying, studying the Bible or just talking, we want to love Him more and understand His truth better.
+  gatherings:
+    - name:
+        zh: 祷告会
+        en: Prayer Meeting
+      time:
+        zh: 每周三 8:00pm
+        en: Wednesdays, 8:00pm
+      place:
+        zh: ""
+        en: ""
+      topic:
+        zh: ""
+        en: ""
+    - name:
+        zh: 查经班
+        en: Bible Study
+      time:
+        zh: 每周四 8:00pm
+        en: Thursdays, 8:00pm
+      place:
+        zh: 线上
+        en: Online
+      topic:
+        zh: ""
+        en: ""
+    - name:
+        zh: 青年团契
+        en: Youth Fellowship
+      time:
+        zh: 每周五 6:30pm
+        en: Fridays, 6:30pm
+      place:
+        zh: ""
+        en: ""
+      topic:
+        zh: 信仰讨论
+        en: Talking through faith questions
+life:
+  heading:
+    zh: 教会生活
+    en: Church Life
+  rows:
+    - title:
+        zh: 一起敬拜
+        en: Worship together
+      text:
+        zh: 我们的敬拜团都是教会里的弟兄姊妹，平时上班上学，周末抽时间练歌。水平一般，但唱得很用心。
+        en: Everyone on our worship team is a regular church member with a job or classes during the week. They practice on weekends. They’re not pros, but they really mean it.
+      image: /images/worship.jpg
+      image_alt:
+        zh: 穿红衣服的敬拜团在台上合影
+        en: The worship team in red shirts on stage
+    - title:
+        zh: 一起查经
+        en: Study the Bible together
+      text:
+        zh: 每周四晚上有线上查经，也有小组面对面一起读。一段一段地读，有不明白的地方就提出来大家一起讨论，不需要有任何圣经基础。
+        en: Every Thursday night there’s an online Bible study, and small groups also meet in person. We go through a passage bit by bit, and when something doesn’t make sense, we talk it through. You don’t need to know anything about the Bible to join.
+      image: /images/study.jpg
+      image_alt:
+        zh: 小组围着屏幕一起讨论
+        en: A small group talking through a passage on screen
+    - title:
+        zh: 一起聚会
+        en: Spend time together
+      text:
+        zh: 过节的时候我们会聚在一起：春节包饺子、写春联，中秋吃月饼，感恩节一起吃顿饭。平时主日崇拜后，大家也会留下来一起吃午饭。很多人离家很远，能有人一起热闹热闹挺好的。
+        en: "On holidays we get together: dumplings and spring couplets at Lunar New Year, mooncakes at Mid-Autumn, a big meal at Thanksgiving. Most Sundays people stay for lunch after the service, too. A lot of us live far from family, so it’s good to have people around."
+      image: /images/festival.jpg
+      image_alt:
+        zh: 弟兄姊妹在挂着春联的副堂里一起过年
+        en: Celebrating Lunar New Year in the fellowship hall
+verse:
+  text:
+    zh: |-
+      永生神的教会，
+      真理的柱石和根基。
+    en: |-
+      “The church of the living God,
+      the pillar and foundation of the truth.”
+  reference:
+    zh: 提摩太前书 三章十五节
+    en: 1 Timothy 3:15
+  note:
+    zh: 这是我们教会名字的由来
+    en: This verse is where our church gets its name.
+values:
+  heading:
+    zh: 我们的核心价值
+    en: Our Values
+  mission:
+    zh: 我们的使命：宣讲神的话语，坚固弟兄姊妹的信心，把福音传给还不认识耶稣的人，一切都是为了荣耀神。
+    en: Our mission is to glorify God by preaching His Word, building up one another’s faith, and bringing the gospel to people who don’t yet know Jesus.
+  items:
+    - title:
+        zh: 全心爱主
+        en: Wholehearted love for Jesus
+      text:
+        zh: 我们不想要只是走形式的信仰。我们盼望自己是一群真心爱耶稣、愿意一生跟随祂的人。
+        en: We don’t want a faith that just goes through the motions. We want to be people who truly love Jesus and follow Him for life.
+    - title:
+        zh: 解经讲道
+        en: Expository preaching
+      text:
+        zh: 主日聚会，我们是来听神说话的。讲台按着经卷一段一段解释圣经的原意，因为只有神的话能改变人心。
+        en: On Sundays we come to hear from God. Our sermons explain the Bible passage by passage, because only God’s Word can change a heart.
+    - title:
+        zh: 真实的群体
+        en: Real community
+      text:
+        zh: 神把我们收进祂的家，我们就是弟兄姊妹。我们一起吃饭、彼此代祷，不只聊天气和工作，也聊信仰和生命。
+        en: God brought us into His family, so we’re brothers and sisters. We share meals and pray for each other, and we talk about more than the weather and work.
+    - title:
+        zh: 带着爱心传福音
+        en: Sharing the gospel with love
+      text:
+        zh: 耶稣看见人群像羊没有牧人，就怜悯他们。我们也盼望把身边的朋友带到这位好牧人面前。
+        en: Jesus looked at the crowds and had compassion on them, because they were like sheep without a shepherd. We want to bring our friends to that Good Shepherd.
+  button:
+    zh: 阅读完整的信仰告白
+    en: Read our full Statement of Faith

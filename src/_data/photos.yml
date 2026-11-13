@@ -1,0 +1,59 @@
+# 首页照片墙（横向滚动的一排照片）
+# 每段文字有三个格子：zh = 简体，en = English，hant = 繁體（可以不填，网站会自动从简体转换）。
+
+label:
+  zh: 教会生活照片
+  en: Photos from church life
+strip:
+  - image: /images/hike.jpg
+    alt:
+      zh: 一起爬山，在山顶合影
+      en: A group photo at the top of a hike
+  - image: /images/campfire.jpg
+    alt:
+      zh: 营会晚上围着篝火
+      en: Around the campfire at a retreat
+  - image: /images/serve.jpg
+    alt:
+      zh: 弟兄们在副堂给大家打饭
+      en: Serving up lunch in the fellowship hall
+  - image: /images/home.jpg
+    alt:
+      zh: 在弟兄姊妹家里聚会
+      en: A gathering in a member’s home
+  - image: /images/talk.jpg
+    alt:
+      zh: 大家坐成一圈听分享
+      en: Sitting in a circle, listening to someone share
+  - image: /images/retreat.jpg
+    alt:
+      zh: 营会大合照
+      en: Group photo at a retreat
+  - image: /images/smile.jpg
+    alt:
+      zh: 聚会中回头微笑的姊妹
+      en: A smile from the row ahead during a gathering
+  - image: /images/food.jpg
+    alt:
+      zh: 主日午餐的一排家常菜
+      en: A row of home-cooked dishes for Sunday lunch
+  - image: /images/night.jpg
+    alt:
+      zh: 晚上大家围着户外长桌聊天
+      en: Talking around a long outdoor table at night
+  - image: /images/sing.jpg
+    alt:
+      zh: 大家站着一起唱诗
+      en: Standing together to sing
+  - image: /images/game.jpg
+    alt:
+      zh: 活动中大家举着号码牌
+      en: Holding up number cards during an activity
+  - image: /images/group.jpg
+    alt:
+      zh: 一大群人晚上在街边合影
+      en: A big group photo on the street at night
+  - image: /images/pews.jpg
+    alt:
+      zh: 大家坐在礼堂长椅上聊天
+      en: Chatting in the sanctuary pews

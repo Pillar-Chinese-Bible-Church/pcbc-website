@@ -1,0 +1,163 @@
+/* 柱石华人圣经教会 site styles.
+   Layout follows City Light (photo hero, dark worship band, values list) with Olive Tree's "一起…" photo rows. Single light theme by choice. */
+:root {
+  --ink: #2A2E35;
+  --muted: #646B76;
+  --slate: #1B3A5B;   /* logo navy */
+  --night: #13283F;
+  --yellow: #F4C542;
+  --soft: #F4F5F7;
+  --white: #FFFFFF;
+  --line: #E3E5E9;
+  --font: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+}
+html[lang="zh-Hant"] { --font: "Noto Serif TC", "Songti TC", "PMingLiU", serif; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--white); color: var(--ink); font: 300 16.5px/1.9 var(--font); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--night); }
+h1, h2, h3, p { margin: 0; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+:focus-visible { outline: 2px solid var(--yellow); outline-offset: 3px; }
+.wrap {
+  max-width: 1140px; margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+
+/* Header */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--night); color: var(--white); }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 64px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo .mark { color: var(--white); width: 27px; height: 40px; flex: none; }
+.logo b { display: block; font-weight: 500; font-size: 1.02rem; line-height: 1.2; letter-spacing: 0.02em; }
+.logo small { display: block; font-size: 0.72rem; line-height: 1.3; opacity: 0.7; }
+.nav { display: flex; align-items: center; gap: 28px; font-size: 0.95rem; }
+.nav a { text-decoration: none; opacity: 0.88; }
+.nav a:hover { opacity: 1; color: var(--yellow); }
+.langs { display: flex; align-items: center; font-size: 0.85rem; }
+.nav .langs a { padding: 4px 7px; opacity: 0.6; border-bottom: 0; text-decoration: none; }
+.nav .langs a + a { border-left: 1px solid rgba(255,255,255,.3); }
+.nav .langs a:hover { opacity: 1; color: var(--yellow); }
+.nav .langs a[aria-current] { opacity: 1; font-weight: 500; color: var(--yellow); }
+.menu { display: none; background: none; border: 0; color: var(--white); font: 500 0.95rem var(--font); padding: 8px 0; cursor: pointer; }
+@media (max-width: 900px) {
+  .menu { display: block; }
+  .nav { display: none; position: absolute; top: 64px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--night); padding: 4px max(20px, env(safe-area-inset-right, 0px)) 20px max(20px, env(safe-area-inset-left, 0px)); }
+  .nav.open { display: flex; }
+  .nav a { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .langs { margin-top: 14px; font-size: 1rem; }
+  .nav .langs a:first-child { padding-left: 0; }
+}
+
+/* Hero: whole-church photo; the welcome sits on the dark wall above everyone's heads */
+.hero { position: relative; min-height: clamp(520px, 46vw, 680px); display: flex; align-items: flex-start; color: var(--white); background: var(--night); overflow: hidden; }
+.hero picture { position: absolute; inset: 0; }
+.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 70%; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(10,20,32,.6) 0%, rgba(10,20,32,0) 42%); }
+.hero .wrap { position: relative; z-index: 2; width: 100%; padding-block: 52px 0; }
+.hero h1 { font-weight: 500; font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.25; letter-spacing: 0.02em; }
+.hero p { font-size: 1.1rem; margin-top: 8px; opacity: .92; }
+.btn { display: inline-block; margin-top: 24px; background: var(--yellow); color: var(--night); text-decoration: none;
+  font-weight: 500; padding: 12px 26px; border-radius: 999px; }
+.btn.dark { background: var(--night); color: var(--white); }
+/* Phones: the wide group photo would lose most people if cropped, so show it whole under the welcome */
+@media (max-width: 640px) {
+  .hero { display: flex; flex-direction: column; min-height: 0; }
+  .hero::before { display: none; }
+  .hero .wrap { order: -1; padding-block: 36px 28px; }
+  .hero picture, .hero-img { position: static; height: auto; }
+}
+
+/* Worship band (City Light) */
+.band { background: var(--slate); color: var(--white); }
+.band .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; padding-block: 64px; }
+.band img { border-radius: 10px; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.band h2 { font-size: 1.6rem; font-weight: 500; margin-bottom: 18px; }
+.band .big { font-size: 1.25rem; line-height: 1.7; }
+.band .big b { font-weight: 500; }
+.band a { color: var(--yellow); text-underline-offset: 4px; }
+.band h3 { font-size: 1.05rem; font-weight: 500; margin-top: 22px; }
+@media (max-width: 760px) { .band .wrap { grid-template-columns: 1fr; gap: 28px; padding-block: 44px; } }
+
+/* This week's gatherings (Olive Tree's three info boxes) */
+.week { padding-block: 64px 8px; }
+.week h2, .together h2, .values h2 { font-size: 1.75rem; font-weight: 500; text-align: center; margin-bottom: 32px; }
+.intro { color: var(--muted); text-align: center; max-width: 34em; margin: -16px auto 36px; }
+.boxes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.box { border: 1px solid var(--line); border-radius: 10px; padding: 26px 26px 24px; display: flex; flex-direction: column; gap: 4px; }
+.box h3 { font-size: 1.2rem; font-weight: 500; margin-bottom: 8px; }
+.box p { color: var(--muted); }
+.box p b { color: var(--ink); font-weight: 500; }
+.box a { margin-top: auto; padding-top: 14px; font-weight: 500; text-decoration: none; color: var(--slate); }
+.box a::after { content: " ›"; }
+@media (max-width: 860px) { .boxes { grid-template-columns: 1fr; } }
+
+/* Church life rows (Olive Tree) */
+.together { padding-block: 72px 0; }
+.rows { display: grid; gap: 56px; }
+.row { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; }
+.row:nth-child(even) .pic { order: 2; }
+.row .pic img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 10px; }
+.row h3 { font-size: 1.5rem; font-weight: 500; margin-bottom: 10px; }
+.row p { color: var(--muted); font-size: 1.05rem; max-width: 26em; }
+@media (max-width: 760px) {
+  .rows { gap: 40px; }
+  .row { grid-template-columns: 1fr; gap: 18px; }
+  .row:nth-child(even) .pic { order: 0; }
+}
+
+/* Verse band (City Light mission band, with our verse) */
+.verse { background: var(--slate); color: var(--white); text-align: center; margin-top: 88px; }
+.verse .wrap { padding-block: 72px; }
+.verse p.v { font-size: clamp(1.6rem, 3.6vw, 2.4rem); font-weight: 400; line-height: 1.6; letter-spacing: 0.06em; }
+.verse p.r { margin-top: 14px; color: var(--yellow); letter-spacing: 0.1em; }
+.verse p.n { margin-top: 18px; opacity: .75; font-size: 0.95rem; }
+
+/* Photo strip (City Light carousel) */
+.strip { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; padding-block: 8px; scrollbar-width: none; }
+.strip picture { flex: none; }
+.strip img { height: 240px; width: auto; flex: none; scroll-snap-align: start; object-fit: cover; }
+@media (max-width: 640px) { .strip img { height: 180px; } }
+
+/* Values (City Light) */
+.values { background: var(--soft); padding-block: 72px; }
+.vlist { max-width: 640px; margin: 0 auto; display: grid; gap: 36px; }
+.vitem { display: grid; grid-template-columns: 56px 1fr; gap: 16px; }
+.vitem .num { font-size: 2rem; font-weight: 400; color: #7F93AB; line-height: 1.2; }
+.vitem h3 { font-size: 1.15rem; font-weight: 500; margin-bottom: 6px; }
+.vitem p { color: var(--muted); }
+.values .more { text-align: center; margin-top: 40px; }
+.values .more .btn { margin-top: 0; }
+
+/* 信仰告白 (City Light "What We Teach": centered title, then a plain list of topics with references) */
+.thead { background: var(--slate); color: var(--white); text-align: center; }
+.thead .wrap { padding-block: 64px 56px; }
+.thead h1 { font-weight: 500; font-size: clamp(2rem, 4.5vw, 2.8rem); letter-spacing: 0.04em; }
+.thead p { margin-top: 8px; opacity: .8; }
+.wrap.tbody { max-width: 800px; padding-block: 56px 80px; }
+.tbody .intro { text-align: left; max-width: none; margin: 0 0 44px; }
+.tlist { list-style: none; padding: 0; margin: 0; display: grid; gap: 36px; }
+.tlist h2 { font-size: 1.3rem; font-weight: 500; margin: 0 0 8px; }
+.tlist .refs { margin-top: 8px; color: var(--muted); font-size: 0.9rem; }
+.task { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--line); }
+.task p { color: var(--muted); }
+.task .btn { margin-top: 18px; }
+.back { display: inline-block; margin-top: 28px; color: var(--slate); text-decoration: none; }
+.back:hover { text-decoration: underline; }
+
+/* Footer */
+footer { background: var(--night); color: #C9CDD3; font-size: 0.95rem; }
+footer .wrap { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 32px; padding-block: 52px 64px; }
+footer .fname { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+footer .fname h4 { margin: 0; }
+footer .flogo { width: 22px; height: 32px; flex: none; color: var(--white); }
+footer h4 { margin: 0 0 10px; color: var(--white); font-size: 1rem; font-weight: 500; }
+footer a { text-decoration: none; }
+footer a:hover { color: var(--yellow); }
+footer .social { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+footer .credit { grid-column: 1 / -1; border-top: 1px solid rgba(255,255,255,.1); padding-top: 20px; font-size: 0.8rem; opacity: .6; }
+@media (max-width: 760px) { footer .wrap { grid-template-columns: 1fr; gap: 28px; } }

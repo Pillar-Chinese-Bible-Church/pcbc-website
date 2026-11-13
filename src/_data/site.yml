@@ -1,0 +1,26 @@
+# 基本信息：地址、时间、联系方式
+# 每段文字有三个格子：zh = 简体，en = English，hant = 繁體（可以不填，网站会自动从简体转换）。
+
+name:
+  zh: 柱石华人圣经教会
+  hant: 柱石華人聖經教會
+  en: Pillar Chinese Bible Church
+address: 123 Church Street, Your City, ST 00000
+map_link: https://maps.google.com/?q=123+Church+Street
+email: hello@pillarcbc.org
+sunday:
+  time:
+    zh: 每主日上午 10:30
+    en: Sundays at 10:30am
+  short_time: 10:30am
+  place: 123 Church Street
+  note:
+    zh: 国语崇拜，提供英文翻译
+    en: Service in Mandarin, with English translation
+links:
+  youtube: ""
+  wechat: ""
+  xiaohongshu: ""
+footer_note:
+  zh: 照片为教会生活照
+  en: Photos from our church life
