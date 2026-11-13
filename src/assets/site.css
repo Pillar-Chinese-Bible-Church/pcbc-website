@@ -12,6 +12,8 @@
   --font: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
 }
 html[lang="zh-Hant"] { --font: "Noto Serif TC", "Songti TC", "PMingLiU", serif; }
+/* English uses a Latin font first: the Chinese fonts draw ’ and “ ” as wide full-width marks */
+html[lang="en"] { --font: "Noto Serif", "Noto Serif SC", Georgia, serif; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

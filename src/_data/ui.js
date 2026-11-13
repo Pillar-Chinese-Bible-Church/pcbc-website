@@ -17,7 +17,7 @@ export default {
   en: {
     nav: { about: "About", sunday: "Sunday", groups: "Groups", beliefs: "Beliefs", contact: "Contact" },
     menu: "Menu", close: "Close", langGroup: "Language",
-    at: "at", time: "When:", place: "Where:", topic: "What:", more: "Learn more",
+    at: "at", time: "When: ", place: "Where: ", topic: "What: ", more: "Learn more",
     footerTimes: "Gathering Times", footerContact: "Contact Us", sundayWorship: "Sunday Worship",
     wechat: "WeChat", xiaohongshu: "RedNote", back: "← Back to home",
   },
