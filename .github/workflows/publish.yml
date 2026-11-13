@@ -1,0 +1,32 @@
+# The "Publish website" button: GitHub → Actions → Publish website → Run workflow.
+# Copies main (what the preview at main.pillarcbc.pages.dev shows) to live (what Cloudflare serves as the real site).
+name: Publish website
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency: publish
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Copy main to live
+        # A plain push only fast-forwards; it stops instead of overwriting if someone changed live directly.
+        run: git push origin origin/main:refs/heads/live
+
+      - name: Summary
+        run: |
+          {
+            echo "### Published"
+            echo "live now matches main at \`$(git rev-parse --short origin/main)\`: $(git log -1 --format=%s origin/main)"
+            echo ""
+            echo "The site updates at https://pillarcbc.pages.dev in about a minute."
+          } >> "$GITHUB_STEP_SUMMARY"

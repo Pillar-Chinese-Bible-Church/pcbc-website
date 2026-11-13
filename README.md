@@ -3,8 +3,9 @@
 A small static site in three languages: 简体 at `/`, 繁體 at `/zh-hant/`, English at `/en/`,
 each with a homepage and a 信仰告白 / What We Teach page (`/teach/`).
 
-Church volunteers edit it through **Pages CMS** (web forms, no code). Every save goes to GitHub,
-and **Cloudflare Pages** rebuilds and publishes the site in about a minute.
+Church volunteers edit it through **Pages CMS** (web forms, no code). Every save goes to the `main` branch,
+which **Cloudflare Pages** builds as a preview at https://main.pillarcbc.pages.dev. Pressing **Publish website**
+copies `main` to the `live` branch, which is the real site at https://pillarcbc.pages.dev.
 
 Editors: see [EDITING.md](EDITING.md).
 
@@ -21,6 +22,7 @@ Editors: see [EDITING.md](EDITING.md).
 | `src/assets/` | Styles and scripts (language switch, phone menu) |
 | `src/images/` | Photos; Pages CMS uploads new ones here too |
 | `.pages.yml` | The editing screens Pages CMS shows |
+| `.github/workflows/publish.yml` | The Publish website button |
 
 Each text in the YAML files has `zh` (简体), `en` (English) and an optional `hant` (繁體).
 When `hant` is empty, the build converts the 简体 with OpenCC plus a few fixes for church terms
@@ -28,6 +30,21 @@ When `hant` is empty, the build converts the 简体 with OpenCC plus a few fixes
 
 On someone's first visit, `src/assets/lang.js` sends them to the language their browser prefers
 (zh-TW / zh-HK / zh-Hant → 繁, other Chinese → 简, everything else → English). The 简 / 繁 / EN links save their choice.
+
+## Preview, then publish
+
+| Branch | What it is | Address |
+| --- | --- | --- |
+| `main` | Where Pages CMS saves. A preview nobody is sent to | https://main.pillarcbc.pages.dev |
+| `live` | The real site | https://pillarcbc.pages.dev |
+
+To publish: on GitHub open the repository → **Actions** → **Publish website** → **Run workflow** → **Run workflow**.
+`live` then matches `main`, and Cloudflare deploys it in about a minute. Only people with write access to the
+GitHub repository can press it, so it doubles as the approval step. Pages CMS editors invited by email can't.
+
+Nobody should push to `live` directly; the button refuses to publish if `live` has changes that aren't on `main`.
+To undo a published change, fix it in `main` and publish again, or in Cloudflare open the project's
+**Deployments**, pick an earlier production deployment and choose **Rollback**.
 
 ## Run it locally
 
@@ -48,19 +65,15 @@ Create a repository under a **church-owned GitHub account or organization** (not
 
 1. In Cloudflare: Workers & Pages → Create → Pages → Connect to Git, and pick the repository.
 2. Build command: `npm run build`. Build output directory: `_site`.
-3. Add the environment variable `NODE_VERSION` = `22`.
-4. Save. Every push to the main branch now publishes the site. Add the church's domain under Custom domains.
+3. Add the environment variable `NODE_VERSION` = `22` (for both Production and Preview).
+4. Under Settings → Build → Branch control, set the production branch to `live` and keep previews on for all other branches.
+5. Add the church's domain under Custom domains.
 
 ### 3. Pages CMS (editing)
 
 1. Go to https://app.pagescms.org, sign in with GitHub and give Pages CMS access to the repository.
 2. Open the repository. Pages CMS reads `.pages.yml` and shows the editing screens.
 3. Invite editors from the repository's settings in Pages CMS. Editors who can't use an email invite can be added as GitHub collaborators instead.
-
-### Optional: review before publishing
-
-If changes (for example to 信仰告白) should be approved first, have editors work on a `draft` branch in Pages CMS
-and protect `main` on GitHub so changes reach it only through a reviewed pull request.
 
 ## Placeholders still to replace
 
