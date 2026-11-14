@@ -66,6 +66,9 @@ img { max-width: 100%; display: block; }
 .btn { display: inline-block; margin-top: 24px; background: var(--yellow); color: var(--night); text-decoration: none;
   font-weight: 500; padding: 12px 26px; border-radius: 999px; }
 .btn.dark { background: var(--night); color: var(--white); }
+/* White button with a yellow outline; the inset shadow keeps it the same size as .btn */
+.btn.outline { background: var(--white); color: var(--night); box-shadow: inset 0 0 0 2px var(--yellow); }
+.hero .btn + .btn { margin-left: 12px; }
 /* Phones: the wide group photo would lose most people if cropped, so show it whole under the welcome */
 @media (max-width: 640px) {
   .hero { display: flex; flex-direction: column; min-height: 0; }
