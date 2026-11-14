@@ -49,8 +49,8 @@
     </div>
     <div>
       <h4>{{ u.footerTimes }}</h4>
-      <p>{{ u.sundayWorship }} · {{ site.sunday.time | t(L.code) }}
-      {%- for g in homepage.week.gatherings %}<br>{{ g.name | t(L.code) }} · {{ g.time | t(L.code) }}{% endfor %}</p>
+      <p>{{ u.sundayWorship }}{{ u.sep }}{{ site.sunday.time | t(L.code) }}
+      {%- for g in homepage.week.gatherings %}<br>{{ g.name | t(L.code) }}{{ u.sep }}{{ g.time | t(L.code) }}{% endfor %}</p>
     </div>
     <div>
       <h4>{{ u.footerContact }}</h4>
@@ -61,7 +61,9 @@
         {%- if site.links.xiaohongshu %}<a href="{{ site.links.xiaohongshu }}">{{ u.xiaohongshu }}</a>{% endif -%}
       </div>
     </div>
+    {%- if site.footer_note | t(L.code) %}
     <p class="credit">{{ site.footer_note | t(L.code) }}</p>
+    {%- endif %}
   </div>
 </footer>
 <script src="/assets/site.js"></script>
