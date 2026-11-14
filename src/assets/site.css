@@ -84,6 +84,8 @@ img { max-width: 100%; display: block; }
 .band h2 { font-size: 1.6rem; font-weight: 500; margin-bottom: 18px; }
 .band .big { font-size: 1.25rem; line-height: 1.7; }
 .band .big b { font-weight: 500; }
+/* Keep "at + address" together: it moves to the next line as a whole, and only wraps inside on very narrow screens */
+.band .big .where { display: inline-block; }
 .band a { color: var(--yellow); text-underline-offset: 4px; }
 .band h3 { font-size: 1.05rem; font-weight: 500; margin-top: 22px; }
 @media (max-width: 760px) { .band .wrap { grid-template-columns: 1fr; gap: 28px; padding-block: 44px; } }
