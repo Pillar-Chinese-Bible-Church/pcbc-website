@@ -19,6 +19,7 @@ eleventyComputed:
       <h1>{{ h.hero.title | tt(c) | safe }}</h1>
       <p>{{ h.hero.subtitle | t(c) }}</p>
       <a class="btn" href="#sunday">{{ h.hero.button | t(c) }}</a>
+      <a class="btn outline" href="#about">{{ h.hero.about_button | t(c) }}</a>
     </div>
   </section>
 
@@ -38,7 +39,9 @@ eleventyComputed:
 
   <section class="week wrap" id="groups">
     <h2>{{ h.week.heading | t(c) }}</h2>
+    {%- if h.week.intro | t(c) %}
     <p class="intro">{{ h.week.intro | t(c) }}</p>
+    {%- endif %}
     <div class="boxes">
       {%- for g in h.week.gatherings %}
       <div class="box">
@@ -71,7 +74,9 @@ eleventyComputed:
     <div class="wrap">
       <p class="v">{{ h.verse.text | tt(c) | safe }}</p>
       <p class="r">{{ h.verse.reference | t(c) }}</p>
+      {%- if h.verse.note | t(c) %}
       <p class="n">{{ h.verse.note | t(c) }}</p>
+      {%- endif %}
     </div>
   </section>
 
