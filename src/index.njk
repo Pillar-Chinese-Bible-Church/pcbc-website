@@ -28,7 +28,7 @@ eleventyComputed:
       <img src="{{ h.sunday.image }}" alt="{{ h.sunday.image_alt | t(c) }}" sizes="(max-width: 760px) 100vw, 560px">
       <div>
         <h2>{{ h.sunday.heading | t(c) }}</h2>
-        <p class="big"><b>{{ site.sunday.time | t(c) }}</b> {{ u.at }} <a href="{{ site.map_link }}" target="_blank" rel="noopener">{{ site.sunday.place }}</a><br>{{ site.sunday.note | t(c) }}</p>
+        <p class="big"><b>{{ site.sunday.time | t(c) }}</b> <span class="where">{{ u.at }} <a href="{{ site.map_link }}" target="_blank" rel="noopener">{{ site.sunday.place }}</a></span><br>{{ site.sunday.note | t(c) }}</p>
         <h3>{{ h.sunday.first_time | t(c) }}</h3>
         <a href="#about">{{ h.sunday.first_time_link | t(c) }}</a>
         <h3>{{ h.sunday.missed | t(c) }}</h3>
