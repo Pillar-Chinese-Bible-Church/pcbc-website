@@ -12,6 +12,8 @@ const HANT_FIXES = [
   [/(?<![宿校寒])舍(?![弟下])/g, "捨"],       // 舍命 → 捨命, 舍己 → 捨己 (keeps 宿舍…)
   [/迴轉/g, "回轉"],
   [/講臺/g, "講台"],
+  [/瞭解/g, "了解"],                      // keep 了解, as in the menu wording (了解更多)
+  [/聯繫我們/g, "聯絡我們"],                // 联系我们 → 聯絡我們, as in the menu and footer
 ];
 const toHant = (s) => HANT_FIXES.reduce((t, [re, to]) => t.replace(re, to), opencc(s));
 

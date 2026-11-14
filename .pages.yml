@@ -39,7 +39,7 @@ content:
           - { name: youtube, label: YouTube, type: string }
           - { name: wechat, label: 微信公众号 WeChat, type: string }
           - { name: xiaohongshu, label: 小红书 RedNote, type: string }
-      - { name: footer_note, label: 页面最下方的小字 Footer note, type: object, fields: *line }
+      - { name: footer_note, label: 页面最下方的小字（可以不填）Footer note, type: object, fields: *line }
 
   - name: homepage
     label: 首页 Homepage
@@ -60,6 +60,7 @@ content:
               - { name: en, label: English, type: text }
           - { name: subtitle, label: 副标题 Subtitle, type: object, fields: *line }
           - { name: button, label: 按钮文字 Button, type: object, fields: *line }
+          - { name: about_button, label: 第二个按钮（关于我们）About button, type: object, fields: *line }
           - { name: image, label: 照片 Photo, type: image }
           - { name: image_alt, label: 照片说明（给看不见图片的人）Photo description, type: object, fields: *line }
       - name: sunday
@@ -78,7 +79,7 @@ content:
         type: object
         fields:
           - { name: heading, label: 标题 Heading, type: object, fields: *line }
-          - { name: intro, label: 介绍 Intro, type: object, fields: *para }
+          - { name: intro, label: 介绍（可以不填）Intro, type: object, fields: *para }
           - name: gatherings
             label: 聚会（可以添加、删除、拖动排序）Gatherings
             type: object
@@ -108,7 +109,7 @@ content:
         fields:
           - { name: text, label: 经文（可以换行）Verse, type: object, fields: *para }
           - { name: reference, label: 出处 Reference, type: object, fields: *line }
-          - { name: note, label: 说明 Note, type: object, fields: *line }
+          - { name: note, label: 说明（可以不填）Note, type: object, fields: *line }
       - name: values
         label: 核心价值 Values
         type: object
@@ -146,7 +147,7 @@ content:
     format: yaml
     fields:
       - { name: title, label: 标题 Title, type: object, fields: *line }
-      - { name: subtitle, label: 副标题 Subtitle, type: object, fields: *line }
+      - { name: subtitle, label: 副标题（可以不填）Subtitle, type: object, fields: *line }
       - { name: intro, label: 介绍 Intro, type: object, fields: *para }
       - name: items
         label: 条目（可以添加、删除、拖动排序）Points
