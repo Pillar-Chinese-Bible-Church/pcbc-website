@@ -4,12 +4,9 @@
 title:
   zh: 信仰告白
   en: What We Teach
-subtitle:
-  zh: 我们所信、所教导的
-  en: Statement of Faith · 信仰告白
 intro:
-  zh: 以下是我们教会所相信、所教导的要点。每一条都附上相关经文，欢迎你自己翻开圣经查考。
-  en: These are the main things our church believes and teaches. Each point lists Bible passages, so you can read them for yourself.
+  zh: 以下是我们教会所相信、所教导的要点。每一条都附上相关经文以供查考。
+  en: These are the main points our church believes and teaches. Each point lists Bible passages for reference.
 items:
   - title:
       zh: 圣经
@@ -120,7 +117,7 @@ items:
       zh: 创1:27–28；申22:5；林前6:9–10
       en: Gen 1:27–28; Deut 22:5; 1 Cor 6:9–10
 question:
-  zh: 对我们的信仰有疑问？欢迎在主日后找我们聊聊，或者写信给我们。
+  zh: 对我们的信仰有疑问？欢迎在主日后找我们聊聊，或者给我们留言。
   en: Questions about what we believe? Come talk with us after a Sunday service, or send us a note.
 button:
   zh: 联系我们

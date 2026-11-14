@@ -11,10 +11,13 @@ hero:
       Pillar Chinese Bible Church
   subtitle:
     zh: Welcome to Pillar Chinese Bible Church
-    en: 柱石华人圣经教会欢迎你
+    en: 柱石华人圣经教会欢迎你！
   button:
-    zh: 第一次来？
-    en: New here?
+    zh: 初来乍到？
+    en: New Here?
+  about_button:
+    zh: 关于我们
+    en: About Us
   image: /images/hero.jpg
   image_alt:
     zh: 全教会在十字架前的大合照
@@ -24,17 +27,17 @@ sunday:
     zh: 主日崇拜
     en: Sunday Worship
   first_time:
-    zh: 第一次来？
+    zh: 你是新朋友吗？
     en: First time?
   first_time_link:
-    zh: 来之前可以先看看这里
+    zh: 了解我们的活动
     en: Here’s what to expect
   missed:
     zh: 错过了主日？
     en: Missed a Sunday?
   missed_link:
-    zh: 在 YouTube 收看最新讲道
-    en: Watch the latest sermon on YouTube
+    zh: 在 YouTube 收看讲道直播
+    en: Watch the livestream on YouTube
   image: /images/building.jpg
   image_alt:
     zh: 弟兄姊妹站在教会门口的台阶上
@@ -43,19 +46,16 @@ week:
   heading:
     zh: 每周聚会
     en: During the Week
-  intro:
-    zh: 我们所有的聚会都以耶稣为中心。不管是祷告、查经还是团契，都是为了让我们更爱祂，也更明白祂的真理。
-    en: Everything we do during the week points back to Jesus. Whether we’re praying, studying the Bible or just talking, we want to love Him more and understand His truth better.
   gatherings:
     - name:
         zh: 祷告会
         en: Prayer Meeting
       time:
-        zh: 每周三 8:00pm
-        en: Wednesdays, 8:00pm
+        zh: 每周三 8:00PM
+        en: Wednesdays, 8:00PM
       place:
-        zh: ""
-        en: ""
+        zh: 线上
+        en: Online
       topic:
         zh: ""
         en: ""
@@ -63,8 +63,8 @@ week:
         zh: 查经班
         en: Bible Study
       time:
-        zh: 每周四 8:00pm
-        en: Thursdays, 8:00pm
+        zh: 每周四 8:00PM
+        en: Thursdays, 8:00PM
       place:
         zh: 线上
         en: Online
@@ -73,16 +73,16 @@ week:
         en: ""
     - name:
         zh: 青年团契
-        en: Youth Fellowship
+        en: Young Adults Fellowship
       time:
-        zh: 每周五 6:30pm
-        en: Fridays, 6:30pm
+        zh: 每周五 6:30PM
+        en: Fridays, 6:30PM
       place:
         zh: ""
         en: ""
       topic:
-        zh: 信仰讨论
-        en: Talking through faith questions
+        zh: 信仰讨论、查经和门训
+        en: Discussions about faith, Bible study, and discipleship
 life:
   heading:
     zh: 教会生活
@@ -92,8 +92,8 @@ life:
         zh: 一起敬拜
         en: Worship together
       text:
-        zh: 我们的敬拜团都是教会里的弟兄姊妹，平时上班上学，周末抽时间练歌。水平一般，但唱得很用心。
-        en: Everyone on our worship team is a regular church member with a job or classes during the week. They practice on weekends. They’re not pros, but they really mean it.
+        zh: 我们的敬拜团由教会里的弟兄姊妹组成，平时上班上学，周末抽时间练歌。我们的敬拜是由心发出，专业第二，用心第一。
+        en: Everyone on our worship team is a regular church member with a job or classes during the week. We practice on weekends. We’re not pros, but we worship with all our hearts.
       image: /images/worship.jpg
       image_alt:
         zh: 穿红衣服的敬拜团在台上合影
@@ -102,8 +102,8 @@ life:
         zh: 一起查经
         en: Study the Bible together
       text:
-        zh: 每周四晚上有线上查经，也有小组面对面一起读。一段一段地读，有不明白的地方就提出来大家一起讨论，不需要有任何圣经基础。
-        en: Every Thursday night there’s an online Bible study, and small groups also meet in person. We go through a passage bit by bit, and when something doesn’t make sense, we talk it through. You don’t need to know anything about the Bible to join.
+        zh: 每周四晚有线上查经，周五晚的团契也有查经和讨论。不需要有任何圣经基础，带着你的问题和思考，我们一起探讨生命、寻求真理。
+        en: Every Thursday night there’s an online Bible study, and every Friday night we also study the Bible and hold small group discussions. You don’t need to know anything about the Bible to join. Bring your questions and thoughts, and we will seek the truth and meaning of life together.
       image: /images/study.jpg
       image_alt:
         zh: 小组围着屏幕一起讨论
@@ -112,16 +112,16 @@ life:
         zh: 一起聚会
         en: Spend time together
       text:
-        zh: 过节的时候我们会聚在一起：春节包饺子、写春联，中秋吃月饼，感恩节一起吃顿饭。平时主日崇拜后，大家也会留下来一起吃午饭。很多人离家很远，能有人一起热闹热闹挺好的。
-        en: "On holidays we get together: dumplings and spring couplets at Lunar New Year, mooncakes at Mid-Autumn, a big meal at Thanksgiving. Most Sundays people stay for lunch after the service, too. A lot of us live far from family, so it’s good to have people around."
+        zh: 逢年过节我们都会聚在一起，给异乡的生活带来温暖。春节包饺子，中秋吃月饼，感恩节聚餐。平时主日崇拜后，大家也会一起吃午饭。很多人离家乡很远，但在这儿我们都是主里的家人。
+        en: We celebrate holidays together. We make dumplings at Chinese New Year, share mooncakes at the Mid-Autumn Festival, and enjoy a big meal at Thanksgiving. Most Sundays, people stay for lunch after the service. A lot of us live far from family, but here we find home in Christ.
       image: /images/festival.jpg
       image_alt:
         zh: 弟兄姊妹在挂着春联的副堂里一起过年
-        en: Celebrating Lunar New Year in the fellowship hall
+        en: Celebrating Chinese New Year in the church hall
 verse:
   text:
     zh: |-
-      永生神的教会，
+      这家就是永生神的教会，
       真理的柱石和根基。
     en: |-
       “The church of the living God,
@@ -129,9 +129,6 @@ verse:
   reference:
     zh: 提摩太前书 三章十五节
     en: 1 Timothy 3:15
-  note:
-    zh: 这是我们教会名字的由来
-    en: This verse is where our church gets its name.
 values:
   heading:
     zh: 我们的核心价值

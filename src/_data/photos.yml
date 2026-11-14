@@ -16,7 +16,7 @@ strip:
   - image: /images/serve.jpg
     alt:
       zh: 弟兄们在副堂给大家打饭
-      en: Serving up lunch in the fellowship hall
+      en: Serving up lunch in the church hall
   - image: /images/home.jpg
     alt:
       zh: 在弟兄姊妹家里聚会
@@ -44,16 +44,16 @@ strip:
   - image: /images/sing.jpg
     alt:
       zh: 大家站着一起唱诗
-      en: Standing together to sing
+      en: Standing together to worship
   - image: /images/game.jpg
     alt:
-      zh: 活动中大家举着号码牌
-      en: Holding up number cards during an activity
+      zh: 营会中大家举着号码牌
+      en: Holding up number cards during a church retreat
   - image: /images/group.jpg
     alt:
       zh: 一大群人晚上在街边合影
       en: A big group photo on the street at night
   - image: /images/pews.jpg
     alt:
-      zh: 大家坐在礼堂长椅上聊天
-      en: Chatting in the sanctuary pews
+      zh: 大家坐在营会礼堂长椅上聊天
+      en: Chatting in the pews at a retreat
