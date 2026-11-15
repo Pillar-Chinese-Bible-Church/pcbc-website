@@ -7,7 +7,7 @@ The website of Pillar Chinese Bible Church, in Simplified Chinese, Traditional C
 | Live site | https://pillarcbc.pages.dev |
 | Preview of unpublished changes | https://main.pillarcbc.pages.dev |
 | Edit content | https://app.pagescms.org |
-| Code | https://github.com/zxia-pcbc/pcbc-website |
+| Code | https://github.com/Pillar-Chinese-Bible-Church/pcbc-website |
 
 Church volunteers change the text and photos through **Pages CMS**, which shows web forms and needs no coding.
 Saved changes appear on the preview first. They reach the live site only when someone presses **Publish website**.
@@ -190,12 +190,19 @@ All of these are free for a site this size. They should belong to the church, no
 
 | Service | Used for | Account |
 | --- | --- | --- |
-| GitHub | Stores the code and content, runs the Publish button | `zxia-pcbc` |
+| GitHub | Stores the code and content, runs the Publish button | Organization `Pillar-Chinese-Bible-Church` |
 | Cloudflare Pages | Builds and hosts the site | Project **pillarcbc** in the church's Cloudflare account |
 | Pages CMS | Editing screens | Sign in with the GitHub account; editors are invited by email |
 | Google Fonts | Noto Serif SC / TC / Noto Serif | None needed |
 
-Cloudflare can access only this one repository; that's set in the "Cloudflare Workers and Pages" GitHub app on the `zxia-pcbc` account.
+Cloudflare can access only this one repository; that's set in the "Cloudflare Workers and Pages" GitHub app on the
+`Pillar-Chinese-Bible-Church` organization (organization Settings → GitHub Apps).
+
+If the repository ever moves to another account or organization, Cloudflare stops building and shows "There is an internal
+issue with your … Git installation". To fix it: install the "Cloudflare Workers and Pages" app on the new owner, then in the
+Cloudflare project go to Settings → Build → **Disconnect**, then **Connect** and choose the repository at its new location.
+Afterwards check **Branch control**: the reconnect resets the production branch to `main`, so set it back to `live`
+straight away, and if `main` was deployed as production in the meantime, roll back to the latest `live` deployment.
 
 When someone hands over the site, transfer ownership of the GitHub repository and Cloudflare account,
 or add the new person as an admin, rather than sharing passwords.
