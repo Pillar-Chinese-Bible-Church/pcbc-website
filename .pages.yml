@@ -125,6 +125,35 @@ content:
               - { name: text, label: 文字 Text, type: object, fields: *para }
           - { name: button, label: 按钮文字 Button, type: object, fields: *line }
 
+  - name: events
+    label: 近期活动 Events
+    type: file
+    path: src/_data/events.yml
+    format: yaml
+    fields:
+      - { name: heading, label: 标题 Heading, type: object, fields: *line }
+      - { name: intro, label: 介绍 Intro, type: object, fields: *para }
+      - name: items
+        label: 活动 Events (times need a timezone offset; sample entries never publish to live)
+        type: object
+        list: true
+        fields:
+          - { name: slug, label: 网址名称 URL slug (lowercase letters / numbers / hyphens), type: string }
+          - { name: published, label: 启用 Enabled, type: boolean }
+          - { name: sample, label: 示例 Sample (feature previews only), type: boolean }
+          - { name: title, label: 活动名称 Title, type: object, fields: *line }
+          - { name: summary, label: 简介 Summary, type: object, fields: *para }
+          - { name: start, label: 开始 Start (e.g. 2026-12-06T12:30:00-08:00), type: string }
+          - { name: end, label: 结束 End (e.g. 2026-12-06T14:30:00-08:00), type: string }
+          - { name: location, label: 地点 Location, type: object, fields: *line }
+          - { name: address, label: 地址 Address (optional), type: string }
+          - { name: map_url, label: 地图链接 Map URL (HTTPS / optional), type: string }
+          - { name: image, label: 图片 Image (optional), type: image }
+          - { name: image_alt, label: 图片描述 Image description, type: object, fields: *line }
+          - { name: joining, label: 参加方式 How to join, type: object, fields: *para }
+          - { name: registration_url, label: 报名链接 Registration URL (HTTPS / optional), type: string }
+          - { name: details, label: 活动介绍 Full description, type: object, fields: *para }
+
   - name: photos
     label: 照片墙 Photo strip
     type: file

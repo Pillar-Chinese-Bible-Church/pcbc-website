@@ -2,6 +2,7 @@ import fs from "node:fs";
 import yaml from "js-yaml";
 import * as OpenCC from "opencc-js";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
+import { formatEventDate } from "./lib/events.js";
 
 // 简体 → 繁體 (Taiwan characters) for any text an editor left without a 繁體 version.
 // "tw" changes characters only; "twp" also swaps vocabulary and turns 信息 into 資訊, which is wrong for church writing.
@@ -36,6 +37,13 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("t", (field, lang) => pick(field, lang));
   eleventyConfig.addFilter("tt", (field, lang) => escape(pick(field, lang)).replace(/\n/g, "<br>"));
   eleventyConfig.addFilter("hant", (s) => toHant(s || ""));
+  eleventyConfig.addFilter("eventDate", (s, lang) => formatEventDate(s, lang));
+  eleventyConfig.addFilter("eventTime", (s, lang) => formatEventDate(s, lang, true));
+  for (const [name, part] of [["eventMonth", "month"], ["eventDay", "day"]]) {
+    eleventyConfig.addFilter(name, (s, lang) => new Intl.DateTimeFormat(lang, {
+      timeZone: "America/Los_Angeles", [part]: part === "month" ? "long" : "numeric",
+    }).format(new Date(s)));
+  }
 
   // The pillar mark, inlined so it can take the text color (white in the header and footer).
   const logo = fs.readFileSync("src/images/logo-pillar.svg", "utf8").replace(/<!--[\s\S]*?-->/g, "");

@@ -36,11 +36,12 @@ This README is for whoever looks after the site.
 
 ## What's on the site
 
-Each language has two pages:
+Each language has the following pages:
 
 | Page | 简体 | 繁體 | English |
 | --- | --- | --- | --- |
 | Homepage | `/` | `/zh-hant/` | `/en/` |
+| Event detail (enabled entries) | `/events/<slug>/` | `/zh-hant/events/<slug>/` | `/en/events/<slug>/` |
 | 信仰告白 / What We Teach | `/teach/` | `/zh-hant/teach/` | `/en/teach/` |
 
 The homepage has the welcome photo, Sunday worship details, the weekly gatherings, church life,
@@ -51,6 +52,22 @@ The layout follows City Light Bible Church's site, with the friendlier photo sec
 (aaotcc.org). The text is set in a light Song typeface (Noto Serif SC / TC). English pages use Noto Serif.
 
 ## How changes go live
+
+### Preview a proposed code change without merging
+
+Create a feature branch from `main`, push it, and open a pull request targeting
+`main`. The documented Cloudflare setting **All non-Production branches** builds
+the feature branch into its own preview. Find the exact preview URL in the
+Cloudflare check on the PR, or under **pillarcbc → Deployments** for that branch.
+This does not change either `main.pillarcbc.pages.dev` or the live website.
+If no preview appears, check branch controls and the deployment build log.
+
+Review all three languages, mobile navigation, 信仰告白, event details, and images
+on that preview. Do not run **Publish website** to generate a feature preview.
+Merging a PR changes the shared `main` preview; the separate publish workflow
+still controls `live`.
+
+### Content publishing
 
 ```
 Pages CMS ──save──▶ main branch ──Cloudflare──▶ preview   main.pillarcbc.pages.dev
@@ -97,14 +114,16 @@ Gathering times are entered once. They appear both in the weekly boxes and in th
 
 ## How the content files work
 
-All page content lives in four YAML files in `src/_data/`. Pages CMS edits them through forms, but they can also be edited by hand.
+Page content lives in YAML files in `src/_data/`. Pages CMS edits them through forms, but they can also be edited by hand.
 
 | File | Contents |
 | --- | --- |
 | `site.yml` | Church name, address, map link, email, Sunday worship, social links, footer note |
 | `homepage.yml` | Welcome section, Sunday section, weekly gatherings, church life, verse, values |
 | `photos.yml` | The scrolling photo strip |
-| `beliefs.yml` | 信仰告白 / What We Teach |
+| `events.yml` | Upcoming events and their detail-page content |
+| `beliefs.yml` | Event detail (enabled entries) | `/events/<slug>/` | `/zh-hant/events/<slug>/` | `/en/events/<slug>/` |
+| 信仰告白 / What We Teach |
 
 Every piece of text has up to three versions:
 
@@ -241,3 +260,37 @@ Everything below is already done for the current site. It's here in case it has 
 - Have the pastor or elders review the 信仰告白. It follows the topics of City Light Bible Church's statement and is written fresh, not copied.
 - Connect the church's own domain.
 - Get the logo as a vector file (SVG, AI or PDF) from the designer. The current `logo-pillar.svg` was traced by hand from a small image.
+
+## Events and preview examples
+
+The homepage shows up to three upcoming enabled events, ordered by start time,
+after Sunday Worship and before weekly gatherings. Each has a shareable detail
+page at `/events/<slug>/`, `/zh-hant/events/<slug>/`, and `/en/events/<slug>/`.
+The existing homepage sections and 信仰告白 content are retained.
+
+Edit `src/_data/events.yml` in **Pages CMS → 近期活动 Events**. Use a unique URL
+slug; Simplified Chinese, optional Traditional overrides, and English follow the
+existing text convention. Images are optional. Start/end must be quoted ISO
+values with an explicit timezone offset (`-08:00` in winter, `-07:00` in summer).
+All display times use America/Los_Angeles. Optional registration/map URLs must
+use HTTPS. `published: false` excludes an entry everywhere.
+
+The supplied events are clearly labeled **samples**, not church announcements.
+`sample: true` entries appear on Cloudflare feature-branch previews, but are
+excluded from `main`, `live`, and ordinary local builds. To preview samples
+locally, run `EVENTS_INCLUDE_SAMPLES=1 npm run dev`. `main` and `live` builds exclude samples
+even if that override is accidentally set. For a real confirmed event, set
+`sample: false`, fill in its real information, and enable it. Never convert a
+sample into a real announcement without verifying its details.
+
+Builds omit ended events from the homepage but retain their detail pages.
+Browser JavaScript also removes ended cards/registration links when an old
+static deployment is visited or left open, and labels ended detail pages.
+Without JavaScript, date visibility remains as of the last build; rebuild after
+events end if that fallback must be current. This change adds no scheduled job.
+An empty upcoming list hides the homepage events section and its navigation link.
+
+Run `npm test` for sample/production isolation, validation, and Pacific-time tests;
+run `npm run build` for a normal build or
+`CF_PAGES_BRANCH=codex/website-events npm run build` to check the sample preview.
+Use Node 22, as specified by `.nvmrc` and the Cloudflare build configuration.

@@ -5,7 +5,8 @@
   "description": "柱石华人圣经教会 Pillar Chinese Bible Church website",
   "scripts": {
     "dev": "eleventy --serve --port 8080",
-    "build": "eleventy"
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.js"
   },
   "engines": {
     "node": ">=18"
