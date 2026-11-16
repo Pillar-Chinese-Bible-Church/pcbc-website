@@ -21,7 +21,7 @@ eleventyComputed:
       <div class="hero-actions">
         <a class="btn" href="#sunday">{{ h.hero.button | t(c) }}</a>
         {% if eventData.upcoming.length %}<a class="btn outline" href="#events" data-events-nav>{{ u.nav.events }} ↓</a>{% endif %}
-        <a class="hero-about" href="#about">{{ h.hero.about_button | t(c) }} →</a>
+        <a class="btn outline" href="#about">{{ h.hero.about_button | t(c) }}</a>
       </div>
     </div>
   </section>
@@ -32,10 +32,9 @@ eleventyComputed:
         <h2>{{ h.sunday.heading | t(c) }}</h2>
         <div class="sunday-facts">
           <p class="sunday-time">{{ site.sunday.time | t(c) }}</p>
-          <p>{{ u.at }} <a href="{{ site.map_link }}" target="_blank" rel="noopener">{{ site.sunday.place }}</a></p>
+          <p class="sunday-location"><span>{{ u.at }} {{ site.sunday.place }}</span><a class="sunday-directions" href="{{ site.map_link }}" target="_blank" rel="noopener">{{ u.events.directions }} ↗</a></p>
           <p class="sunday-note">{{ site.sunday.note | t(c) }}</p>
         </div>
-        <a class="sunday-directions" href="{{ site.map_link }}" target="_blank" rel="noopener">{{ u.events.directions }} ↗</a>
       </div>
       <details class="sunday-details">
         <summary>{{ u.sundayDetails }}</summary>

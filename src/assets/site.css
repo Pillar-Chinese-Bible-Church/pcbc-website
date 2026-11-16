@@ -74,16 +74,15 @@ img { max-width: 100%; display: block; }
 .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 18px; margin-top: 24px; }
 .hero-actions .btn { margin-top: 0; }
 .hero .btn.outline { background: rgba(19,40,63,.35); color: var(--white); box-shadow: inset 0 0 0 1px rgba(255,255,255,.75); }
-.hero-about { color: var(--white); font-size: .9rem; text-decoration: none; text-underline-offset: 4px; }
-.hero-about:hover { text-decoration: underline; }
 
 /* Compact Sunday strip; all original visitor text and the photo remain expandable. */
 .band { background: #F5F2EB; color: var(--ink); }
 .sunday-wrap { padding-block: 26px 18px; }
-.sunday-overview { display: grid; grid-template-columns: .8fr 1.4fr auto; gap: 20px 32px; align-items: center; }
+.sunday-overview { display: grid; grid-template-columns: .8fr 1.4fr; gap: 20px 32px; align-items: center; }
 .band h2 { font-size: 1.6rem; font-weight: 500; }
 .sunday-facts { font-size: .95rem; line-height: 1.7; }
 .sunday-time { font-size: 1.1rem; font-weight: 500; }
+.sunday-location { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 16px; }
 .sunday-note { font-size: .85rem; color: var(--muted); margin-top: 3px; }
 .band a { color: var(--slate); text-underline-offset: 4px; }
 .sunday-directions { font-size: .9rem; white-space: nowrap; }
@@ -104,7 +103,6 @@ img { max-width: 100%; display: block; }
   .hero .wrap { padding-block: 32px; }
   .hero h1 { font-size: clamp(1.7rem, 6.5vw, 2rem); }
   .hero-actions { gap: 12px; margin-top: 22px; }
-  .hero-about { flex-basis: 100%; }
   .sunday-wrap { padding-block: 24px 18px; }
   .sunday-overview { grid-template-columns: 1fr; gap: 12px; }
   .sunday-directions { width: fit-content; }
@@ -180,13 +178,16 @@ img { max-width: 100%; display: block; }
 .together { padding-block: 40px 0; }
 .rows { display: grid; gap: 32px; }
 .row { display: grid; grid-template-columns: .85fr 1.15fr; gap: 32px; align-items: center; }
+.row:nth-child(even) { grid-template-columns: 1.15fr .85fr; }
 .row:nth-child(even) .pic { order: 2; }
-.row .pic img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 10px; }
+.row .pic { min-width: 0; aspect-ratio: 3 / 2; overflow: hidden; border-radius: 10px; }
+.row .pic picture { display: block; width: 100%; height: 100%; }
+.row .pic img { width: 100%; height: 100%; object-fit: cover; }
 .row h3 { font-size: 1.5rem; font-weight: 500; margin-bottom: 10px; }
 .row p { color: var(--muted); font-size: 1rem; max-width: 36em; }
 @media (max-width: 760px) {
   .rows { gap: 28px; }
-  .row { grid-template-columns: 1fr; gap: 18px; }
+  .row, .row:nth-child(even) { grid-template-columns: 1fr; gap: 18px; }
   .row:nth-child(even) .pic { order: 0; }
 }
 
