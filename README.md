@@ -266,7 +266,11 @@ Everything below is already done for the current site. It's here in case it has 
 The homepage shows up to three upcoming enabled events, ordered by start time,
 after Sunday Worship and before weekly gatherings. Each has a shareable detail
 page at `/events/<slug>/`, `/zh-hant/events/<slug>/`, and `/en/events/<slug>/`.
-The existing homepage sections and 信仰告白 content are retained.
+The existing homepage sections and 信仰告白 content are retained. The shorter photo
+hero leads into a compact Sunday strip with the time, location, and directions.
+Open **More Sunday information** to see the original Sunday photo and visitor/video
+content. Events, weekly gatherings, and the remaining sections use tighter spacing;
+all original page text, photos, verse, and values remain available.
 
 Edit `src/_data/events.yml` in **Pages CMS → 近期活动 Events**. Use a unique URL
 slug; Simplified Chinese, optional Traditional overrides, and English follow the

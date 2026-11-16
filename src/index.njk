@@ -18,35 +18,50 @@ eleventyComputed:
     <div class="wrap">
       <h1>{{ h.hero.title | tt(c) | safe }}</h1>
       <p>{{ h.hero.subtitle | t(c) }}</p>
-      <a class="btn" href="#sunday">{{ h.hero.button | t(c) }}</a>
-      <a class="btn outline" href="#about">{{ h.hero.about_button | t(c) }}</a>
-      {% if eventData.upcoming.length %}<a class="hero-events" href="#events" data-events-nav>{{ u.nav.events }} ↓</a>{% endif %}
+      <div class="hero-actions">
+        <a class="btn" href="#sunday">{{ h.hero.button | t(c) }}</a>
+        {% if eventData.upcoming.length %}<a class="btn outline" href="#events" data-events-nav>{{ u.nav.events }} ↓</a>{% endif %}
+        <a class="hero-about" href="#about">{{ h.hero.about_button | t(c) }} →</a>
+      </div>
     </div>
   </section>
 
   <section class="band" id="sunday">
-    <div class="wrap">
-      <img src="{{ h.sunday.image }}" alt="{{ h.sunday.image_alt | t(c) }}" sizes="(max-width: 760px) 100vw, 560px">
-      <div class="sunday-content">
+    <div class="wrap sunday-wrap">
+      <div class="sunday-overview">
         <h2>{{ h.sunday.heading | t(c) }}</h2>
-        <p class="big"><b>{{ site.sunday.time | t(c) }}</b> <span class="where">{{ u.at }} <a href="{{ site.map_link }}" target="_blank" rel="noopener">{{ site.sunday.place }}</a></span><br>{{ site.sunday.note | t(c) }}</p>
-        <h3>{{ h.sunday.first_time | t(c) }}</h3>
-        <details class="visit-details">
-          <summary>{{ h.sunday.first_time_link | t(c) }}</summary>
-          <p>{{ site.sunday.time | t(c) }} · {{ site.sunday.note | t(c) }}</p>
-          <p><a href="{{ site.map_link }}" target="_blank" rel="noopener">{{ site.address }}</a></p>
-          <a href="mailto:{{ site.email }}?subject={{ h.sunday.first_time | t(c) | urlencode }}">{{ u.events.question }}</a>
-        </details>
-        <h3>{{ h.sunday.missed | t(c) }}</h3>
-        {% if site.links.youtube %}<a href="{{ site.links.youtube }}">{{ h.sunday.missed_link | t(c) }}</a>
-        {% else %}<p class="video-pending">{{ h.sunday.missed_link | t(c) }}<br><small>{{ u.videoPending }}</small></p>{% endif %}
+        <div class="sunday-facts">
+          <p class="sunday-time">{{ site.sunday.time | t(c) }}</p>
+          <p>{{ u.at }} <a href="{{ site.map_link }}" target="_blank" rel="noopener">{{ site.sunday.place }}</a></p>
+          <p class="sunday-note">{{ site.sunday.note | t(c) }}</p>
+        </div>
+        <a class="sunday-directions" href="{{ site.map_link }}" target="_blank" rel="noopener">{{ u.events.directions }} ↗</a>
       </div>
+      <details class="sunday-details">
+        <summary>{{ u.sundayDetails }}</summary>
+        <div class="sunday-detail-content">
+          <div class="sunday-photo"><img src="{{ h.sunday.image }}" alt="{{ h.sunday.image_alt | t(c) }}" sizes="(max-width: 760px) 100vw, 400px"></div>
+          <div class="sunday-visitor">
+            <h3>{{ h.sunday.first_time | t(c) }}</h3>
+            <details class="visit-details">
+              <summary>{{ h.sunday.first_time_link | t(c) }}</summary>
+              <p>{{ site.sunday.time | t(c) }} · {{ site.sunday.note | t(c) }}</p>
+              <p><a href="{{ site.map_link }}" target="_blank" rel="noopener">{{ site.address }}</a></p>
+              <a href="mailto:{{ site.email }}?subject={{ h.sunday.first_time | t(c) | urlencode }}">{{ u.events.question }}</a>
+            </details>
+            <h3>{{ h.sunday.missed | t(c) }}</h3>
+            {% if site.links.youtube %}<a href="{{ site.links.youtube }}">{{ h.sunday.missed_link | t(c) }}</a>
+            {% else %}<p class="video-pending">{{ h.sunday.missed_link | t(c) }}<br><small>{{ u.videoPending }}</small></p>{% endif %}
+          </div>
+        </div>
+      </details>
     </div>
   </section>
 
   {% include "events.njk" %}
 
-  <section class="week wrap" id="groups">
+  <section class="week" id="groups">
+    <div class="wrap">
     <h2>{{ h.week.heading | t(c) }}</h2>
     {%- if h.week.intro | t(c) %}
     <p class="intro">{{ h.week.intro | t(c) }}</p>
@@ -61,6 +76,7 @@ eleventyComputed:
         <a href="mailto:{{ site.email }}?subject={{ g.name | t(c) | urlencode }}" aria-label="{{ u.askAbout }} {{ g.name | t(c) }}">{{ u.more }}<span class="sr-only">: {{ g.name | t(c) }}</span></a>
       </div>
       {%- endfor %}
+    </div>
     </div>
   </section>
 
