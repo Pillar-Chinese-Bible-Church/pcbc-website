@@ -13,14 +13,14 @@ eleventyComputed:
 {%- set c = L.code -%}
 {%- set b = beliefs -%}
 <main id="main">
-  <section class="thead">
+  <header class="thead page-heading">
     <div class="wrap">
       <h1>{{ b.title | t(c) }}</h1>
       {%- if b.subtitle | t(c) %}
       <p>{{ b.subtitle | t(c) }}</p>
       {%- endif %}
     </div>
-  </section>
+  </header>
   <section class="wrap tbody">
     <p class="intro">{{ b.intro | t(c) }}</p>
     <ol class="tlist">
