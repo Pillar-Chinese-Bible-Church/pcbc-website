@@ -53,3 +53,26 @@ test("all upcoming events survive the build; latest end accounts for overlapping
   assert.equal(data.upcoming.length, 5);
   assert.equal(data.latestEnd, items[0].end);
 });
+
+test("image framing is optional, bounded and requires an image", () => {
+  const image = { image: "/images/example.jpg", image_alt: { zh: "照片", en: "Photo" } };
+  assert.deepEqual(eventData({ items: [{ ...event, ...image, image_position: { x: 0, y: 100 } }] }, {}, now).items[0].image_position, { x: 0, y: 100 });
+  for (const image_position of [{ x: -1, y: 50 }, { x: 50, y: 101 }, { x: "50", y: 50 }, { x: 50 }, { x: 50, y: 50, extra: true }])
+    assert.throws(() => eventData({ items: [{ ...event, ...image, image_position }] }, {}, now));
+  assert.throws(() => eventData({ items: [{ ...event, image_position: { x: 0, y: 0 } }] }, {}, now));
+});
+test("event cards render saved framing including zero coordinates, with a centered legacy fallback", async () => {
+  const { default: nunjucks } = await import("nunjucks");
+  const { readFileSync } = await import("node:fs");
+  const env = new nunjucks.Environment(null, { autoescape: true });
+  env.addFilter("t", value => value.en);
+  for (const name of ["eventMonth", "eventDay", "eventDate", "eventTime"]) env.addFilter(name, () => "Date");
+  const template = readFileSync("src/_includes/events.njk", "utf8");
+  const render = (position) => env.renderString(template, {
+    eventData: { upcoming: [{ ...event, image: "/images/example.jpg", image_position: position }] },
+    events: { heading: { en: "Events" }, intro: { en: "Upcoming" } }, L: { prefix: "/en" },
+    u: { events: { previous: "Previous", next: "Next", details: "Details" } }, c: "en",
+  });
+  assert.match(render({ x: 0, y: 100 }), /style="object-position: 0% 100%"/);
+  assert.doesNotMatch(render(undefined), /object-position:/);
+});
