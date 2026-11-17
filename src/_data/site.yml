@@ -5,14 +5,14 @@ name:
   zh: 柱石华人圣经教会
   hant: 柱石華人聖經教會
   en: Pillar Chinese Bible Church
-address: 211 Church Street, Mountain View, CA 94040
+address: 211 Church Street, Mountain View, CA 94041
 map_link: https://maps.app.goo.gl/yqHDrWaY6iJGLQtR8
 email: info@pillarcbc.org
 sunday:
   time:
-    zh: 每周日上午 10:30AM
-    en: Sundays at 10:30AM
-  short_time: 10:30AM
+    zh: 每周日上午 9:30AM
+    en: Sundays at 9:30AM
+  short_time: 9:30AM
   place: 211 Church Street, Mountain View
   note:
     zh: 中文崇拜，提供英文字幕

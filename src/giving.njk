@@ -13,9 +13,9 @@ eleventyComputed:
 {%- set c = L.code -%}
 {%- set g = giving -%}
 <main id="main" class="giving-page">
-  <header class="giving-heading">
+  <header class="giving-heading page-heading">
     <div class="wrap">
-      <p class="giving-eyebrow">{{ g.eyebrow | t(c) }}</p>
+      <p class="giving-eyebrow page-eyebrow">{{ g.eyebrow | t(c) }}</p>
       <h1>{{ g.title | t(c) }}</h1>
       <p class="giving-intro">{{ g.intro | t(c) }}</p>
       <p class="giving-thanks">{{ g.thanks | t(c) }}</p>
