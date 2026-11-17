@@ -307,15 +307,16 @@ links from Sunday, gatherings, and events route there. Inquiry links preselect a
 topic and optionally show a public gathering/event title as context. Language
 links retain that public inquiry context, but not personal form inputs.
 
-This version intentionally has **no email delivery integration**. Visitors can
-review/fill the name, email, topic, and message fields; **Send message is disabled**,
-and a clear notice directs them to the church's existing email address instead.
-The form script prevents implicit submission and does not send, save, or log
-visitor inputs. There is no backend, account setup, credential, or Cloudflare
-configuration required for this page. Direct `mailto:` links still open the
-visitor's email app, where the visitor sends their email themselves.
+This version intentionally has **no email delivery integration**. The page presents
+an ordinary contact form without unfinished-feature notices. **Send message** is
+styled as an enabled button, but is intentionally a no-op (`type="button"`): it
+sends no request, navigates nowhere, preserves the fields, and shows no success
+message. The form script also prevents implicit submission and does not send,
+save, or log visitor inputs. There is no backend, account setup, credential, or
+Cloudflare configuration required. Direct `mailto:` links still open the visitor's
+email app, where the visitor sends their email themselves.
 
 Copy lives in `src/_data/contact.js`, layout in `src/contact.njk`, and presentation
 logic in `src/assets/contact.js`. A later email-delivery PR must add server/provider
 validation and spam protection, explicit pending/error/success states, and a real
-submission handler before enabling Send. Do not simply remove the disabled flag.
+submission handler before replacing the inert Send button with a real submit action.

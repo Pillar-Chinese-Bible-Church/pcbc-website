@@ -3,7 +3,7 @@
   if (!form) return;
 
   // Presentation only: do not send, save, or log any visitor-entered content.
-  // Keep this guard even though the sending button is disabled (e.g. implicit Enter submission).
+  // The sending button is intentionally inert; also prevent implicit Enter submission.
   form.addEventListener("submit", function (event) { event.preventDefault(); });
   var message = document.getElementById("contact-message");
   message.addEventListener("input", function () {

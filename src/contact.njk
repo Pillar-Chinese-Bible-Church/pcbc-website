@@ -22,12 +22,7 @@ eleventyComputed:
     <section class="contact-form-section" aria-labelledby="contact-form-heading">
       <h2 id="contact-form-heading">{{ f.formTitle }}</h2>
       <p class="contact-intro">{{ f.formIntro }}</p>
-      <div class="contact-notice" id="contact-status" role="status">
-        <strong>{{ f.unavailableTitle }}</strong>
-        <p>{{ f.unavailable }}</p>
-        <a href="mailto:{{ site.email }}">{{ f.emailAction }} →</a>
-      </div>
-      <form id="contact-form" method="post" action="{{ L.prefix }}/contact/" aria-describedby="contact-status contact-privacy">
+      <form id="contact-form" method="post" action="{{ L.prefix }}/contact/" aria-labelledby="contact-form-heading">
         <p class="contact-required">{{ f.required }}</p>
         <p class="contact-context" hidden>{{ f.regarding }}: <span id="contact-context"></span></p>
         <div class="contact-fields">
@@ -52,9 +47,7 @@ eleventyComputed:
           <textarea id="contact-message" name="message" rows="7" minlength="10" maxlength="4000" required aria-describedby="message-hint"></textarea>
           <div class="contact-message-hint"><small id="message-hint">{{ f.messageHint }}</small><span id="message-count" aria-hidden="true">0 / 4,000</span></div>
         </div>
-        <p id="contact-privacy" class="contact-privacy">{{ f.privacy }}</p>
-        <button class="btn dark contact-send" type="submit" disabled aria-describedby="contact-status">{{ f.send }}</button>
-        <noscript><p class="contact-noscript">{{ f.noScript }}</p></noscript>
+        <button class="btn dark contact-send" type="button">{{ f.send }}</button>
       </form>
     </section>
     <aside class="contact-sidebar" aria-label="{{ f.emailTitle }}">
