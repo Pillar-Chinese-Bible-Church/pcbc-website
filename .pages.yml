@@ -211,8 +211,7 @@ content:
     format: yaml
     fields:
       - { name: title, label: 标题 Title, type: object, fields: *line }
-      - { name: subtitle, label: 副标题（可以不填）Subtitle, type: object, fields: *line }
-      - { name: intro, label: 介绍 Intro, type: object, fields: *para }
+      - { name: intro, label: 页首简介 Header description, type: object, fields: *para }
       - name: items
         label: 条目（可以添加、删除、拖动排序）Points
         type: object
