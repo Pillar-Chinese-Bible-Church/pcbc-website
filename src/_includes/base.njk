@@ -20,7 +20,7 @@
 <script src="/assets/lang.js"></script>
 </head>
 <body>
-<a class="skip-link" href="#{{ 'main' if eventPage else ('teach' if pagePath == '/teach/' else 'home') }}">{{ u.skip }}</a>
+<a class="skip-link" href="#{{ 'main' if eventPage or pagePath == '/contact/' else ('teach' if pagePath == '/teach/' else 'home') }}">{{ u.skip }}</a>
 <header class="top">
   <div class="wrap">
     <a class="logo" href="{{ home }}">
@@ -34,7 +34,7 @@
       <a href="{{ home }}#groups">{{ u.nav.groups }}</a>
       <a href="{{ home }}#about">{{ u.nav.life }}</a>
       <a href="{{ L.prefix }}/teach/">{{ u.nav.beliefs }}</a>
-      <a href="#contact">{{ u.nav.contact }}</a>
+      <a href="{{ L.prefix }}/contact/"{% if pagePath == '/contact/' %} aria-current="page"{% endif %}>{{ u.nav.contact }}</a>
       <div class="langs" role="group" aria-label="{{ u.langGroup }}">
         {%- for l in langs %}<a href="{{ l.prefix }}{{ pagePath }}" lang="{{ l.code }}" data-lang="{{ l.code }}"{% if l.code == L.code %} aria-current="true"{% endif %}>{{ l.label }}</a>{% endfor -%}
       </div>
@@ -56,7 +56,7 @@
       {%- for g in homepage.week.gatherings %}<br>{{ g.name | t(L.code) }}{{ u.sep }}{{ g.time | t(L.code) }}{% endfor %}</p>
     </div>
     <div>
-      <h4>{{ u.footerContact }}</h4>
+      <h4><a href="{{ L.prefix }}/contact/">{{ u.footerContact }}</a></h4>
       <p><a href="mailto:{{ site.email }}">{{ site.email }}</a></p>
       <div class="social">
         {%- if site.links.wechat %}<a href="{{ site.links.wechat }}">{{ u.wechat }}</a>{% endif %}

@@ -31,7 +31,7 @@ eleventyComputed:
       </dl>
       {% if e.map_url %}<p><a href="{{ e.map_url }}" target="_blank" rel="noopener">{{ u.events.directions }} ↗</a></p>{% endif %}
       {% if e.registration_url %}<a class="btn dark" data-event-end="{{ e.end }}" href="{{ e.registration_url }}" target="_blank" rel="noopener">{{ u.events.register }} ↗</a>{% endif %}
-      <a class="event-question" href="mailto:{{ site.email }}?subject={{ e.title | t(c) | urlencode }}">{{ u.events.question }}</a>
+      <a class="event-question" href="{{ L.prefix }}/contact/?topic=events&amp;regarding={{ e.title | t(c) | urlencode }}">{{ u.events.question }}</a>
     </aside>
     <article class="event-description">
       {% if e.image %}<img src="{{ e.image }}" alt="{{ e.image_alt | t(c) | escape }}" sizes="(max-width: 760px) 100vw, 680px">{% endif %}

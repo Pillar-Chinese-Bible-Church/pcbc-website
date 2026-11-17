@@ -1,0 +1,79 @@
+---
+pagination:
+  data: langs
+  size: 1
+  alias: L
+permalink: "{{ L.prefix }}/contact/index.html"
+pagePath: "/contact/"
+layout: base.njk
+eleventyComputed:
+  pageTitle: "{{ contact[L.code].title }} · {{ site.name | t(L.code) }}"
+---
+{%- set c = L.code -%}
+{%- set f = contact[c] -%}
+<main id="main" class="contact-page">
+  <header class="contact-heading">
+    <div class="wrap">
+      <h1>{{ f.title }}</h1>
+      <p>{{ f.intro }}</p>
+    </div>
+  </header>
+  <div class="contact-layout wrap">
+    <section class="contact-form-section" aria-labelledby="contact-form-heading">
+      <h2 id="contact-form-heading">{{ f.formTitle }}</h2>
+      <p class="contact-intro">{{ f.formIntro }}</p>
+      <div class="contact-notice" id="contact-status" role="status">
+        <strong>{{ f.unavailableTitle }}</strong>
+        <p>{{ f.unavailable }}</p>
+        <a href="mailto:{{ site.email }}">{{ f.emailAction }} →</a>
+      </div>
+      <form id="contact-form" method="post" action="{{ L.prefix }}/contact/" aria-describedby="contact-status contact-privacy">
+        <p class="contact-required">{{ f.required }}</p>
+        <p class="contact-context" hidden>{{ f.regarding }}: <span id="contact-context"></span></p>
+        <div class="contact-fields">
+          <div class="contact-field">
+            <label for="contact-name">{{ f.name }}</label>
+            <input id="contact-name" name="name" type="text" autocomplete="name" maxlength="120" required>
+          </div>
+          <div class="contact-field">
+            <label for="contact-email">{{ f.email }}</label>
+            <input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+          </div>
+        </div>
+        <div class="contact-field">
+          <label for="contact-topic">{{ f.topic }}</label>
+          <select id="contact-topic" name="topic" required>
+            <option value="">{{ f.chooseTopic }}</option>
+            {% for value, label in f.topics %}<option value="{{ value }}">{{ label }}</option>{% endfor %}
+          </select>
+        </div>
+        <div class="contact-field">
+          <label for="contact-message">{{ f.message }}</label>
+          <textarea id="contact-message" name="message" rows="7" minlength="10" maxlength="4000" required aria-describedby="message-hint"></textarea>
+          <div class="contact-message-hint"><small id="message-hint">{{ f.messageHint }}</small><span id="message-count" aria-hidden="true">0 / 4,000</span></div>
+        </div>
+        <p id="contact-privacy" class="contact-privacy">{{ f.privacy }}</p>
+        <button class="btn dark contact-send" type="submit" disabled aria-describedby="contact-status">{{ f.send }}</button>
+        <noscript><p class="contact-noscript">{{ f.noScript }}</p></noscript>
+      </form>
+    </section>
+    <aside class="contact-sidebar" aria-label="{{ f.emailTitle }}">
+      <section class="contact-email-block">
+        <h2>{{ f.emailTitle }}</h2>
+        <p>{{ f.emailIntro }}</p>
+        <a class="contact-email" href="mailto:{{ site.email }}">{{ site.email }}</a>
+        <a class="btn dark" href="mailto:{{ site.email }}">{{ f.emailAction }} ↗</a>
+      </section>
+      <section class="contact-visit-block">
+        <h2>{{ f.visitTitle }}</h2>
+        <p class="contact-service-time">{{ site.sunday.time | t(c) }}</p>
+        <p>{{ site.sunday.note | t(c) }}</p>
+        <h3>{{ f.address }}</h3>
+        <p>{{ site.address }}</p>
+        <a href="{{ site.map_link }}" target="_blank" rel="noopener">{{ f.directions }} ↗</a>
+      </section>
+    </aside>
+    <a class="contact-back" href="{{ L.prefix }}/">{{ f.home }}</a>
+  </div>
+</main>
+<script src="/assets/contact.js" defer></script>
