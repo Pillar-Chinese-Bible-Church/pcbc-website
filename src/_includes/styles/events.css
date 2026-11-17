@@ -40,7 +40,7 @@
 .event-info dd { margin: 4px 0 0; overflow-wrap: anywhere; }
 .event-question { display: block; margin-top: 18px; color: var(--slate); }
 .event-description { grid-column: 1; grid-row: 1; }
-.event-description img { width: 100%; border-radius: 10px; margin-bottom: 28px; }
+.event-description img { display: block; width: 100%; height: auto; border-radius: 10px; margin-bottom: 28px; }
 .event-description h2 { margin-bottom: 14px; }
 .event-ended { color: var(--slate); font-weight: 500; }
 @media (max-width: 760px) {
