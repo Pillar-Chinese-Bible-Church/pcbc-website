@@ -82,8 +82,14 @@ Pages CMS ──save──▶ main branch ──Cloudflare──▶ preview   ma
 | `main` | Where Pages CMS saves. Nobody is sent here; it's for checking changes | https://main.pillarcbc.pages.dev |
 | `live` | The real site | https://pillarcbc.pages.dev |
 
-**To publish:** on GitHub, open the repository → **Actions** → **Publish website** → **Run workflow** →
-**Run workflow**. `live` is moved forward to match `main`, and Cloudflare deploys it in about a minute.
+**To publish:** review the Cloudflare preview for a commit on `main` and copy its full
+40-character commit SHA. On GitHub open **Actions → Publish website → Run workflow**,
+select `main`, and paste that SHA into `commit_sha`. The workflow installs with Node 22,
+runs tests and checks both production and feature-preview builds, then fast-forwards
+`live` to **that exact validated revision**. New changes to `main` do not alter the selected
+revision. A failed check stops publication. Check Cloudflare for deployment success; a Git
+push alone does not mean the deployment finished. Feature-branch revisions must first be
+merged into `main` before they can be published.
 
 - Only people with write access to the GitHub repository can press the button, so it also works as the
   approval step. Editors invited to Pages CMS by email can't publish.
@@ -107,7 +113,7 @@ Most of these are done in Pages CMS. Each takes effect on the preview after savi
 | Edit the statement of faith | Pages CMS → **信仰告白 Statement of faith** (have the pastor or elders review it) |
 | Fix a wrong Traditional Chinese character | Type the correct text in that field's **繁體** box (see [Languages](#languages)) |
 | Change menu or button wording ("了解更多", "Menu"…) | Code: `src/_data/ui.js` |
-| Change colors, fonts or layout | Code: `src/assets/site.css` |
+| Change colors, fonts or layout | Code: `src/_includes/styles/` (combined into one stylesheet) |
 | Add a new page | Code: a new template in `src/` (copy `teach.njk`), plus a menu link in `src/_includes/base.njk` |
 
 Gathering times are entered once. They appear both in the weekly boxes and in the footer.
@@ -121,9 +127,10 @@ Page content lives in YAML files in `src/_data/`. Pages CMS edits them through f
 | `site.yml` | Church name, address, map link, email, Sunday worship, social links, footer note |
 | `homepage.yml` | Welcome section, Sunday section, weekly gatherings, church life, verse, values |
 | `photos.yml` | The scrolling photo strip |
-| `events.yml` | Upcoming events and their detail-page content |
-| `beliefs.yml` | Event detail (enabled entries) | `/events/<slug>/` | `/zh-hant/events/<slug>/` | `/en/events/<slug>/` |
-| 信仰告白 / What We Teach |
+| `events.yml` | Events section heading and introduction |
+| `../../content/events/<slug>.yml` | One event per file, including detail-page content |
+| `beliefs.yml` | 信仰告白 / What We Teach |
+| `giving.yml` | Giving instructions and recipient details |
 
 Every piece of text has up to three versions:
 
@@ -169,10 +176,10 @@ Watch out: once a `hant` box has text, it's used as is. If someone later edits t
 
 ## Run it on your computer
 
-You need [Node.js](https://nodejs.org) 22 or newer.
+You need [Node.js](https://nodejs.org) 22.12 or newer (use `.nvmrc` for Node 22).
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
@@ -188,16 +195,19 @@ src/
   _data/
     site.yml, homepage.yml,   Content (edited in Pages CMS)
     photos.yml, beliefs.yml
-    langs.js                  The three languages and their URL prefixes
+    langs.js                  Re-exports lib/locales.js
     ui.js                     Fixed interface wording per language
   _includes/base.njk          Shared header, language switch, footer
+  _includes/styles/          Base, layout and feature CSS modules
   index.njk                   Homepage (built once per language)
   teach.njk                   信仰告白 page (built once per language)
   assets/
-    site.css                  All styles
-    lang.js                   First-visit language redirect
     site.js                   Phone menu, remembering the chosen language
   images/                     Photos and the logo (logo-pillar.svg)
+content/events/<slug>.yml    Individual event records
+lib/locales.js                Shared locale, URL prefix and font configuration
+schemas/event-v1.schema.json  Versioned event contract for future dashboard integration
+scripts/check.mjs             Tests plus production/preview build and link checks
 EDITING.md                    Chinese guide for content editors
 ```
 
@@ -248,7 +258,7 @@ Everything below is already done for the current site. It's here in case it has 
 | A change doesn't appear on the live site | It's only on the preview until someone presses **Publish website**. |
 | A change doesn't appear on the preview either | Cloudflare → pillarcbc → **Deployments**: is the latest `main` build still running, or did it fail? |
 | A Cloudflare build failed | Open the failed deployment and read the build log. Often it's a YAML mistake (wrong indentation or a missing quote) from a hand edit. |
-| "Publish website" failed | Someone probably pushed to `live` directly. Make sure everything on `live` is also on `main`, then run it again. |
+| "Publish website" failed | Check the full commit SHA, test/build logs, and that the commit is on `main`. A non-fast-forward `live` update is intentionally rejected. |
 | A photo shows as missing in Pages CMS | Its path must start with `/images/` and the file must be in `src/images/`. |
 | A Traditional Chinese character is wrong | Type the right text in that field's 繁體 box, or add a rule to `HANT_FIXES` in `eleventy.config.js`. |
 | The site looks broken after a code change | Run `npm run dev` locally and check the browser console. Use Cloudflare's **Rollback** to restore the live site meanwhile. |
@@ -263,7 +273,7 @@ Everything below is already done for the current site. It's here in case it has 
 
 ## Events and preview examples
 
-The homepage shows up to three upcoming enabled events, ordered by start time,
+The homepage carousel includes every upcoming enabled event, ordered by start time,
 after Sunday Worship and before weekly gatherings. Each has a shareable detail
 page at `/events/<slug>/`, `/zh-hant/events/<slug>/`, and `/en/events/<slug>/`.
 The existing homepage sections and 信仰告白 content are retained. The shorter photo
@@ -272,7 +282,8 @@ Open **More Sunday information** to see the original Sunday photo and visitor/vi
 content. Events, weekly gatherings, and the remaining sections use tighter spacing;
 all original page text, photos, verse, and values remain available.
 
-Edit `src/_data/events.yml` in **Pages CMS → 近期活动 Events**. Use a unique URL
+Edit individual `content/events/<slug>.yml` records in **Pages CMS → 活动 Events**.
+The section heading/intro remain in `src/_data/events.yml` under **活动栏目 Events section**. Use a unique URL
 slug; Simplified Chinese, optional Traditional overrides, and English follow the
 existing text convention. Images are optional. Start/end must be quoted ISO
 values with an explicit timezone offset (`-08:00` in winter, `-07:00` in summer).
@@ -288,6 +299,10 @@ even if that override is accidentally set. For a real confirmed event, set
 sample into a real announcement without verifying its details.
 
 Builds omit ended events from the homepage but retain their detail pages.
+All upcoming events are rendered, including those beyond the first three. The carousel
+shows three cards on desktop, overlays a month/day badge on every header (with or without
+a photo), and supports touch scrolling, keyboard navigation and
+previous/next buttons. It does not auto-rotate and respects reduced-motion preferences.
 Browser JavaScript also removes ended cards/registration links when an old
 static deployment is visited or left open, and labels ended detail pages.
 Without JavaScript, date visibility remains as of the last build; rebuild after
@@ -348,3 +363,39 @@ The copy-email action only copies the public Zelle recipient; it does not start
 a payment. If clipboard access is unavailable, the address remains selectable.
 All payment activity stays in the donor's own banking app. No payment collection,
 backend, provider account, or Cloudflare configuration is introduced by this PR.
+
+
+## Engineering checks and content contracts
+
+Run `npm run check` before opening a PR. It validates localized YAML and interface-key
+parity, event types/dates/URLs, image files and CMS fields; runs regression tests; builds
+both `live` and a feature preview; and checks internal links, anchors, metadata, sitemap
+entries, and exclusion of samples/drafts from production. GitHub runs the same command
+on PRs and pushes to `main`. Repository administrators can make **Website checks / check**
+a required status check in branch protection; that account setting is not stored here.
+
+`schemas/event-v1.schema.json` is the shared v1 event contract. A future dashboard should
+validate its output against it and also enforce end-after-start, unique slugs, and
+filename/slug agreement, as `lib/content.js` and `lib/events.js` do. `published` and
+`sample` are actual booleans; zh/en event copy is required; Traditional Chinese overrides
+remain optional. Empty optional URLs are accepted, but nonempty links must be complete
+HTTPS URLs. Keep event slugs stable: they are the public URL and filename identity.
+One event per file limits unrelated editing conflicts. Sermon collections can reuse this
+pattern when their content model is defined.
+
+`lib/locales.js` supplies language codes, prefixes, content-field names, fonts and time zone.
+`src/lang.njk` generates the language script from that configuration. Only the bare `/`
+entry point follows browser/saved language preferences; explicit deep links always stay
+in their selected language, including with blocked storage.
+
+Every page exposes `<main id="main">`. CSS source modules in `src/_includes/styles/`
+are combined by `src/styles.njk` into one `/assets/site.css`. The font request includes
+only the current page's font family. The mobile hamburger button has a localized accessible
+name and switches to a close icon when expanded; navigation remains usable without JS.
+
+Metadata and the sitemap use the production origin in `SITE_URL`, defaulting to
+`https://pillarcbc.pages.dev`. When the production domain changes, set `SITE_URL` to
+its HTTPS origin in both Cloudflare build environments and rebuild. Do not set it to a
+feature-preview address. Each page supplies its own description, canonical URL and
+Open Graph metadata. Sample event pages are noindex and omitted from the sitemap;
+Cloudflare separately marks preview deployments noindex.

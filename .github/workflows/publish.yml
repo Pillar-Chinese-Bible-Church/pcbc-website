@@ -1,32 +1,56 @@
-# The "Publish website" button: GitHub → Actions → Publish website → Run workflow.
-# Copies main (what the preview at main.pillarcbc.pages.dev shows) to live (what Cloudflare serves as the real site).
 name: Publish website
-
 on:
   workflow_dispatch:
-
+    inputs:
+      commit_sha:
+        description: Full 40-character main commit SHA from the preview you reviewed
+        required: true
+        type: string
 permissions:
-  contents: write
-
+  contents: read
 concurrency: publish
-
 jobs:
-  publish:
+  validate:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      sha: ${{ steps.revision.outputs.sha }}
+    steps:
+      - name: Validate revision input
+        id: revision
+        env:
+          REVISION: ${{ inputs.commit_sha }}
+        run: |
+          [[ "$REVISION" =~ ^[0-9a-f]{40}$ ]] || { echo 'Enter a full commit SHA'; exit 1; }
+          echo "sha=$REVISION" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.revision.outputs.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Require a main commit
+        run: git merge-base --is-ancestor HEAD origin/main
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+  publish:
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ needs.validate.outputs.sha }}
           fetch-depth: 0
-
-      - name: Copy main to live
-        # A plain push only fast-forwards; it stops instead of overwriting if someone changed live directly.
-        run: git push origin origin/main:refs/heads/live
-
-      - name: Summary
+      - name: Publish the tested revision
+        env:
+          REVISION: ${{ needs.validate.outputs.sha }}
         run: |
-          {
-            echo "### Published"
-            echo "live now matches main at \`$(git rev-parse --short origin/main)\`: $(git log -1 --format=%s origin/main)"
-            echo ""
-            echo "The site updates at https://pillarcbc.pages.dev in about a minute."
-          } >> "$GITHUB_STEP_SUMMARY"
+          bash scripts/publish.sh
+          echo "Moved live to validated commit $REVISION. Cloudflare deployment status is available in the repository checks." >> "$GITHUB_STEP_SUMMARY"

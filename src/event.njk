@@ -6,6 +6,7 @@ pagination:
 permalink: "{{ eventPage.language.prefix }}/events/{{ eventPage.event.slug }}/index.html"
 layout: base.njk
 eleventyComputed:
+  pageDescription: "{{ eventPage.event.summary | t(eventPage.language.code) }}"
   pagePath: "/events/{{ eventPage.event.slug }}/"
   pageTitle: "{{ eventPage.event.title | t(eventPage.language.code) }} · {{ site.name | t(eventPage.language.code) }}"
 ---
@@ -14,7 +15,7 @@ eleventyComputed:
 {%- set u = ui[c] -%}
 {%- set e = eventPage.event -%}
 <main class="event-page wrap" id="main">
-  <a class="back" href="{{ L.prefix }}/#events">{{ u.events.back }}</a>
+  <a class="back" href="{{ L.prefix }}/">{{ u.back }}</a>
   <header class="event-heading">
     {% if e.sample %}<p class="sample-label">{{ u.events.sample }}</p>{% endif %}
     <p class="event-ended" data-ended-notice="{{ e.end }}" hidden>{{ u.events.ended }}</p>

@@ -7,12 +7,13 @@ permalink: "{{ L.prefix }}/index.html"
 pagePath: "/"
 layout: base.njk
 eleventyComputed:
+  pageDescription: "{{ homepage.hero.title | t(L.code) | replace(\"\\n\", \" \") }} · {{ site.sunday.time | t(L.code) }} · {{ site.address }}"
   pageTitle: "{{ site.name | t(L.code) }}"
 ---
 {%- set c = L.code -%}
 {%- set h = homepage -%}
 {%- set u = ui[c] -%}
-<main id="home">
+<main id="main">
   <section class="hero">
     <img class="hero-img" src="{{ h.hero.image }}" alt="{{ h.hero.image_alt | t(c) }}" loading="eager" fetchpriority="high">
     <div class="wrap">
@@ -20,7 +21,7 @@ eleventyComputed:
       <p>{{ h.hero.subtitle | t(c) }}</p>
       <div class="hero-actions">
         <a class="btn" href="#sunday">{{ h.hero.button | t(c) }}</a>
-        {% if eventData.upcoming.length %}<a class="btn outline" href="#events" data-events-nav>{{ u.nav.events }} ↓</a>{% endif %}
+        {% if eventData.upcoming.length %}<a class="btn outline" href="#events" data-events-nav data-last-event-end="{{ eventData.latestEnd }}">{{ u.nav.events }} ↓</a>{% endif %}
         <a class="btn outline" href="#about">{{ h.hero.about_button | t(c) }}</a>
       </div>
     </div>

@@ -4,7 +4,8 @@ import { eventData, formatEventDate } from "../lib/events.js";
 
 const now = Date.parse("2026-11-16T12:00:00Z");
 const event = { slug: "test-event", published: true, sample: false,
-  title: { zh: "活动" }, summary: { zh: "介绍" }, location: { zh: "教会" },
+  title: { zh: "活动", en: "Event" }, summary: { zh: "介绍", en: "Summary" }, location: { zh: "教会", en: "Church" },
+  joining: { zh: "欢迎", en: "Welcome" }, details: { zh: "介绍", en: "Details" },
   start: "2026-12-06T12:30:00-08:00", end: "2026-12-06T14:30:00-08:00" };
 test("sample announcements cannot reach live, including an accidental override", () => {
   const content = { items: [{ ...event, sample: true }] };
@@ -34,4 +35,21 @@ test("dates use Pacific time across UTC midnight and daylight saving", () => {
   assert.match(formatEventDate("2026-12-07T01:00:00Z", "en"), /December 6/);
   assert.match(formatEventDate("2026-07-01T16:00:00Z", "en", true), /9:00/);
   assert.match(formatEventDate("2026-12-01T16:00:00Z", "en", true), /8:00/);
+});
+
+test("strict schema rejects string booleans, impossible dates, incomplete URLs and missing translations", () => {
+  for (const change of [
+    { published: "false" }, { sample: "false" }, { start: "2027-02-30T10:00:00-08:00", end: "2027-03-03T10:00:00-08:00" },
+    { start: "2027-13-01T10:00:00Z" }, { map_url: "https://" }, { registration_url: "https://user:secret@example.com" },
+    { title: { zh: "活动" } }, { title: { zh: "活动", en: "   " } }, { surprise: true },
+  ]) assert.throws(() => eventData({ items: [{ ...event, ...change }] }, {}, now));
+  assert.doesNotThrow(() => eventData({ items: [{ ...event, map_url: "https://example.com/location?a=1&b=2" }] }, {}, now));
+});
+
+test("all upcoming events survive the build; latest end accounts for overlapping events", () => {
+  const items = Array.from({ length: 5 }, (_, index) => ({ ...event, slug: `event-${index}`, start: `2026-12-${String(index + 6).padStart(2, "0")}T12:30:00-08:00`, end: `2026-12-${String(index + 6).padStart(2, "0")}T14:30:00-08:00` }));
+  items[0].end = "2026-12-20T14:30:00-08:00";
+  const data = eventData({ items }, {}, now);
+  assert.equal(data.upcoming.length, 5);
+  assert.equal(data.latestEnd, items[0].end);
 });

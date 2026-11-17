@@ -2,15 +2,20 @@
 <section class="events wrap" id="events" data-upcoming-events aria-labelledby="events-heading">
   <div class="section-heading">
     <div><h2 id="events-heading">{{ events.heading | t(c) | escape }}</h2><p>{{ events.intro | t(c) | escape }}</p></div>
+    <div class="event-controls" data-event-controls hidden>
+      <button type="button" data-event-prev aria-controls="event-track" aria-label="{{ u.events.previous }}">←</button>
+      <button type="button" data-event-next aria-controls="event-track" aria-label="{{ u.events.next }}">→</button>
+    </div>
   </div>
-  <div class="event-grid">
+  <div class="event-grid" id="event-track" tabindex="0" role="region" aria-label="{{ events.heading | t(c) }}">
     {%- for e in eventData.upcoming %}
     <article class="event-card" data-event-end="{{ e.end }}">
+      <div class="event-card-header">
       {%- if e.image %}
       <a class="event-image" href="{{ L.prefix }}/events/{{ e.slug }}/" tabindex="-1" aria-hidden="true"><img src="{{ e.image }}" alt="" sizes="(max-width: 760px) 100vw, 360px"></a>
-      {%- else %}
-      <div class="event-date-art" aria-hidden="true"><span>{{ e.start | eventMonth(c) }}</span><strong>{{ e.start | eventDay(c) }}</strong></div>
       {%- endif %}
+        <div class="event-date-badge" aria-hidden="true"><span>{{ e.start | eventMonth(c) }}</span><strong>{{ e.start | eventDay(c) }}</strong></div>
+      </div>
       <div class="event-content">
         {% if e.sample %}<p class="sample-label">{{ u.events.sample }}</p>{% endif %}
         <h3><a href="{{ L.prefix }}/events/{{ e.slug }}/">{{ e.title | t(c) | escape }}</a></h3>

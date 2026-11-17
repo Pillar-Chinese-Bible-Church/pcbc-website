@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "urn:pcbc:content:event:v1",
+  "title": "Church event v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["slug", "published", "sample", "title", "summary", "start", "end", "location", "joining", "details"],
+  "properties": {
+    "slug": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+    "published": { "type": "boolean" },
+    "sample": { "type": "boolean" },
+    "title": { "$ref": "#/definitions/text" },
+    "summary": { "$ref": "#/definitions/text" },
+    "location": { "$ref": "#/definitions/text" },
+    "joining": { "$ref": "#/definitions/text" },
+    "details": { "$ref": "#/definitions/text" },
+    "start": { "$ref": "#/definitions/instant" },
+    "end": { "$ref": "#/definitions/instant" },
+    "address": { "type": "string" },
+    "map_url": { "$ref": "#/definitions/link" },
+    "registration_url": { "$ref": "#/definitions/link" },
+    "image": { "type": "string", "pattern": "^/images/[a-zA-Z0-9_-]+\\.(?:jpe?g|png|webp)$" },
+    "image_alt": { "$ref": "#/definitions/text" }
+  },
+  "dependencies": { "image": ["image_alt"] },
+  "definitions": {
+    "text": {
+      "type": "object", "required": ["zh", "en"], "additionalProperties": false,
+      "properties": {
+        "zh": { "type": "string", "pattern": "\\S" },
+        "en": { "type": "string", "pattern": "\\S" },
+        "hant": { "type": "string" }
+      }
+    },
+    "instant": { "type": "string", "format": "date-time", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:\\d{2})$" },
+    "link": { "type": "string", "anyOf": [{ "const": "" }, { "format": "https-url" }] }
+  }
+}

@@ -7,11 +7,12 @@ permalink: "{{ L.prefix }}/teach/index.html"
 pagePath: "/teach/"
 layout: base.njk
 eleventyComputed:
+  pageDescription: "{{ beliefs.intro | t(L.code) }}"
   pageTitle: "{{ beliefs.title | t(L.code) }} · {{ site.name | t(L.code) }}"
 ---
 {%- set c = L.code -%}
 {%- set b = beliefs -%}
-<main id="teach">
+<main id="main">
   <section class="thead">
     <div class="wrap">
       <h1>{{ b.title | t(c) }}</h1>

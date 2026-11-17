@@ -1,0 +1,23 @@
+---
+permalink: /assets/lang.js
+eleventyExcludeFromCollections: true
+---
+// Generated from the shared locale configuration. Explicit page URLs always win.
+(function () {
+  if (location.pathname !== "/" || /bot|crawl|spider|slurp/i.test(navigator.userAgent)) return;
+  var locales = {{ langs | json | safe }};
+  var saved;
+  try { saved = localStorage.getItem("pcbc-lang"); } catch (e) {}
+  var want = locales.find(function (locale) { return locale.code === saved; });
+  if (!want) {
+    var languages = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
+    var code = "en";
+    for (var i = 0; i < languages.length; i++) {
+      var language = String(languages[i]).toLowerCase();
+      if (language.indexOf("zh") === 0) { code = /hant|-tw|-hk|-mo/.test(language) ? "zh-Hant" : "zh-Hans"; break; }
+      if (language.indexOf("en") === 0) break;
+    }
+    want = locales.find(function (locale) { return locale.code === code; });
+  }
+  if (want && want.prefix) location.replace(want.prefix + "/" + location.search + location.hash);
+})();

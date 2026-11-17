@@ -1,0 +1,111 @@
+/* Compact welcome: the same original text and photo, in the approved shorter layout. */
+.hero { position: relative; min-height: 340px; display: flex; align-items: center; color: var(--white); background: var(--night); overflow: hidden; }
+.hero picture { position: absolute; inset: 0; }
+.hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 80%; }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(10,20,32,.88), rgba(10,20,32,.65) 52%, rgba(10,20,32,.15)); }
+.hero .wrap { position: relative; z-index: 2; width: 100%; padding-block: 38px; }
+.hero h1 { max-width: 780px; font-weight: 500; font-size: clamp(1.8rem, 3.4vw, 2.6rem); line-height: 1.3; letter-spacing: .01em; }
+.hero p { font-size: 1rem; margin-top: 12px; opacity: .95; }
+.btn { display: inline-block; margin-top: 20px; background: var(--yellow); color: var(--night); text-decoration: none;
+  font-weight: 500; padding: 11px 23px; border-radius: 999px; }
+.btn.dark { background: var(--night); color: var(--white); }
+.btn.outline { background: var(--white); color: var(--night); box-shadow: inset 0 0 0 2px var(--yellow); }
+.hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 18px; margin-top: 24px; }
+.hero-actions .btn { margin-top: 0; }
+.hero .btn.outline { background: rgba(19,40,63,.35); color: var(--white); box-shadow: inset 0 0 0 1px rgba(255,255,255,.75); }
+
+/* Compact Sunday strip; all original visitor text and the photo remain expandable. */
+.band { background: #F5F2EB; color: var(--ink); }
+.sunday-wrap { padding-block: 26px 18px; }
+.sunday-overview { display: grid; grid-template-columns: .8fr 1.4fr; gap: 20px 32px; align-items: center; }
+.band h2 { font-size: 1.6rem; font-weight: 500; }
+.sunday-facts { font-size: .95rem; line-height: 1.7; }
+.sunday-time { font-size: 1.1rem; font-weight: 500; }
+.sunday-location { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 16px; }
+.sunday-note { font-size: .85rem; color: var(--muted); margin-top: 3px; }
+.band a { color: var(--slate); text-underline-offset: 4px; }
+.sunday-directions { font-size: .9rem; white-space: nowrap; }
+.sunday-details { margin-top: 14px; }
+.sunday-details>summary { width: fit-content; color: var(--slate); cursor: pointer; font-size: .85rem; padding-block: 5px; }
+.sunday-details[open]>summary { margin-bottom: 18px; }
+.sunday-detail-content { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 32px; align-items: center; padding-top: 20px; border-top: 1px solid var(--line); }
+.sunday-photo img { width: 100%; height: 240px; object-fit: cover; border-radius: 8px; }
+.sunday-visitor h3 { font-size: 1.05rem; font-weight: 500; margin-bottom: 6px; }
+.sunday-visitor h3:not(:first-child) { margin-top: 20px; }
+.visit-details summary { cursor: pointer; color: var(--slate); text-decoration: underline; text-underline-offset: 4px; }
+.visit-details p { margin-top: 8px; }
+.video-pending { font-size: .95rem; }
+.video-pending small { color: var(--muted); }
+@media (max-width: 760px) {
+  .hero { min-height: 320px; }
+  .hero::before { background: rgba(10,20,32,.74); }
+  .hero .wrap { padding-block: 32px; }
+  .hero h1 { font-size: clamp(1.7rem, 6.5vw, 2rem); }
+  .hero-actions { gap: 12px; margin-top: 22px; }
+  .sunday-wrap { padding-block: 24px 18px; }
+  .sunday-overview { grid-template-columns: 1fr; gap: 12px; }
+  .sunday-directions { width: fit-content; }
+  .sunday-detail-content { grid-template-columns: 1fr; gap: 20px; }
+  .sunday-visitor { grid-row: 1; }
+  .sunday-photo img { height: 210px; }
+}
+
+/* This week's gatherings (Olive Tree's three info boxes) */
+.week { background: var(--soft); padding-block: 36px; }
+.week h2, .together h2, .values h2 { font-size: 1.75rem; font-weight: 500; text-align: left; margin-bottom: 24px; }
+.intro { color: var(--muted); text-align: center; max-width: 34em; margin: -16px auto 36px; }
+.boxes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.box { border: 0; border-left: 1px solid var(--line); padding: 0 0 0 24px; display: flex; flex-direction: column; gap: 4px; }
+.box:first-child { border-left: 0; padding-left: 0; }
+.box h3 { font-size: 1.2rem; font-weight: 500; margin-bottom: 8px; }
+.box p { color: var(--muted); }
+.box p b { color: var(--ink); font-weight: 500; }
+.box a { margin-top: auto; padding-top: 14px; font-weight: 500; text-decoration: none; color: var(--slate); }
+.box a::after { content: " ›"; }
+@media (max-width: 760px) {
+  .boxes { grid-template-columns: 1fr; gap: 20px; }
+  .box, .box:first-child { border-left: 0; padding: 0; }
+  .box + .box { padding-top: 20px; border-top: 1px solid var(--line); }
+}
+
+/* Church life rows (Olive Tree) */
+.together { padding-block: 40px 0; }
+.rows { display: grid; gap: 32px; }
+.row { display: grid; grid-template-columns: .85fr 1.15fr; gap: 32px; align-items: center; }
+.row:nth-child(even) { grid-template-columns: 1.15fr .85fr; }
+.row:nth-child(even) .pic { order: 2; }
+.row .pic { min-width: 0; aspect-ratio: 3 / 2; overflow: hidden; border-radius: 10px; }
+.row .pic picture { display: block; width: 100%; height: 100%; }
+.row .pic img { width: 100%; height: 100%; object-fit: cover; }
+.row h3 { font-size: 1.5rem; font-weight: 500; margin-bottom: 10px; }
+.row p { color: var(--muted); font-size: 1rem; max-width: 36em; }
+@media (max-width: 760px) {
+  .rows { gap: 28px; }
+  .row, .row:nth-child(even) { grid-template-columns: 1fr; gap: 18px; }
+  .row:nth-child(even) .pic { order: 0; }
+}
+
+/* Verse band (City Light mission band, with our verse) */
+.verse { background: var(--slate); color: var(--white); text-align: center; margin-top: 44px; }
+.verse .wrap { padding-block: 40px; }
+.verse p.v { font-size: clamp(1.6rem, 3.6vw, 2.4rem); font-weight: 400; line-height: 1.6; letter-spacing: 0.06em; }
+.verse p.r { margin-top: 14px; color: var(--yellow); letter-spacing: 0.1em; }
+.verse p.n { margin-top: 18px; opacity: .75; font-size: 0.95rem; }
+
+/* Photo strip (City Light carousel) */
+.strip { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; padding-block: 8px; scrollbar-width: none; }
+.strip picture { flex: none; }
+.strip img { height: 240px; width: auto; flex: none; scroll-snap-align: start; object-fit: cover; }
+@media (max-width: 640px) { .strip img { height: 180px; } }
+
+/* Values (City Light) */
+.values { background: var(--soft); padding-block: 44px; }
+.vlist { max-width: 640px; margin: 0 auto; display: grid; gap: 36px; }
+.vitem { display: grid; grid-template-columns: 56px 1fr; gap: 16px; }
+.vitem .num { font-size: 2rem; font-weight: 400; color: #7F93AB; line-height: 1.2; }
+.vitem h3 { font-size: 1.15rem; font-weight: 500; margin-bottom: 6px; }
+.vitem p { color: var(--muted); }
+.values h2 { text-align: center; }
+.values .more { text-align: center; margin-top: 28px; }
+.values .more .btn { margin-top: 0; }
+

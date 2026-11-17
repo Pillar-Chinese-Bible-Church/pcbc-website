@@ -8,29 +8,37 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{{ pageTitle }}</title>
-<meta name="description" content="{{ site.name | t(L.code) }} · {{ site.sunday.time | t(L.code) }} · {{ site.address }}">
+<meta name="description" content="{{ pageDescription }}">
+<link rel="canonical" href="{{ (L.prefix + pagePath) | absoluteUrl(deployment.url) }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ pageTitle }}">
+<meta property="og:description" content="{{ pageDescription }}">
+<meta property="og:url" content="{{ (L.prefix + pagePath) | absoluteUrl(deployment.url) }}">
+<meta property="og:site_name" content="{{ site.name | t(L.code) }}">
+<meta name="twitter:card" content="summary">
+{% if eventPage and eventPage.event.sample %}<meta name="robots" content="noindex, nofollow">{% endif %}
 {%- for l in langs %}
-<link rel="alternate" hreflang="{{ l.code }}" href="{{ l.prefix }}{{ pagePath }}">
+<link rel="alternate" hreflang="{{ l.code }}" href="{{ (l.prefix + pagePath) | absoluteUrl(deployment.url) }}">
 {%- endfor %}
 <link rel="icon" href="/images/logo-pillar.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600&family=Noto+Serif+TC:wght@300;400;500;600&family=Noto+Serif:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ L.font }}:wght@300;400;500;600&amp;display=swap">
 <link rel="stylesheet" href="/assets/site.css">
 <script src="/assets/lang.js"></script>
 </head>
 <body>
-<a class="skip-link" href="#{{ 'main' if eventPage or pagePath == '/contact/' or pagePath == '/giving/' else ('teach' if pagePath == '/teach/' else 'home') }}">{{ u.skip }}</a>
+<a class="skip-link" href="#main">{{ u.skip }}</a>
 <header class="top">
   <div class="wrap">
     <a class="logo" href="{{ home }}">
       {% logo "mark", 27, 40 %}
       <span><b>{{ site.name | t(L.code) }}</b><small>{{ site.name.en if L.code != "en" else site.name.zh }}</small></span>
     </a>
-    <button class="menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav" data-open="{{ u.close }}" data-closed="{{ u.menu }}">{{ u.menu }}</button>
+    <button class="menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav" aria-label="{{ u.menu }}" data-open="{{ u.close }}" data-closed="{{ u.menu }}"><span class="menu-icon" aria-hidden="true"></span></button>
     <nav class="nav" id="nav">
       <a href="{{ home }}#sunday">{{ u.nav.sunday }}</a>
-      {% if eventData.upcoming.length %}<a href="{{ home }}#events" data-events-nav>{{ u.nav.events }}</a>{% endif %}
+      {% if eventData.upcoming.length %}<a href="{{ home }}#events" data-events-nav data-last-event-end="{{ eventData.latestEnd }}">{{ u.nav.events }}</a>{% endif %}
       <a href="{{ home }}#groups">{{ u.nav.groups }}</a>
       <a href="{{ home }}#about">{{ u.nav.life }}</a>
       <a href="{{ L.prefix }}/teach/">{{ u.nav.beliefs }}</a>

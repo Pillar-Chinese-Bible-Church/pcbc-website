@@ -2,7 +2,10 @@ import fs from "node:fs";
 import yaml from "js-yaml";
 import * as OpenCC from "opencc-js";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
-import { formatEventDate } from "./lib/events.js";
+import { eventData, formatEventDate } from "./lib/events.js";
+import { readEvents } from "./lib/content.js";
+import { locales, timeZone } from "./lib/locales.js";
+import { validateContent } from "./scripts/validate-content.mjs";
 
 // 简体 → 繁體 (Taiwan characters) for any text an editor left without a 繁體 version.
 // "tw" changes characters only; "twp" also swaps vocabulary and turns 信息 into 資訊, which is wrong for church writing.
@@ -31,7 +34,18 @@ function pick(field, lang) {
 }
 
 export default function (eleventyConfig) {
+  // One event snapshot per build, shared by cards, navigation, detail pages and sitemap.
+  let events;
+  const getEvents = () => events ||= eventData({ items: readEvents() });
+  eleventyConfig.on("eleventy.before", () => { events = undefined; validateContent(); });
+  eleventyConfig.addWatchTarget("content/");
+  eleventyConfig.addWatchTarget("schemas/");
+  eleventyConfig.addWatchTarget("src/_includes/styles/");
+  eleventyConfig.addGlobalData("eventData", getEvents);
+  eleventyConfig.addGlobalData("eventPages", () => getEvents().items.flatMap(event => locales.map(language => ({ event, language }))));
   eleventyConfig.addDataExtension("yml,yaml", (contents) => yaml.load(contents));
+  eleventyConfig.addFilter("json", value => JSON.stringify(value));
+  eleventyConfig.addFilter("absoluteUrl", (value, origin) => new URL(value, origin).href);
 
   // {{ field | t(lang) }} gives plain text; {{ field | tt(lang) | safe }} also turns line breaks into <br>.
   eleventyConfig.addFilter("t", (field, lang) => pick(field, lang));
@@ -41,7 +55,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("eventTime", (s, lang) => formatEventDate(s, lang, true));
   for (const [name, part] of [["eventMonth", "month"], ["eventDay", "day"]]) {
     eleventyConfig.addFilter(name, (s, lang) => new Intl.DateTimeFormat(lang, {
-      timeZone: "America/Los_Angeles", [part]: part === "month" ? "long" : "numeric",
+      timeZone, [part]: part === "month" ? "long" : "numeric",
     }).format(new Date(s)));
   }
 

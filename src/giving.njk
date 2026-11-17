@@ -7,6 +7,7 @@ permalink: "{{ L.prefix }}/giving/index.html"
 pagePath: "/giving/"
 layout: base.njk
 eleventyComputed:
+  pageDescription: "{{ giving.intro | t(L.code) }}"
   pageTitle: "{{ giving.title | t(L.code) }} · {{ site.name | t(L.code) }}"
 ---
 {%- set c = L.code -%}

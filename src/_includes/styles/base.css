@@ -1,0 +1,36 @@
+/* 柱石华人圣经教会 site styles.
+   Layout follows City Light (photo hero, dark worship band, values list) with Olive Tree's "一起…" photo rows. Single light theme by choice. */
+:root {
+  --ink: #2A2E35;
+  --muted: #646B76;
+  --slate: #1B3A5B;   /* logo navy */
+  --night: #13283F;
+  --yellow: #F4C542;
+  --soft: #F4F5F7;
+  --white: #FFFFFF;
+  --line: #E3E5E9;
+  --font: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+}
+html[lang="zh-Hant"] { --font: "Noto Serif TC", "Songti TC", "PMingLiU", serif; }
+/* English uses a Latin font first: the Chinese fonts draw ’ and “ ” as wide full-width marks */
+html[lang="en"] { --font: "Noto Serif", "Noto Serif SC", Georgia, serif; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.skip-link { position: fixed; top: -100px; left: 20px; z-index: 40; padding: 10px 20px; background: var(--yellow); color: var(--night); }
+.skip-link:focus { top: 8px; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--white); color: var(--ink); font: 300 16.5px/1.9 var(--font); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--night); }
+h1, h2, h3, p { margin: 0; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+:focus-visible { outline: 2px solid var(--slate); outline-offset: 3px; }
+.top :focus-visible, footer :focus-visible, .hero :focus-visible { outline-color: var(--yellow); }
+.wrap {
+  max-width: 1140px; margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+
