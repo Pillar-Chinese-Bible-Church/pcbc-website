@@ -132,7 +132,7 @@ Page content lives in YAML files in `src/_data/`. Pages CMS edits them through f
 | `about.yml` | Church introduction, mission, pastor details and Church Life |
 | `photos.yml` | The scrolling photo strip |
 | `events.yml` | Events section heading and introduction |
-| `../../content/events/<slug>.yml` | One event per file, including detail-page content |
+| `../../content/events.yml` | Canonical events collection, including detail-page content |
 | `beliefs.yml` | 信仰告白 / What We Teach |
 | `giving.yml` | Giving instructions and recipient details |
 
@@ -208,7 +208,7 @@ src/
   assets/
     site.js                   Phone menu, remembering the chosen language
   images/                     Photos and the logo (logo-pillar.svg)
-content/events/<slug>.yml    Individual event records
+content/events.yml           Versioned events collection
 lib/locales.js                Shared locale, URL prefix and font configuration
 schemas/event-v1.schema.json  Versioned event contract for future dashboard integration
 scripts/check.mjs             Tests plus production/preview build and link checks
@@ -286,7 +286,7 @@ Open **More Sunday information** to see the original Sunday photo and visitor/vi
 content. Events, weekly gatherings, and the remaining sections use tighter spacing;
 all original page text, photos, verse, and values remain available.
 
-Edit individual `content/events/<slug>.yml` records in **Pages CMS → 活动 Events**.
+Edit `items` in `content/events.yml` in **Pages CMS → 活动 Events**.
 The section heading/intro remain in `src/_data/events.yml` under **活动栏目 Events section**. Use a unique URL
 slug; Simplified Chinese, optional Traditional overrides, and English follow the
 existing text convention. Images are optional. Start/end must be quoted ISO
@@ -379,13 +379,12 @@ on PRs and pushes to `main`. Repository administrators can make **Website checks
 a required status check in branch protection; that account setting is not stored here.
 
 `schemas/event-v1.schema.json` is the shared v1 event contract. A future dashboard should
-validate its output against it and also enforce end-after-start, unique slugs, and
-filename/slug agreement, as `lib/content.js` and `lib/events.js` do. `published` and
+validate its output against it and also enforce end-after-start and unique slugs,
+as `lib/content.js` and `lib/events.js` do. `published` and
 `sample` are actual booleans; zh/en event copy is required; Traditional Chinese overrides
 remain optional. Empty optional URLs are accepted, but nonempty links must be complete
-HTTPS URLs. Keep event slugs stable: they are the public URL and filename identity.
-One event per file limits unrelated editing conflicts. Sermon collections can reuse this
-pattern when their content model is defined.
+HTTPS URLs. Keep event slugs stable: they identify each public URL.
+The canonical `content/events.yml` contains `version: 1` and an `items` list. The dashboard reads the collection in one request and checks a hash of the individual event before updating the latest collection, preserving unrelated events. Publish website remains a separate manual action.
 
 Optional `image_position: { x: 50, y: 50 }` stores event-card framing as percentages
 from 0–100. Omit it for a centered crop. It requires an image; event detail pages
@@ -426,3 +425,7 @@ The supplied details are Pastor Bill Yang / 杨东牧师 / 楊東牧師 and
 The portrait comes from `https://pillarcbc.org/wp-content/uploads/2026/10/Pastor-Yang.png`
 and is stored as `src/images/pastor-yang.png`; the responsive image pipeline processes it.
 The pastor email opens the visitor's mail app and does not submit the contact form.
+
+### Events collection migration
+
+This change preserves every event and URL, including unpublished/sample records. Use the compatible dashboard PR with collection support for subsequent edits. Existing per-file drafts can use Compare website version to retain their edits against the migrated data. Do not leave old per-event YAML files as a second source of truth.

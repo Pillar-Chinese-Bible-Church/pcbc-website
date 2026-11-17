@@ -39,9 +39,9 @@ export function validateContent() {
   const cms = readYaml(".pages.yml");
   const collection = cms.content.find(entry => entry.name === "events");
   const schema = JSON.parse(fs.readFileSync("schemas/event-v1.schema.json", "utf8"));
-  if (collection?.type !== "collection" || collection.path !== "content/events") throw new Error("CMS event collection path is out of sync");
+  if (collection?.type !== "file" || collection.path !== "content/events.yml") throw new Error("CMS event collection path is out of sync");
   for (const field of Object.keys(schema.properties)) {
-    if (!collection.fields.some(item => item.name === field)) throw new Error(`CMS is missing event field ${field}`);
+    if (!collection.fields.find(item => item.name === "items")?.fields.some(item => item.name === field)) throw new Error(`CMS is missing event field ${field}`);
   }
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
