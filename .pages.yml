@@ -185,6 +185,12 @@ content:
       - { name: map_url, label: 地图链接 Map URL (HTTPS / optional), type: string }
       - { name: image, label: 图片 Image (optional), type: image }
       - { name: image_alt, label: 图片描述 Image description, type: object, fields: *line }
+      - name: image_position
+        label: 图片位置 Image position (optional)
+        type: object
+        fields:
+          - { name: x, label: 水平 Horizontal (0–100), type: number }
+          - { name: y, label: 垂直 Vertical (0–100), type: number }
       - { name: joining, label: 参加方式 How to join, type: object, fields: *para }
       - { name: registration_url, label: 报名链接 Registration URL (HTTPS / optional), type: string }
       - { name: details, label: 活动介绍 Full description, type: object, fields: *para }

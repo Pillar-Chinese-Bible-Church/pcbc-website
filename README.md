@@ -387,6 +387,11 @@ HTTPS URLs. Keep event slugs stable: they are the public URL and filename identi
 One event per file limits unrelated editing conflicts. Sermon collections can reuse this
 pattern when their content model is defined.
 
+Optional `image_position: { x: 50, y: 50 }` stores event-card framing as percentages
+from 0–100. Omit it for a centered crop. It requires an image; event detail pages
+show the full original ratio. Deploy the compatible dashboard update before merging
+this schema extension; production publishing remains manual.
+
 `lib/locales.js` supplies language codes, prefixes, content-field names, fonts and time zone.
 `src/lang.njk` generates the language script from that configuration. Only the bare `/`
 entry point follows browser/saved language preferences; explicit deep links always stay

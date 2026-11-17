@@ -20,9 +20,16 @@
     "map_url": { "$ref": "#/definitions/link" },
     "registration_url": { "$ref": "#/definitions/link" },
     "image": { "type": "string", "pattern": "^/images/[a-zA-Z0-9_-]+\\.(?:jpe?g|png|webp)$" },
-    "image_alt": { "$ref": "#/definitions/text" }
+    "image_alt": { "$ref": "#/definitions/text" },
+    "image_position": {
+      "type": "object", "required": ["x", "y"], "additionalProperties": false,
+      "properties": {
+        "x": { "type": "number", "minimum": 0, "maximum": 100 },
+        "y": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    }
   },
-  "dependencies": { "image": ["image_alt"] },
+  "dependencies": { "image": ["image_alt"], "image_position": ["image"] },
   "definitions": {
     "text": {
       "type": "object", "required": ["zh", "en"], "additionalProperties": false,
