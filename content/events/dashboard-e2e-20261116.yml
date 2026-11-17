@@ -1,12 +1,12 @@
 slug: dashboard-e2e-20261116
-published: true
+published: false
 sample: true
 title:
   zh: 测试专用：活动更新流程
   en: "TEST ONLY: Dashboard event workflow"
 summary:
-  zh: 端到端测试，不是真实教会活动。
-  en: End-to-end test, not a real church event.
+  zh: 已通过工作台编辑，现将此测试活动下架。
+  en: Edited through the dashboard; test event is now unpublished.
 location:
   zh: 教会副堂
   en: Church fellowship hall
