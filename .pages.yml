@@ -89,20 +89,6 @@ content:
               - { name: time, label: 时间 When, type: object, fields: *line }
               - { name: place, label: 地点（可以不填）Where, type: object, fields: *line }
               - { name: topic, label: 内容（可以不填）What, type: object, fields: *line }
-      - name: life
-        label: 教会生活 Church life
-        type: object
-        fields:
-          - { name: heading, label: 标题 Heading, type: object, fields: *line }
-          - name: rows
-            label: 每一行（照片 + 文字）Rows
-            type: object
-            list: true
-            fields:
-              - { name: title, label: 标题 Title, type: object, fields: *line }
-              - { name: text, label: 文字 Text, type: object, fields: *para }
-              - { name: image, label: 照片 Photo, type: image }
-              - { name: image_alt, label: 照片说明 Photo description, type: object, fields: *line }
       - name: verse
         label: 经文 Verse
         type: object
@@ -124,6 +110,50 @@ content:
               - { name: title, label: 标题 Title, type: object, fields: *line }
               - { name: text, label: 文字 Text, type: object, fields: *para }
           - { name: button, label: 按钮文字 Button, type: object, fields: *line }
+
+  - name: about
+    label: 关于我们 About Us
+    type: file
+    path: src/_data/about.yml
+    format: yaml
+    fields:
+      - { name: title, label: 标题 Title, type: object, fields: *line }
+      - { name: intro, label: 介绍 Introduction, type: object, fields: *para }
+      - name: mission
+        label: 使命 Mission
+        type: object
+        fields:
+          - { name: heading, label: 标题 Heading, type: object, fields: *line }
+          - { name: text, label: 内容 Text, type: object, fields: *para }
+      - name: pastor
+        label: 牧者 Pastor
+        type: object
+        fields:
+          - { name: heading, label: 栏目标题 Heading, type: object, fields: *line }
+          - { name: name, label: 姓名 Name, type: object, fields: *line }
+          - { name: role, label: 职分 Role, type: object, fields: *line }
+          - { name: email, label: 邮箱 Email, type: string }
+          - { name: email_label, label: 邮箱文字 Email label, type: object, fields: *line }
+          - { name: image, label: 照片 Portrait, type: image }
+          - { name: image_alt, label: 照片说明 Portrait description, type: object, fields: *line }
+      - { name: beliefs_link, label: 信仰告白按钮 Beliefs link, type: object, fields: *line }
+      - { name: visit_heading, label: 到访标题 Visit heading, type: object, fields: *line }
+      - { name: visit_link, label: 主日信息链接 Sunday link, type: object, fields: *line }
+      - { name: contact_link, label: 联系链接 Contact link, type: object, fields: *line }
+      - name: life
+        label: 教会生活 Church life
+        type: object
+        fields:
+          - { name: heading, label: 标题 Heading, type: object, fields: *line }
+          - name: rows
+            label: 每一行（照片 + 文字）Rows
+            type: object
+            list: true
+            fields:
+              - { name: title, label: 标题 Title, type: object, fields: *line }
+              - { name: text, label: 文字 Text, type: object, fields: *para }
+              - { name: image, label: 照片 Photo, type: image }
+              - { name: image_alt, label: 照片说明 Photo description, type: object, fields: *line }
 
   - name: event_section
     label: 活动栏目 Events section

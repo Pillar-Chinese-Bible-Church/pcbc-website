@@ -83,41 +83,6 @@ week:
       topic:
         zh: 信仰讨论、查经和门训
         en: Discussions about faith, Bible study, and discipleship
-life:
-  heading:
-    zh: 教会生活
-    en: Church Life
-  rows:
-    - title:
-        zh: 一起敬拜
-        en: Worship together
-      text:
-        zh: 我们的敬拜团由教会里的弟兄姊妹组成，平时上班上学，周末抽时间练歌。我们的敬拜是由心发出，专业第二，用心第一。
-        en: Everyone on our worship team is a regular church member with a job or classes during the week. We practice on weekends. We’re not pros, but we worship with all our hearts.
-      image: /images/worship.jpg
-      image_alt:
-        zh: 穿红衣服的敬拜团在台上合影
-        en: The worship team in red shirts on stage
-    - title:
-        zh: 一起查经
-        en: Study the Bible together
-      text:
-        zh: 每周四晚有线上查经，周五晚的团契也有查经和讨论。不需要有任何圣经基础，带着你的问题和思考，我们一起探讨生命、寻求真理。
-        en: Every Thursday night there’s an online Bible study, and every Friday night we also study the Bible and hold small group discussions. You don’t need to know anything about the Bible to join. Bring your questions and thoughts, and we will seek the truth and meaning of life together.
-      image: /images/study.jpg
-      image_alt:
-        zh: 小组围着屏幕一起讨论
-        en: A small group talking through a passage on screen
-    - title:
-        zh: 一起聚会
-        en: Spend time together
-      text:
-        zh: 逢年过节我们都会聚在一起，给异乡的生活带来温暖。春节包饺子，中秋吃月饼，感恩节聚餐。平时主日崇拜后，大家也会一起吃午饭。很多人离家乡很远，但在这儿我们都是主里的家人。
-        en: We celebrate holidays together. We make dumplings at Chinese New Year, share mooncakes at the Mid-Autumn Festival, and enjoy a big meal at Thanksgiving. Most Sundays, people stay for lunch after the service. A lot of us live far from family, but here we find home in Christ.
-      image: /images/festival.jpg
-      image_alt:
-        zh: 弟兄姊妹在挂着春联的副堂里一起过年
-        en: Celebrating Chinese New Year in the church hall
 verse:
   text:
     zh: |-

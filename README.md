@@ -41,11 +41,13 @@ Each language has the following pages:
 | Page | 简体 | 繁體 | English |
 | --- | --- | --- | --- |
 | Homepage | `/` | `/zh-hant/` | `/en/` |
+| About Us / 关于我们 | `/about/` | `/zh-hant/about/` | `/en/about/` |
 | Event detail (enabled entries) | `/events/<slug>/` | `/zh-hant/events/<slug>/` | `/en/events/<slug>/` |
 | 信仰告白 / What We Teach | `/teach/` | `/zh-hant/teach/` | `/en/teach/` |
 
-The homepage has the welcome photo, Sunday worship details, the weekly gatherings, church life,
+The homepage has the welcome photo, Sunday worship details, the weekly gatherings,
 the 1 Timothy 3:15 verse the church is named after, a scrolling photo strip, and the church's values.
+The About Us page brings together the church introduction, mission, pastor details, and Church Life photos/text.
 The 信仰告白 page lists the statement of faith with Bible references.
 
 The layout follows City Light Bible Church's site, with the friendlier photo sections of Olive Tree
@@ -109,6 +111,7 @@ Most of these are done in Pages CMS. Each takes effect on the preview after savi
 | Change the Sunday time, address, email or social links | Pages CMS → **基本信息 Basics** |
 | Add, remove or reorder a weekly gathering | Pages CMS → **首页 Homepage** → 每周聚会 |
 | Change the welcome photo or text | Pages CMS → **首页 Homepage** → 顶部大图 |
+| Update the pastor or Church Life sections | Pages CMS → **关于我们 About Us** |
 | Add or remove photos in the scrolling strip | Pages CMS → **照片墙 Photo strip** |
 | Edit the statement of faith | Pages CMS → **信仰告白 Statement of faith** (have the pastor or elders review it) |
 | Fix a wrong Traditional Chinese character | Type the correct text in that field's **繁體** box (see [Languages](#languages)) |
@@ -125,7 +128,8 @@ Page content lives in YAML files in `src/_data/`. Pages CMS edits them through f
 | File | Contents |
 | --- | --- |
 | `site.yml` | Church name, address, map link, email, Sunday worship, social links, footer note |
-| `homepage.yml` | Welcome section, Sunday section, weekly gatherings, church life, verse, values |
+| `homepage.yml` | Welcome section, Sunday section, weekly gatherings, verse, values |
+| `about.yml` | Church introduction, mission, pastor details and Church Life |
 | `photos.yml` | The scrolling photo strip |
 | `events.yml` | Events section heading and introduction |
 | `../../content/events/<slug>.yml` | One event per file, including detail-page content |
@@ -399,3 +403,21 @@ its HTTPS origin in both Cloudflare build environments and rebuild. Do not set i
 feature-preview address. Each page supplies its own description, canonical URL and
 Open Graph metadata. Sample event pages are noindex and omitted from the sitemap;
 Cloudflare separately marks preview deployments noindex.
+
+
+## About Us page
+
+About Us is available at `/about/`, `/zh-hant/about/`, and `/en/about/`. The header
+About Us link and homepage About Us button route there. It includes the existing
+Church Life photos and text, moved without rewriting from `homepage.life` to
+`src/_data/about.yml` under `life`. Pages CMS owns these fields under **关于我们 About Us**.
+The homepage retains Sunday information, events, recurring gatherings, verse, photo strip
+and values; 信仰告白 remains a separate page linked from navigation and About Us.
+
+The church introduction, mission statement and pastor information were checked against
+https://pillarcbc.org/關於我們/ and https://pillarcbc.org/en/about-us/ on November 16, 2026.
+The supplied details are Pastor Bill Yang / 杨东牧师 / 楊東牧師 and
+`bill.yang@pillarcbc.org`. No unsourced biography, qualifications or ministry dates are added.
+The portrait comes from `https://pillarcbc.org/wp-content/uploads/2026/10/Pastor-Yang.png`
+and is stored as `src/images/pastor-yang.png`; the responsive image pipeline processes it.
+The pastor email opens the visitor's mail app and does not submit the contact form.

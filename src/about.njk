@@ -1,0 +1,69 @@
+---
+pagination:
+  data: langs
+  size: 1
+  alias: L
+permalink: "{{ L.prefix }}/about/index.html"
+pagePath: "/about/"
+layout: base.njk
+eleventyComputed:
+  pageDescription: "{{ about.intro | t(L.code) }}"
+  pageTitle: "{{ about.title | t(L.code) }} · {{ site.name | t(L.code) }}"
+---
+{%- set c = L.code -%}
+{%- set a = about -%}
+<main id="main" class="about-page">
+  <header class="about-heading">
+    <div class="wrap">
+      <p class="about-eyebrow">{{ site.name | t(c) }}</p>
+      <h1>{{ a.title | t(c) }}</h1>
+      <p class="about-intro">{{ a.intro | t(c) }}</p>
+    </div>
+  </header>
+
+  <section class="about-mission wrap" aria-labelledby="mission-heading">
+    <h2 id="mission-heading">{{ a.mission.heading | t(c) }}</h2>
+    <div>
+      <p>{{ a.mission.text | t(c) }}</p>
+      <a class="about-text-link" href="{{ L.prefix }}/teach/">{{ a.beliefs_link | t(c) }} <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section class="about-pastor wrap" aria-labelledby="pastor-heading">
+    <div class="pastor-card">
+      <div class="pastor-portrait"><img src="{{ a.pastor.image }}" alt="{{ a.pastor.image_alt | t(c) }}" sizes="315px"></div>
+      <div class="pastor-content">
+        <h2 id="pastor-heading">{{ a.pastor.heading | t(c) }}</h2>
+        <h3>{{ a.pastor.name | t(c) }}</h3>
+        <p>{{ a.pastor.role | t(c) }}</p>
+        <a class="about-text-link" href="mailto:{{ a.pastor.email }}">{{ a.pastor.email_label | t(c) }} <span aria-hidden="true">↗</span></a>
+        <p class="pastor-email">{{ a.pastor.email }}</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="together wrap" id="church-life">
+    <h2>{{ about.life.heading | t(c) }}</h2>
+    <div class="rows">
+      {%- for row in about.life.rows %}
+      <div class="row">
+        <div class="pic"><img src="{{ row.image }}" alt="{{ row.image_alt | t(c) }}" sizes="(max-width: 760px) 100vw, 620px"></div>
+        <div>
+          <h3>{{ row.title | t(c) }}</h3>
+          <p>{{ row.text | t(c) }}</p>
+        </div>
+      </div>
+      {%- endfor %}
+    </div>
+  </section>
+
+  <section class="about-visit">
+    <div class="wrap">
+      <div><h2>{{ a.visit_heading | t(c) }}</h2><p>{{ site.sunday.time | t(c) }} · {{ site.address }}</p></div>
+      <div class="about-actions">
+        <a class="btn dark" href="{{ L.prefix }}/#sunday">{{ a.visit_link | t(c) }}</a>
+        <a class="about-text-link" href="{{ L.prefix }}/contact/">{{ a.contact_link | t(c) }} <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+</main>

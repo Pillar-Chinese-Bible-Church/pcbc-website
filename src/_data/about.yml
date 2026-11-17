@@ -1,0 +1,61 @@
+# Pastor details, portrait, introduction and mission from the church's existing pages,
+# reviewed 2026-11-16: https://pillarcbc.org/關於我們/ and https://pillarcbc.org/en/about-us/
+# Do not add biographical details without a church-approved source.
+title: { zh: 关于我们, hant: 關於我們, en: About Us }
+intro:
+  zh: 柱石华人圣经教会以圣经为根基，陪伴华人家庭在信仰、生活与彼此相爱中一同成长。
+  hant: 柱石華人聖經教會以聖經為根基，陪伴華人家庭在信仰、生活與彼此相愛中一同成長。
+  en: Pillar Chinese Bible Church is rooted in the Bible, walking alongside Chinese families as we grow together in faith, in daily life, and in love for one another.
+mission:
+  heading: { zh: 使命宣言, hant: 使命宣言, en: Our Mission }
+  text:
+    zh: 以神的话语为根基，在敬拜中彼此合一，我们存在是为了荣耀神：在硅谷建立一个跨世代、双语的信仰群体，借着基督的爱使生命得着改变。
+    hant: 以神的話語為根基，在敬拜中彼此合一，我們存在是為了榮耀神：在矽谷建立一個跨世代、雙語的信仰群體，藉著基督的愛使生命得著改變。
+    en: Rooted in God’s Word and united in worship, we exist to glorify God by cultivating a multi-generational, bilingual community in Silicon Valley that transforms lives through the love of Christ.
+pastor:
+  heading: { zh: 牧者介绍, hant: 牧者介紹, en: Our Pastor }
+  name: { zh: 杨东牧师, hant: 楊東牧師, en: Pastor Bill Yang }
+  role: { zh: 柱石华人圣经教会 牧师, hant: 柱石華人聖經教會 牧師, en: "Pastor, Pillar Chinese Bible Church" }
+  email: bill.yang@pillarcbc.org
+  email_label: { zh: 联系牧师, hant: 聯絡牧師, en: Email Pastor Bill }
+  image: /images/pastor-yang.png
+  image_alt: { zh: 杨东牧师, hant: 楊東牧師, en: Pastor Bill Yang }
+beliefs_link: { zh: 阅读我们的信仰告白, hant: 閱讀我們的信仰告白, en: Read our Statement of Faith }
+visit_heading: { zh: 欢迎来认识我们, hant: 歡迎來認識我們, en: Come get to know us }
+visit_link: { zh: 主日崇拜信息, hant: 主日崇拜資訊, en: Plan a Sunday visit }
+contact_link: { zh: 联系我们, hant: 聯絡我們, en: Get in touch }
+life:
+  heading:
+    zh: 教会生活
+    en: Church Life
+  rows:
+    - title:
+        zh: 一起敬拜
+        en: Worship together
+      text:
+        zh: 我们的敬拜团由教会里的弟兄姊妹组成，平时上班上学，周末抽时间练歌。我们的敬拜是由心发出，专业第二，用心第一。
+        en: Everyone on our worship team is a regular church member with a job or classes during the week. We practice on weekends. We’re not pros, but we worship with all our hearts.
+      image: /images/worship.jpg
+      image_alt:
+        zh: 穿红衣服的敬拜团在台上合影
+        en: The worship team in red shirts on stage
+    - title:
+        zh: 一起查经
+        en: Study the Bible together
+      text:
+        zh: 每周四晚有线上查经，周五晚的团契也有查经和讨论。不需要有任何圣经基础，带着你的问题和思考，我们一起探讨生命、寻求真理。
+        en: Every Thursday night there’s an online Bible study, and every Friday night we also study the Bible and hold small group discussions. You don’t need to know anything about the Bible to join. Bring your questions and thoughts, and we will seek the truth and meaning of life together.
+      image: /images/study.jpg
+      image_alt:
+        zh: 小组围着屏幕一起讨论
+        en: A small group talking through a passage on screen
+    - title:
+        zh: 一起聚会
+        en: Spend time together
+      text:
+        zh: 逢年过节我们都会聚在一起，给异乡的生活带来温暖。春节包饺子，中秋吃月饼，感恩节聚餐。平时主日崇拜后，大家也会一起吃午饭。很多人离家乡很远，但在这儿我们都是主里的家人。
+        en: We celebrate holidays together. We make dumplings at Chinese New Year, share mooncakes at the Mid-Autumn Festival, and enjoy a big meal at Thanksgiving. Most Sundays, people stay for lunch after the service. A lot of us live far from family, but here we find home in Christ.
+      image: /images/festival.jpg
+      image_alt:
+        zh: 弟兄姊妹在挂着春联的副堂里一起过年
+        en: Celebrating Chinese New Year in the church hall

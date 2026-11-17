@@ -22,7 +22,7 @@ eleventyComputed:
       <div class="hero-actions">
         <a class="btn" href="#sunday">{{ h.hero.button | t(c) }}</a>
         {% if eventData.upcoming.length %}<a class="btn outline" href="#events" data-events-nav data-last-event-end="{{ eventData.latestEnd }}">{{ u.nav.events }} ↓</a>{% endif %}
-        <a class="btn outline" href="#about">{{ h.hero.about_button | t(c) }}</a>
+        <a class="btn outline" href="{{ L.prefix }}/about/">{{ h.hero.about_button | t(c) }}</a>
       </div>
     </div>
   </section>
@@ -77,21 +77,6 @@ eleventyComputed:
       </div>
       {%- endfor %}
     </div>
-    </div>
-  </section>
-
-  <section class="together wrap" id="about">
-    <h2>{{ h.life.heading | t(c) }}</h2>
-    <div class="rows">
-      {%- for row in h.life.rows %}
-      <div class="row">
-        <div class="pic"><img src="{{ row.image }}" alt="{{ row.image_alt | t(c) }}" sizes="(max-width: 760px) 100vw, 620px"></div>
-        <div>
-          <h3>{{ row.title | t(c) }}</h3>
-          <p>{{ row.text | t(c) }}</p>
-        </div>
-      </div>
-      {%- endfor %}
     </div>
   </section>
 
