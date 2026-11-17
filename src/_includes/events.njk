@@ -1,0 +1,26 @@
+{%- if eventData.upcoming.length %}
+<section class="events wrap" id="events" data-upcoming-events aria-labelledby="events-heading">
+  <div class="section-heading">
+    <div><h2 id="events-heading">{{ events.heading | t(c) | escape }}</h2><p>{{ events.intro | t(c) | escape }}</p></div>
+  </div>
+  <div class="event-grid">
+    {%- for e in eventData.upcoming %}
+    <article class="event-card" data-event-end="{{ e.end }}">
+      {%- if e.image %}
+      <a class="event-image" href="{{ L.prefix }}/events/{{ e.slug }}/" tabindex="-1" aria-hidden="true"><img src="{{ e.image }}" alt="" sizes="(max-width: 760px) 100vw, 360px"></a>
+      {%- else %}
+      <div class="event-date-art" aria-hidden="true"><span>{{ e.start | eventMonth(c) }}</span><strong>{{ e.start | eventDay(c) }}</strong></div>
+      {%- endif %}
+      <div class="event-content">
+        {% if e.sample %}<p class="sample-label">{{ u.events.sample }}</p>{% endif %}
+        <h3><a href="{{ L.prefix }}/events/{{ e.slug }}/">{{ e.title | t(c) | escape }}</a></h3>
+        <p class="event-meta"><time datetime="{{ e.start }}">{{ e.start | eventDate(c) }} · {{ e.start | eventTime(c) }}</time></p>
+        <p class="event-meta">{{ e.location | t(c) | escape }}</p>
+        <p class="event-summary">{{ e.summary | t(c) | escape }}</p>
+        <a class="event-link" href="{{ L.prefix }}/events/{{ e.slug }}/">{{ u.events.details }}<span class="sr-only">: {{ e.title | t(c) | escape }}</span><span aria-hidden="true"> →</span></a>
+      </div>
+    </article>
+    {%- endfor %}
+  </div>
+</section>
+{%- endif %}
