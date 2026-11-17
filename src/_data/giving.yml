@@ -2,7 +2,6 @@
 # https://pillarcbc.org/奉献/ and https://pillarcbc.org/en/giving/
 # Keep the recipient and original QR code in sync when editing giving instructions.
 title: { zh: 奉献, hant: 奉獻, en: Giving }
-eyebrow: { zh: 同心支持教会事工, hant: 同心支持教會事工, en: Supporting the ministry together }
 intro:
   zh: 柱石华人圣经教会是 501(c)(3) 非营利教会组织。衷心感谢您对教会慷慨的支持与奉献！
   hant: 柱石華人聖經教會是 501(c)(3) 非營利教會組織。衷心感謝您對教會慷慨的支持與奉獻！

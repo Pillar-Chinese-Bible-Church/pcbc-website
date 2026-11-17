@@ -16,13 +16,10 @@ eleventyComputed:
   <header class="thead page-heading">
     <div class="wrap">
       <h1>{{ b.title | t(c) }}</h1>
-      {%- if b.subtitle | t(c) %}
-      <p>{{ b.subtitle | t(c) }}</p>
-      {%- endif %}
+      <p>{{ b.intro | t(c) }}</p>
     </div>
   </header>
   <section class="wrap tbody">
-    <p class="intro">{{ b.intro | t(c) }}</p>
     <ol class="tlist">
       {%- for item in b.items %}
       <li>
