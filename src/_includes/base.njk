@@ -40,7 +40,7 @@
       <a href="{{ home }}#sunday">{{ u.nav.sunday }}</a>
       {% if eventData.upcoming.length %}<a href="{{ home }}#events" data-events-nav data-last-event-end="{{ eventData.latestEnd }}">{{ u.nav.events }}</a>{% endif %}
       <a href="{{ home }}#groups">{{ u.nav.groups }}</a>
-      <a href="{{ home }}#about">{{ u.nav.life }}</a>
+      <a href="{{ L.prefix }}/about/"{% if pagePath == '/about/' %} aria-current="page"{% endif %}>{{ u.nav.about }}</a>
       <a href="{{ L.prefix }}/teach/">{{ u.nav.beliefs }}</a>
       <a href="{{ L.prefix }}/giving/"{% if pagePath == '/giving/' %} aria-current="page"{% endif %}>{{ u.nav.giving }}</a>
       <a href="{{ L.prefix }}/contact/"{% if pagePath == '/contact/' %} aria-current="page"{% endif %}>{{ u.nav.contact }}</a>

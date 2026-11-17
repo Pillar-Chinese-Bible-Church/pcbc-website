@@ -68,23 +68,6 @@
   .box + .box { padding-top: 20px; border-top: 1px solid var(--line); }
 }
 
-/* Church life rows (Olive Tree) */
-.together { padding-block: 40px 0; }
-.rows { display: grid; gap: 32px; }
-.row { display: grid; grid-template-columns: .85fr 1.15fr; gap: 32px; align-items: center; }
-.row:nth-child(even) { grid-template-columns: 1.15fr .85fr; }
-.row:nth-child(even) .pic { order: 2; }
-.row .pic { min-width: 0; aspect-ratio: 3 / 2; overflow: hidden; border-radius: 10px; }
-.row .pic picture { display: block; width: 100%; height: 100%; }
-.row .pic img { width: 100%; height: 100%; object-fit: cover; }
-.row h3 { font-size: 1.5rem; font-weight: 500; margin-bottom: 10px; }
-.row p { color: var(--muted); font-size: 1rem; max-width: 36em; }
-@media (max-width: 760px) {
-  .rows { gap: 28px; }
-  .row, .row:nth-child(even) { grid-template-columns: 1fr; gap: 18px; }
-  .row:nth-child(even) .pic { order: 0; }
-}
-
 /* Verse band (City Light mission band, with our verse) */
 .verse { background: var(--slate); color: var(--white); text-align: center; margin-top: 44px; }
 .verse .wrap { padding-block: 40px; }

@@ -33,7 +33,7 @@ export default {
     sep: "：",
   },
   en: {
-    nav: { about: "About", life: "Church Life", events: "Events", sunday: "Sunday", groups: "Groups", beliefs: "Beliefs", giving: "Giving", contact: "Contact" },
+    nav: { about: "About Us", life: "Church Life", events: "Events", sunday: "Sunday", groups: "Groups", beliefs: "Beliefs", giving: "Giving", contact: "Contact" },
     menu: "Menu", close: "Close", langGroup: "Language", sundayDetails: "First visit? More Sunday information",
     at: "at", time: "When: ", place: "Where: ", topic: "What: ", more: "Learn more",
     footerTimes: "Gathering Times", footerContact: "Contact Us", sundayWorship: "Sunday Worship",

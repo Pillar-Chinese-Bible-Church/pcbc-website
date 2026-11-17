@@ -1,0 +1,53 @@
+/* About: church introduction, sourced pastor details, and the relocated Church Life rows. */
+.about-heading { background: #F5F2EB; padding-block: 42px 46px; }
+.about-eyebrow { color: var(--slate); font-size: .8rem; letter-spacing: .08em; }
+.about-heading h1 { font-size: clamp(2.2rem, 4vw, 2.9rem); font-weight: 500; line-height: 1.4; margin-top: 8px; }
+.about-intro { max-width: 47em; color: var(--muted); font-size: 1.05rem; margin-top: 18px; }
+.about-mission { display: grid; grid-template-columns: minmax(0, .65fr) minmax(0, 1.35fr); gap: 32px 56px; padding-block: 42px; }
+.about-mission h2, .about-page .together>h2 { font-size: 1.75rem; font-weight: 500; }
+.about-page .together>h2 { margin-bottom: 24px; }
+.about-mission p { font-size: 1.15rem; line-height: 1.85; }
+.about-text-link { display: inline-block; color: var(--slate); font-weight: 500; font-size: .95rem; text-underline-offset: 5px; }
+.about-mission .about-text-link { margin-top: 20px; }
+.about-pastor { padding-bottom: 10px; }
+.pastor-card { display: grid; grid-template-columns: 315px minmax(0, 1fr); gap: 36px; align-items: center; padding: 28px; background: var(--soft); border-radius: 12px; }
+.pastor-portrait { max-width: 315px; }
+.pastor-portrait img { width: 100%; height: auto; border-radius: 8px; }
+.pastor-content { padding-block: 8px; }
+.pastor-content h2 { font-size: .85rem; font-weight: 400; color: var(--muted); }
+.pastor-content h3 { font-size: clamp(1.65rem, 3vw, 2rem); line-height: 1.4; font-weight: 500; margin-top: 10px; }
+.pastor-content>p { color: var(--muted); font-size: .95rem; margin-top: 10px; }
+.pastor-content .about-text-link { margin-top: 22px; }
+.pastor-content .pastor-email { font-size: .85rem; margin-top: 4px; overflow-wrap: anywhere; }
+.about-visit { background: #F5F2EB; margin-top: 44px; padding-block: 30px; }
+.about-visit .wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px 36px; }
+.about-visit h2 { font-size: 1.4rem; font-weight: 500; }
+.about-visit p { margin-top: 8px; color: var(--muted); font-size: .9rem; }
+.about-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 18px 24px; }
+.about-actions .btn { margin-top: 0; }
+@media (max-width: 760px) {
+  .about-heading { padding-block: 28px 32px; }
+  .about-mission { grid-template-columns: 1fr; gap: 16px; padding-block: 30px; }
+  .about-mission p { font-size: 1.05rem; }
+  .pastor-card { grid-template-columns: 1fr; padding: 22px; gap: 20px; }
+  .pastor-portrait { width: 100%; justify-self: center; }
+  .pastor-content { padding: 0; }
+}
+
+/* Church life rows (Olive Tree) */
+.together { padding-block: 40px 0; }
+.rows { display: grid; gap: 32px; }
+.row { display: grid; grid-template-columns: .85fr 1.15fr; gap: 32px; align-items: center; }
+.row:nth-child(even) { grid-template-columns: 1.15fr .85fr; }
+.row:nth-child(even) .pic { order: 2; }
+.row .pic { min-width: 0; aspect-ratio: 3 / 2; overflow: hidden; border-radius: 10px; }
+.row .pic picture { display: block; width: 100%; height: 100%; }
+.row .pic img { width: 100%; height: 100%; object-fit: cover; }
+.row h3 { font-size: 1.5rem; font-weight: 500; margin-bottom: 10px; }
+.row p { color: var(--muted); font-size: 1rem; max-width: 36em; }
+@media (max-width: 760px) {
+  .rows { gap: 28px; }
+  .row, .row:nth-child(even) { grid-template-columns: 1fr; gap: 18px; }
+  .row:nth-child(even) .pic { order: 0; }
+}
+
