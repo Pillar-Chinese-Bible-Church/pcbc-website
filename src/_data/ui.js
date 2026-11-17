@@ -8,6 +8,7 @@ export default {
     wechat: "微信公众号", xiaohongshu: "小红书", back: "← 回到首页",
     skip: "跳到正文", askAbout: "询问", videoPending: "视频链接待确认，欢迎联系教会。",
     events: {
+      previous: "上一组活动", next: "下一组活动",
       sample: "示例活动 · 非真实安排", details: "活动详情", back: "← 返回近期活动",
       info: "活动信息", when: "时间", where: "地点", joining: "参加方式", until: "至",
       timezone: "美国太平洋时间", about: "活动介绍", register: "报名参加", directions: "查看路线",
@@ -23,6 +24,7 @@ export default {
     wechat: "微信公眾號", xiaohongshu: "小紅書", back: "← 回到首頁",
     skip: "跳到正文", askAbout: "詢問", videoPending: "影片連結待確認，歡迎聯絡教會。",
     events: {
+      previous: "上一組活動", next: "下一組活動",
       sample: "示例活動 · 非真實安排", details: "活動詳情", back: "← 返回近期活動",
       info: "活動資訊", when: "時間", where: "地點", joining: "參加方式", until: "至",
       timezone: "美國太平洋時間", about: "活動介紹", register: "報名參加", directions: "查看路線",
@@ -38,6 +40,7 @@ export default {
     wechat: "WeChat", xiaohongshu: "RedNote", back: "← Back to home",
     skip: "Skip to content", askAbout: "Ask about", videoPending: "Video link to be confirmed. Please contact the church.",
     events: {
+      previous: "Previous events", next: "Next events",
       sample: "Sample event · not an actual plan", details: "View event", back: "← Back to upcoming events",
       info: "Event information", when: "When", where: "Where", joining: "Joining", until: "Until",
       timezone: "US Pacific time", about: "About this event", register: "Register", directions: "Get directions",

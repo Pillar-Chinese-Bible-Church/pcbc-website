@@ -1,55 +1,7 @@
-# Sample entries are included only on feature-branch previews (not main/live).
-# For real events: sample: false, published: true, explicit ISO start/end offsets.
+# Event entries live in content/events/<slug>.yml.
 heading:
   zh: 近期活动
   en: Upcoming Events
 intro:
   zh: 一起相聚、彼此认识，也欢迎你带朋友来。
   en: Gather with us, get to know one another, and bring a friend.
-items:
-  - slug: community-lunch
-    published: true
-    sample: true
-    title: { zh: 感恩相聚午餐, en: Community Lunch }
-    summary:
-      zh: 主日后留下来，一起吃饭、分享近况，认识新朋友。
-      en: Stay after worship for a shared meal and time to get to know one another.
-    start: "2026-12-06T12:30:00-08:00"
-    end: "2026-12-06T14:30:00-08:00"
-    location: { zh: 教会副堂, en: Church fellowship hall }
-    address: "211 Church Street, Mountain View, CA 94040"
-    image: /images/festival.jpg
-    image_alt: { zh: 弟兄姊妹一起聚餐（示例配图）, en: Church members sharing a meal (illustrative photo) }
-    joining: { zh: 无需报名，欢迎参加。, en: No registration required. All are welcome. }
-    details:
-      zh: 这是用于预览网站布局的示例活动，不是真实安排。正式活动将在这里提供聚会安排、参加方式，以及新朋友需要知道的信息。
-      en: This is a sample event for reviewing the website, not an actual plan. Real events will include the schedule, how to participate, and information for newcomers.
-  - slug: christmas-songs
-    published: true
-    sample: true
-    title: { zh: 圣诞诗歌与分享, en: Christmas Songs & Stories }
-    summary:
-      zh: 用诗歌与分享迎接圣诞，欢迎邀请家人和朋友一起来。
-      en: Celebrate Christmas with songs and stories. Family and friends are welcome.
-    start: "2026-12-20T16:00:00-08:00"
-    end: "2026-12-20T18:00:00-08:00"
-    location: { zh: 教会礼堂, en: Church sanctuary }
-    address: "211 Church Street, Mountain View, CA 94040"
-    joining: { zh: 无需报名，欢迎参加。, en: No registration required. All are welcome. }
-    details:
-      zh: 这是用于预览网站布局的示例活动，不是真实安排。活动安排将在确认后填写。
-      en: This is a sample event for reviewing the website, not an actual plan. The schedule will be added once confirmed.
-  - slug: saturday-walk
-    published: true
-    sample: true
-    title: { zh: 周末轻徒步, en: Saturday Morning Walk }
-    summary:
-      zh: 放慢脚步，一起走走聊聊。路线和报名方式将在正式活动中提供。
-      en: Slow down and enjoy a walk together. Route and registration details will be provided for the real event.
-    start: "2027-01-16T09:00:00-08:00"
-    end: "2027-01-16T11:00:00-08:00"
-    location: { zh: Mountain View · 集合地点待定, en: "Mountain View · meeting point to be confirmed" }
-    joining: { zh: 需要报名；本示例不接受报名。, en: Registration required; this sample does not accept registrations. }
-    details:
-      zh: 这是用于预览网站布局的示例活动，不是真实安排。正式活动将说明路线、集合地点、适合人群和报名方式。
-      en: This is a sample event for reviewing the website, not an actual plan. Real events will specify the route, meeting point, suitability, and how to register.
