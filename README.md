@@ -320,3 +320,31 @@ Copy lives in `src/_data/contact.js`, layout in `src/contact.njk`, and presentat
 logic in `src/assets/contact.js`. A later email-delivery PR must add server/provider
 validation and spam protection, explicit pending/error/success states, and a real
 submission handler before replacing the inert Send button with a real submit action.
+
+## Giving page
+
+Giving is available at `/giving/`, `/zh-hant/giving/`, and `/en/giving/`, linked
+from the main navigation and footer. The page provides the church's Zelle
+recipient (`giving@pillarcbc.org`), check payee (`Pillar Chinese Bible Church`),
+stock-transfer contact (`office@pillarcbc.org`), Benevity matching instructions,
+and annual-statement information. Giving questions link to the contact page with
+its topic preselected. The contact form's Send action remains inert as in PR #2.
+
+Content in `src/_data/giving.yml` was adapted from the church's public giving
+pages, reviewed on November 16, 2026:
+
+- https://pillarcbc.org/奉献/
+- https://pillarcbc.org/en/giving/
+
+The original QR asset was acquired from the rendered source page's
+`https://pillarcbc.org/wp-content/uploads/2026/10/Offering-edited.jpg` image.
+The server returned WebP bytes, retained as `src/images/giving-zelle.webp`.
+Eleventy copies this file unchanged and excludes it from photo optimization, so
+the giving page and full-size link use the source QR without recompression or
+redrawing. If the church changes its Zelle details, update the recipient text
+and original QR asset together and check them against the church's instructions.
+
+The copy-email action only copies the public Zelle recipient; it does not start
+a payment. If clipboard access is unavailable, the address remains selectable.
+All payment activity stays in the donor's own banking app. No payment collection,
+backend, provider account, or Cloudflare configuration is introduced by this PR.
