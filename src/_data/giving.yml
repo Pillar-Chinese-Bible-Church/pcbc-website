@@ -1,0 +1,74 @@
+# Content adapted from the church's giving pages on 2026-11-16:
+# https://pillarcbc.org/奉献/ and https://pillarcbc.org/en/giving/
+# Keep the recipient and original QR code in sync when editing giving instructions.
+title: { zh: 奉献, hant: 奉獻, en: Giving }
+eyebrow: { zh: 同心支持教会事工, hant: 同心支持教會事工, en: Supporting the ministry together }
+intro:
+  zh: 柱石华人圣经教会是 501(c)(3) 非营利教会组织。衷心感谢您对教会慷慨的支持与奉献！
+  hant: 柱石華人聖經教會是 501(c)(3) 非營利教會組織。衷心感謝您對教會慷慨的支持與奉獻！
+  en: Pillar Chinese Bible Church is a 501(c)(3) nonprofit church organization. Thank you for your generous support!
+thanks:
+  zh: 您渴望看见教会事工成长、神的国度扩展的心，使我们大受鼓舞。我们很喜乐能与您同工，一同参与神在这里所成就的一切。
+  hant: 您渴望看見教會事工成長、神的國度擴展的心，使我們大受鼓舞。我們很喜樂能與您同工，一同參與神在這裡所成就的一切。
+  en: We are encouraged by your desire to see our ministry grow and God’s Kingdom expand. It is our joy to partner with you in all that God is doing here.
+methods_heading: { zh: 奉献方式, hant: 奉獻方式, en: Ways to give }
+zelle_email: giving@pillarcbc.org
+office_email: office@pillarcbc.org
+payee: Pillar Chinese Bible Church
+qr_image: /images/giving-zelle.webp
+qr_alt:
+  zh: 柱石华人圣经教会的 Zelle 奉献二维码，收款邮箱 giving@pillarcbc.org
+  hant: 柱石華人聖經教會的 Zelle 奉獻二維碼，收款信箱 giving@pillarcbc.org
+  en: Zelle giving QR code for Pillar Chinese Bible Church, giving@pillarcbc.org
+zelle:
+  title: { zh: 通过 Zelle 奉献, hant: 透過 Zelle 奉獻, en: Give with Zelle }
+  text:
+    zh: 打开您的银行 App，使用以下邮箱作为 Zelle 收款人，或扫描教会的二维码。
+    hant: 打開您的銀行 App，使用以下信箱作為 Zelle 收款人，或掃描教會的二維碼。
+    en: Open your banking app and use the email below as the Zelle recipient, or scan the church’s QR code.
+  recipient: { zh: 收款人, hant: 收款人, en: Recipient }
+  email_label: { zh: Zelle 收款邮箱, hant: Zelle 收款信箱, en: Zelle recipient email }
+  scan: { zh: 用银行 App 扫描二维码，即可通过 Zelle 奉献。, hant: 用銀行 App 掃描二維碼，即可透過 Zelle 奉獻。, en: Scan with your banking app to give via Zelle. }
+  open_qr: { zh: 查看完整二维码, hant: 查看完整二維碼, en: Open full-size QR code }
+  copy: { zh: 复制邮箱, hant: 複製信箱, en: Copy email }
+  copied: { zh: 已复制, hant: 已複製, en: Copied }
+  copy_fallback: { zh: 请选中上方邮箱后复制。, hant: 請選取上方信箱後複製。, en: Select the email address above to copy it. }
+checks:
+  title: { zh: 支票, hant: 支票, en: By check }
+  text: { zh: 支票抬头请填写：, hant: 支票抬頭請填寫：, en: "Please make checks payable to:" }
+stock:
+  title: { zh: 股票奉献, hant: 股票奉獻, en: Gifts of stock }
+  text:
+    zh: 欢迎以股票原样转入教会账户的方式奉献（请勿先卖出），通常可按市值扣抵并免缴资本利得税。
+    hant: 歡迎以股票原樣轉入教會帳戶的方式奉獻（請勿先賣出），通常可按市值扣抵並免繳資本利得稅。
+    en: Transfer appreciated shares directly to the church without selling them first. This generally allows a market-value deduction and avoids capital gains tax.
+  email_step: { zh: 寄信至以下邮箱，索取转账资料。, hant: 寄信至以下信箱，索取轉帳資料。, en: Email us for transfer instructions. }
+  transfer_step:
+    zh: 请您的券商以 DTC 方式将股票转入教会账户。
+    hant: 請您的券商以 DTC 方式將股票轉入教會帳戶。
+    en: Ask your broker to transfer the shares to the church’s account via DTC.
+  receipt_step:
+    zh: 转出后请来信告知姓名、股票代码及股数，以便教会开立收据。
+    hant: 轉出後請來信告知姓名、股票代碼及股數，以便教會開立收據。
+    en: After the transfer, email your name, ticker symbol, and number of shares so the church can issue a receipt.
+  year_end:
+    zh: 年底奉献请于 12 月中以前开始办理。
+    hant: 年底奉獻請於 12 月中以前開始辦理。
+    en: For year-end gifts, please begin the transfer by mid-December.
+matching:
+  title: { zh: 公司配捐, hant: 公司配捐, en: Employer matching }
+  text:
+    zh: 如果您的公司通过 Benevity 提供员工奉献或配捐，请登入公司的捐款平台，搜索以下名称，即可奉献并申请公司配捐。
+    hant: 如果您的公司透過 Benevity 提供員工奉獻或配捐，請登入公司的捐款平台，搜尋以下名稱，即可奉獻並申請公司配捐。
+    en: If your employer offers giving or matching through Benevity, sign in to your company’s giving portal. Search for the name below to give and request a match.
+  note:
+    zh: 各公司配捐规定不同，请向公司人事部门查询。
+    hant: 各公司配捐規定不同，請向公司人事部門查詢。
+    en: Matching policies vary by employer. Please check with your HR department.
+statements:
+  title: { zh: 奉献收据与咨询, hant: 奉獻收據與諮詢, en: Statements & questions }
+  text:
+    zh: 年度奉献收据（报税用）将于每年年底寄出。如对奉献有任何问题，欢迎随时与我们联系。
+    hant: 年度奉獻收據（報稅用）將於每年年底寄出。如對奉獻有任何問題，歡迎隨時與我們聯絡。
+    en: Annual contribution statements for tax purposes are sent at the end of each year. Please contact us with any questions about your giving.
+  contact: { zh: 奉献咨询, hant: 奉獻諮詢, en: Giving questions }

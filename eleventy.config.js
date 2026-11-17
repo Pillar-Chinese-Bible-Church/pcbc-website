@@ -61,6 +61,8 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/images/logo-pillar.svg": "images/logo-pillar.svg" });
+  // Preserve the church's original payment QR image without resizing or recompression.
+  eleventyConfig.addPassthroughCopy({ "src/images/giving-zelle.webp": "images/giving-zelle.webp" });
 
   return {
     dir: { input: "src", output: "_site" },

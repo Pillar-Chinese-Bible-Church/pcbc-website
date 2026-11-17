@@ -1,0 +1,79 @@
+---
+pagination:
+  data: langs
+  size: 1
+  alias: L
+permalink: "{{ L.prefix }}/giving/index.html"
+pagePath: "/giving/"
+layout: base.njk
+eleventyComputed:
+  pageTitle: "{{ giving.title | t(L.code) }} · {{ site.name | t(L.code) }}"
+---
+{%- set c = L.code -%}
+{%- set g = giving -%}
+<main id="main" class="giving-page">
+  <header class="giving-heading">
+    <div class="wrap">
+      <p class="giving-eyebrow">{{ g.eyebrow | t(c) }}</p>
+      <h1>{{ g.title | t(c) }}</h1>
+      <p class="giving-intro">{{ g.intro | t(c) }}</p>
+      <p class="giving-thanks">{{ g.thanks | t(c) }}</p>
+    </div>
+  </header>
+
+  <section class="giving-methods wrap" aria-labelledby="giving-methods-heading">
+    <h2 id="giving-methods-heading">{{ g.methods_heading | t(c) }}</h2>
+    <section class="giving-zelle" aria-labelledby="zelle-heading">
+      <div class="giving-zelle-content">
+        <span class="giving-method-label">Zelle®</span>
+        <h3 id="zelle-heading">{{ g.zelle.title | t(c) }}</h3>
+        <p>{{ g.zelle.text | t(c) }}</p>
+        <dl class="giving-recipient">
+          <dt>{{ g.zelle.recipient | t(c) }}</dt><dd>{{ g.payee }}</dd>
+          <dt>{{ g.zelle.email_label | t(c) }}</dt><dd><span class="giving-email" id="giving-email">{{ g.zelle_email }}</span></dd>
+        </dl>
+        <button class="btn dark giving-copy" type="button" data-copy-email="{{ g.zelle_email }}" data-copied="{{ g.zelle.copied | t(c) }}" data-copy-fallback="{{ g.zelle.copy_fallback | t(c) }}" aria-describedby="giving-email" hidden>{{ g.zelle.copy | t(c) }}</button>
+        <p class="giving-copy-status" role="status" aria-live="polite"></p>
+      </div>
+      <figure class="giving-qr">
+        <a href="{{ g.qr_image }}" target="_blank" rel="noopener" aria-label="{{ g.zelle.open_qr | t(c) }}">
+          <img src="{{ g.qr_image }}" alt="{{ g.qr_alt | t(c) }}" width="1125" height="1169" eleventy:ignore loading="eager">
+        </a>
+        <figcaption>{{ g.zelle.scan | t(c) }}</figcaption>
+        <a class="giving-open-qr" href="{{ g.qr_image }}" target="_blank" rel="noopener">{{ g.zelle.open_qr | t(c) }} ↗</a>
+      </figure>
+    </section>
+
+    <div class="giving-other-methods">
+      <section class="giving-method giving-checks" aria-labelledby="checks-heading">
+        <h3 id="checks-heading">{{ g.checks.title | t(c) }}</h3>
+        <p>{{ g.checks.text | t(c) }}</p>
+        <p class="giving-payee">{{ g.payee }}</p>
+      </section>
+      <section class="giving-method giving-stock" aria-labelledby="stock-heading">
+        <h3 id="stock-heading">{{ g.stock.title | t(c) }}</h3>
+        <p>{{ g.stock.text | t(c) }}</p>
+        <ol>
+          <li>{{ g.stock.email_step | t(c) }}<br><a href="mailto:{{ g.office_email }}">{{ g.office_email }}</a></li>
+          <li>{{ g.stock.transfer_step | t(c) }}</li>
+          <li>{{ g.stock.receipt_step | t(c) }}</li>
+        </ol>
+        <p class="giving-year-end">{{ g.stock.year_end | t(c) }}</p>
+      </section>
+      <section class="giving-method giving-matching" aria-labelledby="matching-heading">
+        <h3 id="matching-heading">{{ g.matching.title | t(c) }}</h3>
+        <p>{{ g.matching.text | t(c) }}</p>
+        <p class="giving-payee">{{ g.payee }}</p>
+        <p class="giving-method-note">{{ g.matching.note | t(c) }}</p>
+      </section>
+    </div>
+  </section>
+
+  <section class="giving-statements" aria-labelledby="statements-heading">
+    <div class="wrap">
+      <div><h2 id="statements-heading">{{ g.statements.title | t(c) }}</h2><p>{{ g.statements.text | t(c) }}</p></div>
+      <a class="btn dark" href="{{ L.prefix }}/contact/?topic=giving">{{ g.statements.contact | t(c) }} →</a>
+    </div>
+  </section>
+</main>
+<script src="/assets/giving.js" defer></script>
