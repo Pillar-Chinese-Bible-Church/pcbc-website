@@ -1,0 +1,27 @@
+slug: e2e-cloud-verification-20261116
+published: true
+sample: true
+title:
+  zh: 系统测试活动（非真实聚会）
+  en: E2E Test Event — Not a Real Gathering
+summary:
+  zh: 这是网站更新工具的端到端测试，仅用于测试分支。
+  en: Dashboard verification on an isolated test branch. This is not a church
+    event.
+location:
+  zh: 教会副堂
+  en: Church fellowship hall
+joining:
+  zh: 无需报名，欢迎参加。
+  en: No registration required. All are welcome.
+details:
+  zh: 这是用于预览网站布局的示例活动，不是真实安排。正式活动将在这里提供聚会安排、参加方式，以及新朋友需要知道的信息。
+  en: This event verifies the real dashboard, private image storage, GitHub App
+    authentication, and Cloudflare preview workflow. It is test content only.
+start: 2026-12-06T12:30:00-08:00
+end: 2026-12-06T14:30:00-08:00
+address: 211 Church Street, Mountain View, CA 94041
+image: /images/event-e2e-cloud-verification-20261116-b026e29fe7e975ca.jpg
+image_alt:
+  zh: 弟兄姊妹一起聚餐（示例配图）
+  en: Church building — E2E test image
