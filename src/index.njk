@@ -46,7 +46,7 @@ eleventyComputed:
               <summary>{{ h.sunday.first_time_link | t(c) }}</summary>
               <p>{{ site.sunday.time | t(c) }} · {{ site.sunday.note | t(c) }}</p>
               <p><a href="{{ site.map_link }}" target="_blank" rel="noopener">{{ site.address }}</a></p>
-              <a href="mailto:{{ site.email }}?subject={{ h.sunday.first_time | t(c) | urlencode }}">{{ u.events.question }}</a>
+              <a href="{{ L.prefix }}/contact/?topic=visit">{{ u.events.question }}</a>
             </details>
             <h3>{{ h.sunday.missed | t(c) }}</h3>
             {% if site.links.youtube %}<a href="{{ site.links.youtube }}">{{ h.sunday.missed_link | t(c) }}</a>
@@ -72,7 +72,7 @@ eleventyComputed:
         {%- if g.time | t(c) %}<p><b>{{ u.time }}</b>{{ g.time | t(c) }}</p>{% endif %}
         {%- if g.place | t(c) %}<p><b>{{ u.place }}</b>{{ g.place | t(c) }}</p>{% endif %}
         {%- if g.topic | t(c) %}<p><b>{{ u.topic }}</b>{{ g.topic | t(c) }}</p>{% endif %}
-        <a href="mailto:{{ site.email }}?subject={{ g.name | t(c) | urlencode }}" aria-label="{{ u.askAbout }} {{ g.name | t(c) }}">{{ u.more }}<span class="sr-only">: {{ g.name | t(c) }}</span></a>
+        <a href="{{ L.prefix }}/contact/?topic=gatherings&amp;regarding={{ g.name | t(c) | urlencode }}" aria-label="{{ u.askAbout }} {{ g.name | t(c) }}">{{ u.more }}<span class="sr-only">: {{ g.name | t(c) }}</span></a>
       </div>
       {%- endfor %}
     </div>

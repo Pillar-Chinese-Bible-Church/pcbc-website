@@ -298,3 +298,25 @@ Run `npm test` for sample/production isolation, validation, and Pacific-time tes
 run `npm run build` for a normal build or
 `CF_PAGES_BRANCH=codex/website-events npm run build` to check the sample preview.
 Use Node 22, as specified by `.nvmrc` and the Cloudflare build configuration.
+
+## Contact page (form only)
+
+The contact page is available at `/contact/`, `/zh-hant/contact/`, and `/en/contact/`.
+Header/footer Contact links, the statement-of-faith Contact button, and inquiry
+links from Sunday, gatherings, and events route there. Inquiry links preselect a
+topic and optionally show a public gathering/event title as context. Language
+links retain that public inquiry context, but not personal form inputs.
+
+This version intentionally has **no email delivery integration**. The page presents
+an ordinary contact form without unfinished-feature notices. **Send message** is
+styled as an enabled button, but is intentionally a no-op (`type="button"`): it
+sends no request, navigates nowhere, preserves the fields, and shows no success
+message. The form script also prevents implicit submission and does not send,
+save, or log visitor inputs. There is no backend, account setup, credential, or
+Cloudflare configuration required. Direct `mailto:` links still open the visitor's
+email app, where the visitor sends their email themselves.
+
+Copy lives in `src/_data/contact.js`, layout in `src/contact.njk`, and presentation
+logic in `src/assets/contact.js`. A later email-delivery PR must add server/provider
+validation and spam protection, explicit pending/error/success states, and a real
+submission handler before replacing the inert Send button with a real submit action.

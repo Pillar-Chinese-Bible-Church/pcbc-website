@@ -33,7 +33,7 @@ eleventyComputed:
     </ol>
     <div class="task">
       <p>{{ b.question | t(c) }}</p>
-      <a class="btn dark" href="#contact">{{ b.button | t(c) }}</a>
+      <a class="btn dark" href="{{ L.prefix }}/contact/?topic=beliefs">{{ b.button | t(c) }}</a>
     </div>
     <a class="back" href="{{ L.prefix }}/">{{ ui[c].back }}</a>
   </section>
