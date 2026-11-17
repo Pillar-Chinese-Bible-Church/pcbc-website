@@ -1,0 +1,27 @@
+slug: dashboard-e2e-20261116
+published: true
+sample: true
+title:
+  zh: 测试专用：活动更新流程
+  en: "TEST ONLY: Dashboard event workflow"
+summary:
+  zh: 端到端测试，不是真实教会活动。
+  en: End-to-end test, not a real church event.
+location:
+  zh: 教会副堂
+  en: Church fellowship hall
+joining:
+  zh: 无需报名，欢迎参加。
+  en: No registration required. All are welcome.
+details:
+  zh: 这是用于预览网站布局的示例活动，不是真实安排。正式活动将在这里提供聚会安排、参加方式，以及新朋友需要知道的信息。
+  en: This is a sample event for reviewing the website, not an actual plan. Real
+    events will include the schedule, how to participate, and information for
+    newcomers.
+start: 2026-12-12T12:30:00-08:00
+end: 2026-12-12T14:00:00-08:00
+address: 211 Church Street, Mountain View, CA 94040
+image: /images/event-dashboard-e2e-20261116-942a6ae6c932f6a5.jpg
+image_alt:
+  zh: 测试活动配图
+  en: Illustrative image for the test event
