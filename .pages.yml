@@ -166,34 +166,37 @@ content:
 
   - name: events
     label: 活动 Events
-    type: collection
-    path: content/events
+    type: file
+    path: content/events.yml
     format: yaml
-    filename: "{fields.slug}.yml"
-    subfolders: false
-    view: { primary: slug, fields: [slug, start, published], sort: start, order: asc }
     fields:
-      - { name: slug, label: 网址名称 URL slug (lowercase letters / numbers / hyphens), type: string }
-      - { name: published, label: 启用 Enabled, type: boolean }
-      - { name: sample, label: 示例 Sample (feature previews only), type: boolean }
-      - { name: title, label: 活动名称 Title, type: object, fields: *line }
-      - { name: summary, label: 简介 Summary, type: object, fields: *para }
-      - { name: start, label: 开始 Start (e.g. 2026-12-06T12:30:00-08:00), type: string }
-      - { name: end, label: 结束 End (e.g. 2026-12-06T14:30:00-08:00), type: string }
-      - { name: location, label: 地点 Location, type: object, fields: *line }
-      - { name: address, label: 地址 Address (optional), type: string }
-      - { name: map_url, label: 地图链接 Map URL (HTTPS / optional), type: string }
-      - { name: image, label: 图片 Image (optional), type: image }
-      - { name: image_alt, label: 图片描述 Image description, type: object, fields: *line }
-      - name: image_position
-        label: 图片位置 Image position (optional)
+      - { name: version, label: 数据版本 Data version (keep 1), type: number, default: 1 }
+      - name: items
+        label: 活动 Events
         type: object
+        list: true
         fields:
-          - { name: x, label: 水平 Horizontal (0–100), type: number }
-          - { name: y, label: 垂直 Vertical (0–100), type: number }
-      - { name: joining, label: 参加方式 How to join, type: object, fields: *para }
-      - { name: registration_url, label: 报名链接 Registration URL (HTTPS / optional), type: string }
-      - { name: details, label: 活动介绍 Full description, type: object, fields: *para }
+          - { name: slug, label: 网址名称 URL slug (lowercase letters / numbers / hyphens), type: string }
+          - { name: published, label: 启用 Enabled, type: boolean }
+          - { name: sample, label: 示例 Sample (feature previews only), type: boolean }
+          - { name: title, label: 活动名称 Title, type: object, fields: *line }
+          - { name: summary, label: 简介 Summary, type: object, fields: *para }
+          - { name: start, label: 开始 Start (e.g. 2026-12-06T12:30:00-08:00), type: string }
+          - { name: end, label: 结束 End (e.g. 2026-12-06T14:30:00-08:00), type: string }
+          - { name: location, label: 地点 Location, type: object, fields: *line }
+          - { name: address, label: 地址 Address (optional), type: string }
+          - { name: map_url, label: 地图链接 Map URL (HTTPS / optional), type: string }
+          - { name: image, label: 图片 Image (optional), type: image }
+          - { name: image_alt, label: 图片描述 Image description, type: object, fields: *line }
+          - name: image_position
+            label: 图片位置 Image position (optional)
+            type: object
+            fields:
+              - { name: x, label: 水平 Horizontal (0–100), type: number }
+              - { name: y, label: 垂直 Vertical (0–100), type: number }
+          - { name: joining, label: 参加方式 How to join, type: object, fields: *para }
+          - { name: registration_url, label: 报名链接 Registration URL (HTTPS / optional), type: string }
+          - { name: details, label: 活动介绍 Full description, type: object, fields: *para }
 
   - name: photos
     label: 照片墙 Photo strip
