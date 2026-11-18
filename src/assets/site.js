@@ -74,7 +74,6 @@
     var activePhoto = 0;
     var opener;
     var stage = viewer.querySelector("[data-photo-stage]");
-    var caption = viewer.querySelector("figcaption");
     var count = viewer.querySelector("[data-photo-count]");
     var touchStart;
     function showPhoto(index) {
@@ -87,7 +86,6 @@
       image.loading = "eager";
       photo.querySelectorAll("source").forEach(function (source) { source.sizes = "100vw"; });
       stage.replaceChildren(photo);
-      caption.textContent = thumbnail.alt;
       count.textContent = (activePhoto + 1) + " / " + photos.length;
     }
     photos.forEach(function (button, index) {
