@@ -79,6 +79,25 @@
 .strip { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; padding-block: 8px; scrollbar-width: none; }
 .strip picture { flex: none; }
 .strip img { height: 240px; width: auto; flex: none; scroll-snap-align: start; object-fit: cover; }
+.photo-open { position: relative; flex: none; padding: 0; border: 0; background: var(--night); scroll-snap-align: start; }
+.photo-open:enabled { cursor: zoom-in; }
+.photo-open:focus-visible { outline-offset: -4px; outline-color: var(--yellow); }
+.photo-expand { position: absolute; right: 10px; bottom: 10px; width: 32px; height: 32px; border-radius: 50%; background: rgba(19,40,63,.8); color: white; font: 24px/32px sans-serif; pointer-events: none; }
+.photo-open:disabled .photo-expand { display: none; }
+.photo-viewer-open { overflow: hidden; }
+.photo-viewer { width: 100%; max-width: none; height: 100%; height: 100dvh; max-height: none; margin: 0; padding: max(16px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left)); border: 0; background: rgba(10,20,32,.97); color: white; }
+.photo-viewer::backdrop { background: var(--night); }
+.photo-viewer[open] { display: flex; flex-direction: column; gap: 12px; }
+.photo-toolbar { display: flex; justify-content: space-between; align-items: center; flex: none; font-variant-numeric: tabular-nums; }
+.photo-viewer button { min-width: 48px; min-height: 48px; border: 1px solid #7F93AB; border-radius: 50%; color: white; background: transparent; font: 28px/1 sans-serif; cursor: pointer; }
+.photo-viewer button:hover { background: var(--slate); }
+.photo-viewer :focus-visible { outline-color: var(--yellow); }
+.photo-figure { margin: 0; min-height: 0; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+.photo-stage { min-height: 0; flex: 1; display: flex; align-items: center; justify-content: center; }
+.photo-stage picture { display: contents; }
+.photo-stage img { width: 100%; height: 100%; object-fit: contain; }
+.photo-figure figcaption { flex: none; text-align: center; line-height: 1.5; max-height: 20vh; overflow-y: auto; }
+.photo-navigation { flex: none; display: flex; gap: 24px; justify-content: center; }
 @media (max-width: 640px) { .strip img { height: 180px; } }
 
 /* Values (City Light) */
