@@ -90,11 +90,27 @@ eleventyComputed:
     </div>
   </section>
 
-  <div class="strip" aria-label="{{ photos.label | t(c) }}">
+  <div class="strip" role="group" aria-label="{{ photos.label | t(c) }}" data-photo-strip>
     {%- for p in photos.strip %}
-    <img src="{{ p.image }}" alt="{{ p.alt | t(c) }}" sizes="360px">
+    <button class="photo-open" type="button" disabled aria-label="{{ u.photos.open }}: {{ p.alt | t(c) }}" aria-haspopup="dialog" aria-controls="photo-viewer">
+      <img src="{{ p.image }}" alt="{{ p.alt | t(c) }}" sizes="360px">
+      <span class="photo-expand" aria-hidden="true">⤢</span>
+    </button>
     {%- endfor %}
   </div>
+  <dialog class="photo-viewer" id="photo-viewer" aria-label="{{ photos.label | t(c) }}">
+    <div class="photo-toolbar">
+      <span data-photo-count aria-live="polite" aria-atomic="true"></span>
+      <button type="button" data-photo-close autofocus aria-label="{{ u.close }}">×</button>
+    </div>
+    <figure class="photo-figure">
+      <div class="photo-stage" data-photo-stage></div>
+    </figure>
+    <div class="photo-navigation">
+      <button type="button" data-photo-prev aria-label="{{ u.photos.previous }}">←</button>
+      <button type="button" data-photo-next aria-label="{{ u.photos.next }}">→</button>
+    </div>
+  </dialog>
 
   <section class="values">
     <div class="wrap">
