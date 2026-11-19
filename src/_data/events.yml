@@ -1,4 +1,4 @@
-# Event entries live in content/events/<slug>.yml.
+# Event entries live in content/events.yml.
 heading:
   zh: 近期活动
   en: Upcoming Events
