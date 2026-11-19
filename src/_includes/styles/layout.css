@@ -8,7 +8,7 @@
 .nav { display: flex; align-items: center; gap: 20px; font-size: 0.9rem; }
 .nav a { text-decoration: none; opacity: 0.88; }
 .nav a:hover { opacity: 1; color: var(--yellow); }
-.nav a[aria-current="page"] { color: var(--yellow); opacity: 1; }
+.nav a[aria-current="page"], .nav a[aria-current="location"] { color: var(--yellow); opacity: 1; }
 .langs { display: flex; align-items: center; font-size: 0.85rem; }
 .nav .langs a { padding: 4px 7px; opacity: 0.6; border-bottom: 0; text-decoration: none; }
 .nav .langs a + a { border-left: 1px solid rgba(255,255,255,.3); }

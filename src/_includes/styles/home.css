@@ -89,7 +89,7 @@
 .photo-viewer::backdrop { background: var(--night); }
 .photo-viewer[open] { display: flex; flex-direction: column; gap: 12px; }
 .photo-toolbar { display: flex; justify-content: space-between; align-items: center; flex: none; font-variant-numeric: tabular-nums; }
-.photo-viewer button { min-width: 48px; min-height: 48px; border: 1px solid #7F93AB; border-radius: 50%; color: white; background: transparent; font: 28px/1 sans-serif; cursor: pointer; }
+.photo-viewer button { display: grid; place-items: center; width: 48px; height: 48px; padding: 0; flex: none; border: 1px solid #7F93AB; border-radius: 50%; color: white; background: transparent; font: 28px/1 sans-serif; cursor: pointer; }
 .photo-viewer button:hover { background: var(--slate); }
 .photo-viewer :focus-visible { outline-color: var(--yellow); }
 .photo-figure { margin: 0; min-height: 0; flex: 1; display: flex; flex-direction: column; gap: 12px; }

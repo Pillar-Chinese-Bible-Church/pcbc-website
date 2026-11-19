@@ -38,7 +38,9 @@ test("translation checks reject missing English and interface key drift", () => 
   assert.throws(() => assertInterfaceTranslations({ "zh-Hans": { title: "标题" }, "zh-Hant": { title: "標題" }, en: {} }));
 });
 
-function setupPage(html, now) {
+function setupPage(html, now, hash = "") {
+  const listeners = {};
+  const location = { hash };
   const { document } = parseHTML(`<html><body>${html}</body></html>`);
   let timer;
   let clock = now;
@@ -54,10 +56,10 @@ function setupPage(html, now) {
   class Clock extends Date { static now() { return clock; } }
   vm.runInNewContext(fs.readFileSync("src/assets/site.js", "utf8"), {
     document, Date: Clock,
-    window: { setInterval: callback => { timer = callback; }, addEventListener() {}, matchMedia: () => ({ matches: true }) },
+    window: { location, setInterval: callback => { timer = callback; }, addEventListener: (type, callback) => { listeners[type] = callback; }, matchMedia: () => ({ matches: true }) },
     localStorage: { setItem() {} },
   });
-  return { document, advance: value => { clock = value; timer(); }, hasTimer: () => !!timer };
+  return { document, advance: value => { clock = value; timer(); }, hasTimer: () => !!timer, setHash: value => { location.hash = value; listeners.hashchange(); } };
 }
 test("carousel exposes more than three events and stays populated after the first three expire", () => {
   const earlyEnd = "2026-12-06T20:00:00Z";
@@ -99,4 +101,21 @@ test("mobile menu keeps its icon, updates its accessible label and closes with E
   assert.equal(button.getAttribute("aria-label"), "Menu");
   assert.equal(button.getAttribute("aria-expanded"), "false");
   assert.equal(document.getElementById("nav").classList.contains("open"), false);
+});
+
+
+test("homepage section navigation highlights the selected anchor and clears stale selections", () => {
+  const links = ["sunday", "events", "groups"].map(id => `<a href="/en/#${id}" data-nav-section="${id}">${id}</a>`).join("");
+  const html = `<button id="menuBtn"></button><nav id="nav">${links}</nav>`;
+  const sections = '<section id="sunday"></section><section id="events"></section><section id="groups"></section>';
+  const page = setupPage(html + sections, Date.now(), "#sunday");
+  for (const id of ["sunday", "events", "groups"]) {
+    page.setHash("#" + id);
+    assert.equal(page.document.querySelectorAll('#nav [aria-current="location"]').length, 1);
+    assert.equal(page.document.querySelector(`[data-nav-section="${id}"]`).getAttribute("aria-current"), "location");
+  }
+  page.setHash("");
+  assert.equal(page.document.querySelectorAll('#nav [aria-current]').length, 0);
+  const detail = setupPage(html, Date.now(), "#events");
+  assert.equal(detail.document.querySelectorAll('#nav [aria-current]').length, 0);
 });
