@@ -37,11 +37,11 @@
     </a>
     <button class="menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav" aria-label="{{ u.menu }}" data-open="{{ u.close }}" data-closed="{{ u.menu }}"><span class="menu-icon" aria-hidden="true"></span></button>
     <nav class="nav" id="nav">
-      <a href="{{ home }}#sunday">{{ u.nav.sunday }}</a>
-      {% if eventData.upcoming.length %}<a href="{{ home }}#events" data-events-nav data-last-event-end="{{ eventData.latestEnd }}">{{ u.nav.events }}</a>{% endif %}
-      <a href="{{ home }}#groups">{{ u.nav.groups }}</a>
+      <a href="{{ home }}#sunday" data-nav-section="sunday">{{ u.nav.sunday }}</a>
+      {% if eventData.upcoming.length %}<a href="{{ home }}#events" data-nav-section="events" data-events-nav data-last-event-end="{{ eventData.latestEnd }}">{{ u.nav.events }}</a>{% endif %}
+      <a href="{{ home }}#groups" data-nav-section="groups">{{ u.nav.groups }}</a>
       <a href="{{ L.prefix }}/about/"{% if pagePath == '/about/' %} aria-current="page"{% endif %}>{{ u.nav.about }}</a>
-      <a href="{{ L.prefix }}/teach/">{{ u.nav.beliefs }}</a>
+      <a href="{{ L.prefix }}/teach/"{% if pagePath == "/teach/" %} aria-current="page"{% endif %}>{{ u.nav.beliefs }}</a>
       <a href="{{ L.prefix }}/giving/"{% if pagePath == '/giving/' %} aria-current="page"{% endif %}>{{ u.nav.giving }}</a>
       <a href="{{ L.prefix }}/contact/"{% if pagePath == '/contact/' %} aria-current="page"{% endif %}>{{ u.nav.contact }}</a>
       <div class="langs" role="group" aria-label="{{ u.langGroup }}">

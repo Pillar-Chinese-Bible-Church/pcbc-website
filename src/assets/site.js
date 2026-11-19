@@ -13,6 +13,21 @@
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && nav.classList.contains("open")) { setOpen(false); btn.focus(); }
     });
+    var sectionLinks = nav.querySelectorAll("[data-nav-section]");
+    if (sectionLinks.length) {
+      function updateCurrentSection() {
+        sectionLinks.forEach(function (link) {
+          var id = link.dataset.navSection;
+          if (window.location.hash === "#" + id && document.getElementById(id)) {
+            link.setAttribute("aria-current", "location");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      }
+      updateCurrentSection();
+      window.addEventListener("hashchange", updateCurrentSection);
+    }
     nav.classList.add("enhanced");
     btn.classList.add("enhanced");
   }
