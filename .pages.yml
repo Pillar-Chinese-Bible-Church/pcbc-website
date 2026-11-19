@@ -231,3 +231,62 @@ content:
           - { name: refs, label: 经文出处 Bible references, type: object, fields: *line }
       - { name: question, label: 页面最后的问题 Closing question, type: object, fields: *para }
       - { name: button, label: 按钮文字 Button, type: object, fields: *line }
+
+  - name: giving
+    label: 奉献 Giving
+    type: file
+    path: src/_data/giving.yml
+    format: yaml
+    fields:
+      - { name: title, label: Title, type: object, fields: *para }
+      - { name: intro, label: Intro, type: object, fields: *para }
+      - { name: thanks, label: Thanks, type: object, fields: *para }
+      - { name: methods_heading, label: Methods Heading, type: object, fields: *para }
+      - { name: zelle_email, label: Zelle Email, type: string }
+      - { name: office_email, label: Office Email, type: string }
+      - { name: payee, label: Payee, type: string }
+      - { name: qr_image, label: Qr Image, type: image }
+      - { name: qr_alt, label: Qr Alt, type: object, fields: *para }
+      - name: zelle
+        label: Zelle
+        type: object
+        fields:
+          - { name: title, label: Title, type: object, fields: *para }
+          - { name: text, label: Text, type: object, fields: *para }
+          - { name: recipient, label: Recipient, type: object, fields: *para }
+          - { name: email_label, label: Email Label, type: object, fields: *para }
+          - { name: scan, label: Scan, type: object, fields: *para }
+          - { name: open_qr, label: Open Qr, type: object, fields: *para }
+          - { name: copy, label: Copy, type: object, fields: *para }
+          - { name: copied, label: Copied, type: object, fields: *para }
+          - { name: copy_fallback, label: Copy Fallback, type: object, fields: *para }
+      - name: checks
+        label: Checks
+        type: object
+        fields:
+          - { name: title, label: Title, type: object, fields: *para }
+          - { name: text, label: Text, type: object, fields: *para }
+      - name: stock
+        label: Stock
+        type: object
+        fields:
+          - { name: title, label: Title, type: object, fields: *para }
+          - { name: text, label: Text, type: object, fields: *para }
+          - { name: email_step, label: Email Step, type: object, fields: *para }
+          - { name: transfer_step, label: Transfer Step, type: object, fields: *para }
+          - { name: receipt_step, label: Receipt Step, type: object, fields: *para }
+          - { name: year_end, label: Year End, type: object, fields: *para }
+      - name: matching
+        label: Matching
+        type: object
+        fields:
+          - { name: title, label: Title, type: object, fields: *para }
+          - { name: text, label: Text, type: object, fields: *para }
+          - { name: note, label: Note, type: object, fields: *para }
+      - name: statements
+        label: Statements
+        type: object
+        fields:
+          - { name: title, label: Title, type: object, fields: *para }
+          - { name: text, label: Text, type: object, fields: *para }
+          - { name: contact, label: Contact, type: object, fields: *para }

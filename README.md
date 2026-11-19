@@ -302,15 +302,15 @@ even if that override is accidentally set. For a real confirmed event, set
 `sample: false`, fill in its real information, and enable it. Never convert a
 sample into a real announcement without verifying its details.
 
-Builds omit ended events from the homepage but retain their detail pages.
+Builds omit ended events from the homepage, detail pages, and sitemap. Expired URLs are removed on the next deployment.
 All upcoming events are rendered, including those beyond the first three. The carousel
 shows three cards on desktop, overlays a month/day badge on every header (with or without
 a photo), and supports touch scrolling, keyboard navigation and
 previous/next buttons. It does not auto-rotate and respects reduced-motion preferences.
 Browser JavaScript also removes ended cards/registration links when an old
-static deployment is visited or left open, and labels ended detail pages.
+static deployment is visited or left open, and labels ended detail pages in older deployments.
 Without JavaScript, date visibility remains as of the last build; rebuild after
-events end if that fallback must be current. This change adds no scheduled job.
+events end if that fallback must be current. A daily cleanup workflow opens a PR deleting expired records from the canonical collection; publication remains manual.
 An empty upcoming list hides the homepage events section and its navigation link.
 
 Run `npm test` for sample/production isolation, validation, and Pacific-time tests;
@@ -375,8 +375,10 @@ Run `npm run check` before opening a PR. It validates localized YAML and interfa
 parity, event types/dates/URLs, image files and CMS fields; runs regression tests; builds
 both `live` and a feature preview; and checks internal links, anchors, metadata, sitemap
 entries, and exclusion of samples/drafts from production. GitHub runs the same command
-on PRs and pushes to `main`. Repository administrators can make **Website checks / check**
-a required status check in branch protection; that account setting is not stored here.
+on PRs, pushes to `main`, and manual workflow dispatches. Require the **check** status
+from GitHub Actions on `main`, with pull requests, no force pushes, and no deletions.
+Pages CMS direct saves must use a branch and PR under this policy; the dashboard already
+opens content PRs. Branch protection is a repository setting and is not applied by merging code.
 
 `schemas/event-v1.schema.json` is the shared v1 event contract. A future dashboard should
 validate its output against it and also enforce end-after-start and unique slugs,
@@ -429,3 +431,21 @@ The pastor email opens the visitor's mail app and does not submit the contact fo
 ### Events collection migration
 
 This change preserves every event and URL, including unpublished/sample records. Use the compatible dashboard PR with collection support for subsequent edits. Existing per-file drafts can use Compare website version to retain their edits against the migrated data. Do not leave old per-event YAML files as a second source of truth.
+
+
+## Expired event cleanup
+
+`npm run events:prune` deletes records whose end instant is at or before the current time,
+including drafts and samples. It preserves the version and all remaining records and does
+not rewrite an unchanged collection. Git history retains removed records; unused images
+are left alone because other content may share them.
+
+The **Clean up expired events** workflow runs daily at 12:17 UTC and can be run manually.
+It opens one cleanup PR at a time; merge it and use the normal publish workflow.
+Enable **Settings → Actions → General → Allow GitHub Actions to create and approve pull requests**
+for automated cleanup PR creation. The workflow explicitly dispatches **Website checks**
+on its branch to run checks without relying on approval of token-created PR workflow runs.
+This dispatch needs `actions: write`, scoped to this workflow.
+
+Giving content is editable under **Pages CMS → 奉献 Giving**. When changing the Zelle
+recipient, update and verify the original QR image together with the email text.

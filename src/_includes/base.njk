@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ L.font }}:wght@300;400;500;600&amp;display=swap">
 <link rel="stylesheet" href="/assets/site.css">
-<script src="/assets/lang.js"></script>
+{% if L.prefix == "" and pagePath == "/" %}<script src="/assets/lang.js"></script>{% endif %}
 </head>
 <body>
 <a class="skip-link" href="#main">{{ u.skip }}</a>

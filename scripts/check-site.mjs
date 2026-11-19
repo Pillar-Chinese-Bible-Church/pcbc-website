@@ -13,6 +13,13 @@ export function checkSite(directory = "_site", production = false) {
     const relative = path.relative(root, file).replaceAll(path.sep, "/");
     const pageUrl = new URL(relative.replace(/index\.html$/, ""), "https://local.invalid/");
     assert.equal(document.querySelectorAll("main#main").length, 1, `${relative}: needs one main landmark`);
+    assert.equal(document.querySelectorAll("h1").length, 1, `${relative}: needs one primary heading`);
+    assert.ok(document.querySelector("h1")?.textContent.trim(), `${relative}: primary heading is empty`);
+    for (const link of document.querySelectorAll('a[href^="mailto:"]')) {
+      assert.match(link.getAttribute("href"), /^mailto:[^\s@?]+@[^\s@?]+\.[^\s@?]+(?:\?|$)/, `${relative}: invalid email link`);
+    }
+    const languageScript = document.querySelector('script[src="/assets/lang.js"]');
+    assert.equal(!!languageScript, relative === "index.html", `${relative}: language detection belongs only on /`);
     const ids = [...document.querySelectorAll("[id]")].map(element => element.id);
     assert.equal(new Set(ids).size, ids.length, `${relative}: duplicate IDs`);
     assert.ok(document.querySelector('meta[name="description"]')?.content.trim(), `${relative}: missing description`);
@@ -37,7 +44,7 @@ export function checkSite(directory = "_site", production = false) {
     }
   }
   if (production) {
-    for (const event of readEvents().filter(event => event.sample || !event.published)) {
+    for (const event of readEvents().filter(event => event.sample || !event.published || Date.parse(event.end) <= Date.now())) {
       for (const locale of locales) assert.ok(!fs.existsSync(path.join(root, locale.prefix, "events", event.slug, "index.html")), `Excluded event leaked into production: ${event.slug}`);
     }
     for (const document of pages.values()) assert.equal(document.querySelectorAll(".sample-label").length, 0, "Sample copy leaked into production");

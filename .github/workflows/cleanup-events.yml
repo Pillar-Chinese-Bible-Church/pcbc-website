@@ -1,0 +1,48 @@
+name: Clean up expired events
+on:
+  schedule:
+    - cron: '17 12 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+concurrency: cleanup-events
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Remove expired records and open a reviewable PR
+        shell: bash
+        run: |
+          set -euo pipefail
+          existing=$(gh pr list --base main --json headRefName --jq '.[] | select(.headRefName | startswith("codex/expired-events-")) | .headRefName')
+          if [[ -n "$existing" ]]; then
+            echo "An event cleanup PR is already open: $existing"
+            exit 0
+          fi
+          npm run events:prune
+          git diff --quiet -- content/events.yml && exit 0
+          npm run check
+          branch="codex/expired-events-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git switch -c "$branch"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add content/events.yml
+          git commit -m 'Remove expired events'
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" --title 'Remove expired events' --body 'Deletes expired event records. Future records and shared images are preserved. Checks run before this PR is created. Merge and publish through the normal workflow.'
+          # Dispatch checks explicitly for a token-created PR.
+          gh workflow run check.yml --ref "$branch"

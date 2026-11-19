@@ -15,13 +15,13 @@ test("sample announcements cannot reach live, including an accidental override",
   assert.equal(eventData(content, { CF_PAGES_BRANCH: "codex/website-events" }, now).items.length, 1);
   assert.equal(eventData(content, { EVENTS_INCLUDE_SAMPLES: "1" }, now).items.length, 1);
 });
-test("drafts are excluded, upcoming sorts by instant, past detail pages remain available", () => {
+test("drafts are excluded, upcoming sorts by instant, expired events are excluded from pages and sitemap", () => {
   const content = { items: [event, { ...event, slug: "draft", published: false },
     { ...event, slug: "past", start: "2026-10-01T09:00:00-07:00", end: "2026-10-01T10:00:00-07:00" }] };
   const data = eventData(content, {}, now);
-  assert.deepEqual(data.items.map(e => e.slug), ["past", "test-event"]);
+  assert.deepEqual(data.items.map(e => e.slug), ["test-event"]);
   assert.deepEqual(data.upcoming.map(e => e.slug), ["test-event"]);
-  assert.equal(eventData({ items: [event] }, {}, Date.parse(event.end)).upcoming.length, 0);
+  assert.equal(eventData({ items: [event] }, {}, Date.parse(event.end)).items.length, 0);
 });
 test("rejects ambiguous dates, unsafe paths, duplicate IDs and non-HTTPS links", () => {
   for (const change of [{ start: "2026-12-06T12:30:00" }, { end: event.start }, { slug: "../bad" },
