@@ -29,7 +29,12 @@ test("cleanup deletes expired published, sample and draft records and is idempot
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "pcbc-cleanup-"));
   t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
   const file = path.join(dir, "events.yml");
-  const base = readEvents()[0];
+  const base = {
+    slug: "fixture", published: true, sample: false,
+    title: { zh: "活动", en: "Event" }, summary: { zh: "简介", en: "Summary" },
+    location: { zh: "教会", en: "Church" }, joining: { zh: "欢迎", en: "Welcome" },
+    details: { zh: "详情", en: "Details" },
+  };
   const now = Date.parse("2026-11-19T20:00:00Z");
   const old = { ...base, start: "2026-11-18T18:00:00Z", end: "2026-11-19T20:00:00Z" };
   const future = { ...base, slug: "future", start: "2027-01-01T18:00:00Z", end: "2027-01-01T20:00:00Z" };

@@ -10,7 +10,8 @@ The website of Pillar Chinese Bible Church, in Simplified Chinese, Traditional C
 | Code | https://github.com/Pillar-Chinese-Bible-Church/pcbc-website |
 
 Church volunteers change the text and photos through **Pages CMS**, which shows web forms and needs no coding.
-Saved changes appear on the preview first. They reach the live site only when someone presses **Publish website**.
+Use an editing branch in Pages CMS and open a PR to `main`; direct saves to protected `main` are blocked.
+Changes appear on the branch preview, then the shared main preview after merging. They reach the live site only when someone presses **Publish website**.
 
 Editors who just want to change content can read the Chinese guide in [EDITING.md](EDITING.md).
 This README is for whoever looks after the site.
@@ -72,7 +73,7 @@ still controls `live`.
 ### Content publishing
 
 ```
-Pages CMS ──save──▶ main branch ──Cloudflare──▶ preview   main.pillarcbc.pages.dev
+Pages CMS ──save──▶ editing branch ──PR + checks──▶ main ──Cloudflare──▶ preview
                         │
                "Publish website" button
                         ▼
@@ -81,7 +82,7 @@ Pages CMS ──save──▶ main branch ──Cloudflare──▶ preview   ma
 
 | Branch | What it is | Address |
 | --- | --- | --- |
-| `main` | Where Pages CMS saves. Nobody is sent here; it's for checking changes | https://main.pillarcbc.pages.dev |
+| `main` | Validated code and content PRs merge here; shared preview | https://main.pillarcbc.pages.dev |
 | `live` | The real site | https://pillarcbc.pages.dev |
 
 **To publish:** review the Cloudflare preview for a commit on `main` and copy its full
@@ -442,7 +443,7 @@ are left alone because other content may share them.
 
 The **Clean up expired events** workflow runs daily at 12:17 UTC and can be run manually.
 It opens one cleanup PR at a time; merge it and use the normal publish workflow.
-Enable **Settings → Actions → General → Allow GitHub Actions to create and approve pull requests**
+An organization owner must first allow repositories to enable Actions PR creation (currently blocked by organization policy). Then enable **Settings → Actions → General → Allow GitHub Actions to create and approve pull requests**
 for automated cleanup PR creation. The workflow explicitly dispatches **Website checks**
 on its branch to run checks without relying on approval of token-created PR workflow runs.
 This dispatch needs `actions: write`, scoped to this workflow.
