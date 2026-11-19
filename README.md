@@ -37,7 +37,7 @@ This README is for whoever looks after the site.
 - [Giving page](#giving-page)
 - [Engineering checks and content contracts](#engineering-checks-and-content-contracts)
 - [About Us page](#about-us-page)
-- [Expired event cleanup](#expired-event-cleanup)
+- [Removing expired events](#removing-expired-events)
 
 ---
 
@@ -210,7 +210,6 @@ Open http://localhost:8080. The page reloads as you edit files. `npm run build` 
 .pages.yml                    Pages CMS editing screens
 .github/workflows/check.yml   Required website checks
 .github/workflows/publish.yml The "Publish website" button
-.github/workflows/cleanup-events.yml Daily expired-event deletion PR
 eleventy.config.js            Build setup: YAML data, language filters, 繁體 conversion, image resizing
 src/
   _data/
@@ -234,9 +233,8 @@ src/
   images/                     Photos and the logo (logo-pillar.svg)
 content/events.yml           Versioned events collection
 lib/locales.js                Shared locale, URL prefix and font configuration
-schemas/event-v1.schema.json  Versioned event contract for future dashboard integration
+schemas/event-v1.schema.json  Versioned event contract for dashboard integration
 scripts/check.mjs             Tests plus production/preview build and link checks
-scripts/prune-events.mjs      Delete expired records from the collection
 EDITING.md                    Chinese guide for content editors
 ```
 
@@ -267,7 +265,7 @@ or add the new person as an admin, rather than sharing passwords.
 
 ## Setting it up from scratch
 
-Use this checklist to rebuild or move the site. Domain setup and cleanup PR permissions may still need configuration.
+Use this checklist to rebuild or move the site. Domain setup may still need configuration.
 
 1. **GitHub.** Put this folder in a repository owned by the church. Protect `main` with pull requests and the GitHub Actions **check** status, including administrators; disallow force pushes and deletions. A review approval is optional for a sole maintainer.
 2. **Cloudflare Pages.** Workers & Pages → Create → Pages → Connect to Git → choose the repository. Then:
@@ -287,7 +285,6 @@ Use this checklist to rebuild or move the site. Domain setup and cleanup PR perm
 | A change doesn't appear on the live site | It's only on the preview until someone presses **Publish website**. |
 | A change doesn't appear on the preview either | Check the editing branch deployment; the shared `main` preview changes only after merging the PR. Inspect Cloudflare build logs. |
 | Pages CMS cannot save to main | Select an editing branch and open a PR; main requires passing checks. |
-| Daily event cleanup fails to open a PR | Check the organization/repository Actions PR permissions described below. |
 | A Cloudflare build failed | Open the failed deployment and read the build log. Often it's a YAML mistake (wrong indentation or a missing quote) from a hand edit. |
 | "Publish website" failed | Check the full commit SHA, test/build logs, and that the commit is on `main`. A non-fast-forward `live` update is intentionally rejected. |
 | A photo shows as missing in Pages CMS | Its path must start with `/images/` and the file must be in `src/images/`. |
@@ -298,7 +295,6 @@ Use this checklist to rebuild or move the site. Domain setup and cleanup PR perm
 
 - Confirm the configured address, map, `info@pillarcbc.org`, and Sunday 9:30AM service details with the church. Social links are empty and hidden; fill them in when available.
 - Build the planned message-delivery feature; the current Send button is intentionally inactive.
-- Enable Actions-created cleanup PRs once organization policy permits them.
 - Confirm the church-life details (weekend worship practice, in-person small groups, dumplings at Lunar New Year) or replace them with real ones.
 - Have the pastor or elders review the 信仰告白. It follows the topics of City Light Bible Church's statement and is written fresh, not copied.
 - Connect the church's own domain.
@@ -339,7 +335,7 @@ previous/next buttons. It does not auto-rotate and respects reduced-motion prefe
 Browser JavaScript also removes ended cards/registration links when an old
 static deployment is visited or left open, and labels ended detail pages in older deployments.
 Without JavaScript, date visibility remains as of the last build; rebuild after
-events end if that fallback must be current. A daily cleanup workflow opens a PR deleting expired records from the canonical collection; publication remains manual.
+events end if that fallback must be current. Delete expired records manually through the dashboard; publication remains manual.
 An empty upcoming list hides the homepage events section and its navigation link.
 
 Run `npm test` for sample/production isolation, validation, and Pacific-time tests;
@@ -404,7 +400,7 @@ parity, event types/dates/URLs, image files and CMS fields; runs regression test
 both `live` and a feature preview; and checks internal links, anchors, metadata, sitemap
 entries, nonempty primary headings and email links, homepage-only language-script placement,
 and exclusion of samples/drafts/expired events from production. GitHub runs the same command
-on PRs, pushes to `main`, and manual workflow dispatches. Require the **check** status
+on PRs and pushes to `main`. Require the **check** status
 from GitHub Actions on `main`, with pull requests, no force pushes, and no deletions.
 Pages CMS direct saves must use a branch and PR under this policy; the dashboard already
 opens content PRs. Branch protection is a repository setting and is not applied by merging code.
@@ -458,22 +454,17 @@ The pastor email opens the visitor's mail app and does not submit the contact fo
 
 ### Events collection migration
 
-The collection replaces the former `content/events/<slug>.yml` files. All edits must target `content/events.yml`; do not recreate per-event files as a second source of truth. Use a dashboard version with collection support. Expired entries and their URLs are removed according to the cleanup policy below.
+The collection replaces the former `content/events/<slug>.yml` files. All edits must target `content/events.yml`; do not recreate per-event files as a second source of truth. Use a dashboard version with collection support. Expired entries and their URLs are removed according to the removal policy below.
 
 
-## Expired event cleanup
+## Removing expired events
 
-`npm run events:prune` deletes records whose end instant is at or before the current time,
-including drafts and samples. It preserves the version and all remaining records and does
-not rewrite an unchanged collection. Git history retains removed records; unused images
-are left alone because other content may share them.
-
-The **Clean up expired events** workflow is scheduled daily at 12:17 UTC and can be run manually. PR creation is not active until the permissions below are enabled.
-It opens one cleanup PR at a time; merge it and use the normal publish workflow.
-An organization owner must first allow repositories to enable Actions PR creation (currently blocked by organization policy). Then enable **Settings → Actions → General → Allow GitHub Actions to create and approve pull requests**
-for automated cleanup PR creation. The workflow explicitly dispatches **Website checks**
-on its branch to run checks without relying on approval of token-created PR workflow runs.
-This dispatch needs `actions: write`, scoped to this workflow.
+Delete expired event records manually through the dashboard, then merge the checked content
+PR and publish normally. The website does not run a scheduled cleanup or delete source records
+automatically. Builds exclude expired events from the homepage, detail pages, and sitemap,
+even when their source records have not yet been deleted. Existing deployments change only
+after rebuilding and publishing; browser JavaScript hides ended cards in the meantime.
+Shared image files are not automatically deleted because other content may use them.
 
 Giving content is editable under **Pages CMS → 奉献 Giving**. When changing the Zelle
 recipient, update and verify the original QR image together with the email text.

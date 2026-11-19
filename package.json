@@ -7,7 +7,6 @@
     "dev": "eleventy --serve --port 8080",
     "build": "node scripts/build.mjs",
     "test": "node --test tests/*.test.js",
-    "events:prune": "node scripts/prune-events.mjs",
     "validate": "node scripts/validate-content.mjs",
     "check": "node scripts/check.mjs"
   },
