@@ -5,7 +5,7 @@ The website of Pillar Chinese Bible Church, in Simplified Chinese, Traditional C
 | | Address |
 | --- | --- |
 | Live site | https://pillarcbc.pages.dev |
-| Preview of unpublished changes | https://main.pillarcbc.pages.dev |
+| Shared preview after merging to `main` | https://main.pillarcbc.pages.dev |
 | Edit content | https://app.pagescms.org |
 | Code | https://github.com/Pillar-Chinese-Bible-Church/pcbc-website |
 
@@ -32,6 +32,12 @@ This README is for whoever looks after the site.
 - [Setting it up from scratch](#setting-it-up-from-scratch)
 - [Troubleshooting](#troubleshooting)
 - [Still to do](#still-to-do)
+- [Events and preview examples](#events-and-preview-examples)
+- [Contact page](#contact-page-form-only)
+- [Giving page](#giving-page)
+- [Engineering checks and content contracts](#engineering-checks-and-content-contracts)
+- [About Us page](#about-us-page)
+- [Expired event cleanup](#expired-event-cleanup)
 
 ---
 
@@ -43,8 +49,10 @@ Each language has the following pages:
 | --- | --- | --- | --- |
 | Homepage | `/` | `/zh-hant/` | `/en/` |
 | About Us / 关于我们 | `/about/` | `/zh-hant/about/` | `/en/about/` |
-| Event detail (enabled entries) | `/events/<slug>/` | `/zh-hant/events/<slug>/` | `/en/events/<slug>/` |
+| Event detail (upcoming enabled entries) | `/events/<slug>/` | `/zh-hant/events/<slug>/` | `/en/events/<slug>/` |
 | 信仰告白 / What We Teach | `/teach/` | `/zh-hant/teach/` | `/en/teach/` |
+| Contact | `/contact/` | `/zh-hant/contact/` | `/en/contact/` |
+| Giving | `/giving/` | `/zh-hant/giving/` | `/en/giving/` |
 
 The homepage has the welcome photo, Sunday worship details, the weekly gatherings,
 the 1 Timothy 3:15 verse the church is named after, a scrolling photo strip, and the church's values.
@@ -72,12 +80,16 @@ still controls `live`.
 
 ### Content publishing
 
-```
-Pages CMS ──save──▶ editing branch ──PR + checks──▶ main ──Cloudflare──▶ preview
-                        │
-               "Publish website" button
-                        ▼
-                    live branch ──Cloudflare──▶ live site  pillarcbc.pages.dev
+```text
+Pages CMS / Dashboard → editing branch → PR + passing checks → main
+                                                              │
+                                     Cloudflare → main preview
+                                                              │
+                               "Publish website" (reviewed SHA)
+                                                              ▼
+                                                            live
+                                                              │
+                                      Cloudflare → live website
 ```
 
 | Branch | What it is | Address |
@@ -100,12 +112,12 @@ merged into `main` before they can be published.
   has changes that aren't on `main`.
 - Cloudflare marks previews "noindex", so search engines don't list them.
 
-**To undo a published change**, either fix it in Pages CMS and publish again, or in Cloudflare open the
+**To undo a published change**, either fix it on an editing branch, merge the checked PR, and publish again, or in Cloudflare open the
 **pillarcbc** project → **Deployments**, choose an earlier Production deployment and click **Rollback**.
 
 ## Common tasks
 
-Most of these are done in Pages CMS. Each takes effect on the preview after saving, and on the live site after publishing.
+Most of these are done in Pages CMS. Save to an editing branch and review its preview, then merge the checked PR to update the shared preview. Publish separately to update the live site.
 
 | I want to… | Where |
 | --- | --- |
@@ -113,12 +125,14 @@ Most of these are done in Pages CMS. Each takes effect on the preview after savi
 | Add, remove or reorder a weekly gathering | Pages CMS → **首页 Homepage** → 每周聚会 |
 | Change the welcome photo or text | Pages CMS → **首页 Homepage** → 顶部大图 |
 | Update the pastor or Church Life sections | Pages CMS → **关于我们 About Us** |
+| Add or edit an event | Pages CMS → **活动 Events** → `items` |
+| Update giving instructions or the QR image | Pages CMS → **奉献 Giving** (verify recipient text and QR together) |
 | Add or remove photos in the scrolling strip | Pages CMS → **照片墙 Photo strip** |
 | Edit the statement of faith | Pages CMS → **信仰告白 Statement of faith** (have the pastor or elders review it) |
 | Fix a wrong Traditional Chinese character | Type the correct text in that field's **繁體** box (see [Languages](#languages)) |
 | Change menu or button wording ("了解更多", "Menu"…) | Code: `src/_data/ui.js` |
 | Change colors, fonts or layout | Code: `src/_includes/styles/` (combined into one stylesheet) |
-| Add a new page | Code: a new template in `src/` (copy `teach.njk`), plus a menu link in `src/_includes/base.njk` |
+| Add a new page | Code: a new template in `src/` (copy `teach.njk`), plus a menu link in `src/_includes/base.njk` and an entry in `src/sitemap.njk` |
 
 Gathering times are entered once. They appear both in the weekly boxes and in the footer.
 
@@ -143,7 +157,7 @@ Every piece of text has up to three versions:
 name:
   zh: 青年团契            # 简体 (required)
   hant: 青年團契          # 繁體 (optional, converted from zh when left out)
-  en: Youth Fellowship    # English
+  en: Youth Fellowship    # English (required for required copy)
 ```
 
 Text that should break onto a new line (the welcome title and the verse) uses a YAML block with real line breaks.
@@ -153,9 +167,9 @@ too, or editors won't see it.
 
 ## Languages
 
-**First visit.** `src/assets/lang.js` sends visitors to the language their browser prefers:
+**First visit to `/`.** `src/lang.njk` generates `/assets/lang.js`, loaded only on the default homepage. It sends visitors to the language their browser prefers:
 zh-TW / zh-HK / zh-MO / zh-Hant → 繁體, any other Chinese → 简体, everything else → English.
-Search engine crawlers are never redirected.
+User agents matching the script's bot/crawler pattern are not redirected; explicit language URLs are never redirected.
 
 **After that.** The 简 / 繁 / EN links in the menu save the visitor's choice in their browser. Someone who
 chose 繁 or EN and types the bare address is taken to that language. A link to a specific page always opens as shared.
@@ -173,9 +187,9 @@ Watch out: once a `hant` box has text, it's used as is. If someone later edits t
 ## Photos
 
 - Photos live in `src/images/`. Content files refer to them as `/images/name.jpg`. Pages CMS uploads new photos to the same folder.
-- During the build, every `<img>` is resized into several sizes and converted to WebP and JPEG
+- During the build, ordinary photos are resized into several sizes and converted to WebP and JPEG
   ([eleventy-img](https://www.11ty.dev/docs/plugins/image/)). Re-encoding also **removes photo metadata,
-  including GPS location**, so phone photos can be uploaded as they are.
+  including GPS location**. The original giving QR (`giving-zelle.webp`) is explicitly copied unchanged and bypasses this processing.
 - Every photo needs a short description (the "照片说明 / alt" field) for people who can't see images.
 - Photos show real church members. Get their OK before adding close-up photos of individuals, especially children.
 
@@ -194,25 +208,35 @@ Open http://localhost:8080. The page reloads as you edit files. `npm run build` 
 
 ```
 .pages.yml                    Pages CMS editing screens
+.github/workflows/check.yml   Required website checks
 .github/workflows/publish.yml The "Publish website" button
+.github/workflows/cleanup-events.yml Daily expired-event deletion PR
 eleventy.config.js            Build setup: YAML data, language filters, 繁體 conversion, image resizing
 src/
   _data/
-    site.yml, homepage.yml,   Content (edited in Pages CMS)
-    photos.yml, beliefs.yml
+    *.yml                     Page content (edited in Pages CMS)
+    contact.js                Fixed contact-form wording
     langs.js                  Re-exports lib/locales.js
     ui.js                     Fixed interface wording per language
   _includes/base.njk          Shared header, language switch, footer
   _includes/styles/          Base, layout and feature CSS modules
   index.njk                   Homepage (built once per language)
   teach.njk                   信仰告白 page (built once per language)
+  about.njk, contact.njk,      Other localized pages
+  giving.njk
+  event.njk                   Upcoming event detail pages
+  lang.njk                    Generates /assets/lang.js
+  sitemap.njk                 Static pages and upcoming real events
   assets/
-    site.js                   Phone menu, remembering the chosen language
+    site.js                   Menu, event expiry/carousel, photo viewer, language choice
+    contact.js                Contact form presentation (no delivery)
+    giving.js                 Copy the public giving email
   images/                     Photos and the logo (logo-pillar.svg)
 content/events.yml           Versioned events collection
 lib/locales.js                Shared locale, URL prefix and font configuration
 schemas/event-v1.schema.json  Versioned event contract for future dashboard integration
 scripts/check.mjs             Tests plus production/preview build and link checks
+scripts/prune-events.mjs      Delete expired records from the collection
 EDITING.md                    Chinese guide for content editors
 ```
 
@@ -220,7 +244,7 @@ Built with [Eleventy](https://www.11ty.dev) 3. There's no server code; the outpu
 
 ## Accounts and services
 
-All of these are free for a site this size. They should belong to the church, not to one person.
+Service accounts should belong to the church, with individual access for maintainers.
 
 | Service | Used for | Account |
 | --- | --- | --- |
@@ -243,16 +267,16 @@ or add the new person as an admin, rather than sharing passwords.
 
 ## Setting it up from scratch
 
-Everything below is already done for the current site. It's here in case it has to be rebuilt or moved.
+Use this checklist to rebuild or move the site. Domain setup and cleanup PR permissions may still need configuration.
 
-1. **GitHub.** Put this folder in a repository owned by a church account or organization.
+1. **GitHub.** Put this folder in a repository owned by the church. Protect `main` with pull requests and the GitHub Actions **check** status, including administrators; disallow force pushes and deletions. A review approval is optional for a sole maintainer.
 2. **Cloudflare Pages.** Workers & Pages → Create → Pages → Connect to Git → choose the repository. Then:
    - Build command `npm run build`, build output directory `_site`, framework preset None.
    - Environment variable `NODE_VERSION` = `22`, for both Production and Preview.
    - Settings → Build → Branch control: production branch `live`, preview branches "All non-Production branches".
    - Create a `live` branch from `main` before switching the production branch.
 3. **Pages CMS.** At https://app.pagescms.org sign in with the GitHub account, allow access to the repository and open it.
-   Invite editors from the repository's settings in Pages CMS.
+   Invite editors from the repository's settings in Pages CMS. Create/select an editing branch, save there, and open a PR to `main`. Direct saves to protected `main` will fail.
 4. **Domain.** In the Cloudflare project → **Custom domains**, add the church's domain. If the domain also handles
    church email, keep its existing MX and other email records exactly as they are.
 
@@ -261,7 +285,9 @@ Everything below is already done for the current site. It's here in case it has 
 | Problem | What to check |
 | --- | --- |
 | A change doesn't appear on the live site | It's only on the preview until someone presses **Publish website**. |
-| A change doesn't appear on the preview either | Cloudflare → pillarcbc → **Deployments**: is the latest `main` build still running, or did it fail? |
+| A change doesn't appear on the preview either | Check the editing branch deployment; the shared `main` preview changes only after merging the PR. Inspect Cloudflare build logs. |
+| Pages CMS cannot save to main | Select an editing branch and open a PR; main requires passing checks. |
+| Daily event cleanup fails to open a PR | Check the organization/repository Actions PR permissions described below. |
 | A Cloudflare build failed | Open the failed deployment and read the build log. Often it's a YAML mistake (wrong indentation or a missing quote) from a hand edit. |
 | "Publish website" failed | Check the full commit SHA, test/build logs, and that the commit is on `main`. A non-fast-forward `live` update is intentionally rejected. |
 | A photo shows as missing in Pages CMS | Its path must start with `/images/` and the file must be in `src/images/`. |
@@ -270,7 +296,9 @@ Everything below is already done for the current site. It's here in case it has 
 
 ## Still to do
 
-- Replace placeholders: the address and map link, the email, the Sunday time, and the YouTube / WeChat / 小红书 links (`site.yml`).
+- Confirm the configured address, map, `info@pillarcbc.org`, and Sunday 9:30AM service details with the church. Social links are empty and hidden; fill them in when available.
+- Build the planned message-delivery feature; the current Send button is intentionally inactive.
+- Enable Actions-created cleanup PRs once organization policy permits them.
 - Confirm the church-life details (weekend worship practice, in-person small groups, dumplings at Lunar New Year) or replace them with real ones.
 - Have the pastor or elders review the 信仰告白. It follows the topics of City Light Bible Church's statement and is written fresh, not copied.
 - Connect the church's own domain.
@@ -295,7 +323,7 @@ values with an explicit timezone offset (`-08:00` in winter, `-07:00` in summer)
 All display times use America/Los_Angeles. Optional registration/map URLs must
 use HTTPS. `published: false` excludes an entry everywhere.
 
-The supplied events are clearly labeled **samples**, not church announcements.
+Events marked `sample: true` are clearly labeled **samples**, not church announcements. Real records use `sample: false`.
 `sample: true` entries appear on Cloudflare feature-branch previews, but are
 excluded from `main`, `live`, and ordinary local builds. To preview samples
 locally, run `EVENTS_INCLUDE_SAMPLES=1 npm run dev`. `main` and `live` builds exclude samples
@@ -327,7 +355,7 @@ links from Sunday, gatherings, and events route there. Inquiry links preselect a
 topic and optionally show a public gathering/event title as context. Language
 links retain that public inquiry context, but not personal form inputs.
 
-This version intentionally has **no email delivery integration**. The page presents
+The contact form intentionally has **no email delivery integration**. The page presents
 an ordinary contact form without unfinished-feature notices. **Send message** is
 styled as an enabled button, but is intentionally a no-op (`type="button"`): it
 sends no request, navigates nowhere, preserves the fields, and shows no success
@@ -348,7 +376,7 @@ from the main navigation and footer. The page provides the church's Zelle
 recipient (`giving@pillarcbc.org`), check payee (`Pillar Chinese Bible Church`),
 stock-transfer contact (`office@pillarcbc.org`), Benevity matching instructions,
 and annual-statement information. Giving questions link to the contact page with
-its topic preselected. The contact form's Send action remains inert as in PR #2.
+its topic preselected. The contact form's Send action remains intentionally inactive.
 
 Content in `src/_data/giving.yml` was adapted from the church's public giving
 pages, reviewed on November 16, 2026:
@@ -366,22 +394,22 @@ and original QR asset together and check them against the church's instructions.
 
 The copy-email action only copies the public Zelle recipient; it does not start
 a payment. If clipboard access is unavailable, the address remains selectable.
-All payment activity stays in the donor's own banking app. No payment collection,
-backend, provider account, or Cloudflare configuration is introduced by this PR.
+All payment activity stays in the donor's own banking app. The giving page uses no payment-collection backend or provider account.
 
 
 ## Engineering checks and content contracts
 
-Run `npm run check` before opening a PR. It validates localized YAML and interface-key
+Run `npm run check` before opening a PR. It validates required copy, essential lists, localized YAML and interface-key
 parity, event types/dates/URLs, image files and CMS fields; runs regression tests; builds
 both `live` and a feature preview; and checks internal links, anchors, metadata, sitemap
-entries, and exclusion of samples/drafts from production. GitHub runs the same command
+entries, nonempty primary headings and email links, homepage-only language-script placement,
+and exclusion of samples/drafts/expired events from production. GitHub runs the same command
 on PRs, pushes to `main`, and manual workflow dispatches. Require the **check** status
 from GitHub Actions on `main`, with pull requests, no force pushes, and no deletions.
 Pages CMS direct saves must use a branch and PR under this policy; the dashboard already
 opens content PRs. Branch protection is a repository setting and is not applied by merging code.
 
-`schemas/event-v1.schema.json` is the shared v1 event contract. A future dashboard should
+`schemas/event-v1.schema.json` is the shared v1 event contract. Dashboard integrations should
 validate its output against it and also enforce end-after-start and unique slugs,
 as `lib/content.js` and `lib/events.js` do. `published` and
 `sample` are actual booleans; zh/en event copy is required; Traditional Chinese overrides
@@ -391,8 +419,7 @@ The canonical `content/events.yml` contains `version: 1` and an `items` list. Th
 
 Optional `image_position: { x: 50, y: 50 }` stores event-card framing as percentages
 from 0–100. Omit it for a centered crop. It requires an image; event detail pages
-show the full original ratio. Deploy the compatible dashboard update before merging
-this schema extension; production publishing remains manual.
+show the full original ratio. Dashboard integrations must preserve this optional field; production publishing remains manual.
 
 `lib/locales.js` supplies language codes, prefixes, content-field names, fonts and time zone.
 `src/lang.njk` generates the language script from that configuration. Only the bare `/`
@@ -431,7 +458,7 @@ The pastor email opens the visitor's mail app and does not submit the contact fo
 
 ### Events collection migration
 
-This change preserves every event and URL, including unpublished/sample records. Use the compatible dashboard PR with collection support for subsequent edits. Existing per-file drafts can use Compare website version to retain their edits against the migrated data. Do not leave old per-event YAML files as a second source of truth.
+The collection replaces the former `content/events/<slug>.yml` files. All edits must target `content/events.yml`; do not recreate per-event files as a second source of truth. Use a dashboard version with collection support. Expired entries and their URLs are removed according to the cleanup policy below.
 
 
 ## Expired event cleanup
@@ -441,7 +468,7 @@ including drafts and samples. It preserves the version and all remaining records
 not rewrite an unchanged collection. Git history retains removed records; unused images
 are left alone because other content may share them.
 
-The **Clean up expired events** workflow runs daily at 12:17 UTC and can be run manually.
+The **Clean up expired events** workflow is scheduled daily at 12:17 UTC and can be run manually. PR creation is not active until the permissions below are enabled.
 It opens one cleanup PR at a time; merge it and use the normal publish workflow.
 An organization owner must first allow repositories to enable Actions PR creation (currently blocked by organization policy). Then enable **Settings → Actions → General → Allow GitHub Actions to create and approve pull requests**
 for automated cleanup PR creation. The workflow explicitly dispatches **Website checks**
