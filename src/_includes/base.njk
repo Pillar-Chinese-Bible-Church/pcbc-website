@@ -20,7 +20,7 @@
 {%- for l in langs %}
 <link rel="alternate" hreflang="{{ l.code }}" href="{{ (l.prefix + pagePath) | absoluteUrl(deployment.url) }}">
 {%- endfor %}
-<link rel="icon" href="/images/logo-pillar.svg" type="image/svg+xml">
+<link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ L.font }}:wght@300;400;500;600&amp;display=swap">
@@ -32,7 +32,7 @@
 <header class="top">
   <div class="wrap">
     <a class="logo" href="{{ home }}">
-      {% logo "mark", 27, 40 %}
+      {% logo "mark", 34, 40 %}
       <span><b>{{ site.name | t(L.code) }}</b><small>{{ site.name.en if L.code != "en" else site.name.zh }}</small></span>
     </a>
     <button class="menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav" aria-label="{{ u.menu }}" data-open="{{ u.close }}" data-closed="{{ u.menu }}"><span class="menu-icon" aria-hidden="true"></span></button>
@@ -56,7 +56,7 @@
 <footer id="contact">
   <div class="wrap">
     <div>
-      <div class="fname">{% logo "flogo", 22, 32 %}<h4>{{ site.name | t(L.code) }}</h4></div>
+      <div class="fname">{% logo "flogo", 27, 32 %}<h4>{{ site.name | t(L.code) }}</h4></div>
       <p>{{ site.name.en if L.code != "en" else site.name.zh }}<br>{{ site.address }}</p>
     </div>
     <div>

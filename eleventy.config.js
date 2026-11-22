@@ -59,7 +59,7 @@ export default function (eleventyConfig) {
     }).format(new Date(s)));
   }
 
-  // The pillar mark, inlined so it can take the text color (white in the header and footer).
+  // Designer-approved mark, inlined to inherit white in the header and footer.
   const logo = fs.readFileSync("src/images/logo-pillar.svg", "utf8").replace(/<!--[\s\S]*?-->/g, "");
   eleventyConfig.addShortcode("logo", (cls, w, h) =>
     logo.replace("<svg ", `<svg class="${cls}" width="${w}" height="${h}" aria-hidden="true" `));
@@ -75,6 +75,7 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy({ "src/images/logo-pillar.svg": "images/logo-pillar.svg" });
+  eleventyConfig.addPassthroughCopy({ "src/images/favicon.svg": "images/favicon.svg" });
   // Preserve the church's original payment QR image without resizing or recompression.
   eleventyConfig.addPassthroughCopy({ "src/images/giving-zelle.webp": "images/giving-zelle.webp" });
 
