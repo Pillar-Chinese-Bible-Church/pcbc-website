@@ -93,7 +93,7 @@ eleventyComputed:
   <div class="strip" role="group" aria-label="{{ photos.label | t(c) }}" data-photo-strip>
     {%- for p in photos.strip %}
     <button class="photo-open" type="button" disabled aria-label="{{ u.photos.open }}: {{ p.alt | t(c) }}" aria-haspopup="dialog" aria-controls="photo-viewer">
-      <img src="{{ p.image }}" alt="{{ p.alt | t(c) }}" sizes="360px">
+      <img src="{{ p.image }}" alt="{{ p.alt | t(c) }}" sizes="(max-width: 640px) 240px, 320px" eleventy:widths="320,480,720,960,1600,2400">
       <span class="photo-expand" aria-hidden="true">⤢</span>
     </button>
     {%- endfor %}
