@@ -48,7 +48,7 @@
 
 **https://main.pillarcbc.pages.dev**
 
-（正式网站是 https://pillarcbc.pages.dev ，要等发布以后才会变。）
+（正式网站是 https://pillarcbc.org ，要等发布以后才会变。）
 
 ## 6. 发布
 
