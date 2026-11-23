@@ -48,6 +48,20 @@ week:
     en: During the Week
   gatherings:
     - name:
+        zh: 姐妹会
+        hant: 姐妹會
+        en: Women's Fellowship
+      time:
+        zh: 每周一 10:45AM
+        hant: 每週一 10:45AM
+        en: Mondays, 10:45AM
+      place:
+        zh: ""
+        en: ""
+      topic:
+        zh: ""
+        en: ""
+    - name:
         zh: 祷告会
         en: Prayer Meeting
       time:
