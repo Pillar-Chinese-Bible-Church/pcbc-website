@@ -1,6 +1,6 @@
 # Introduction and church vision: PCBC 核心價值 v3, supplied by Pastor Bill Yang.
 # Traditional Chinese preserves the source wording; English is translated for review.
-# Existing sourced pastor details and church-life information remain unchanged.
+# Pastor biography supplied by the church on 2026-11-22; English is translated from that text.
 title:
   zh: 关于我们
   hant: 關於我們
@@ -26,6 +26,25 @@ pastor:
   heading: { zh: 牧者介绍, hant: 牧者介紹, en: Our Pastor }
   name: { zh: 杨东牧师, hant: 楊東牧師, en: Pastor Bill Yang }
   role: { zh: 柱石华人圣经教会 牧师, hant: 柱石華人聖經教會 牧師, en: "Pastor, Pillar Chinese Bible Church" }
+  bio:
+    zh: |-
+      杨东牧师出生于北京，大学期间主修芯片设计专业，毕业后在中科院软件所工作，后于1996年到美国的一家网络公司任职。
+
+      来美后开始接触基督教信仰，但从小接受无神论的思想教育，只相信自己，认为人定胜天。虽然一直心里刚硬并经过多年的慕道，但因着神的恩典，于2008年决志信主，2009年受洗归入主的名下。
+
+      2017年与妻子一同蒙召全职事奉，2018年开始在山景城中国基督教会实习，2021年获得道学硕士学位并于2022年按立为教会牧师。2026年与一批有同样异象的弟兄姐妹创立了柱石华人圣经教会。
+    hant: |-
+      楊東牧師出生於北京，大學期間主修芯片設計專業，畢業後在中科院軟件所工作，後於1996年到美國的一家網絡公司任職。
+
+      來美後開始接觸基督教信仰，但從小接受無神論的思想教育，只相信自己，認為人定勝天。雖然一直心裡剛硬並經過多年的慕道，但因著神的恩典，於2008年決志信主，2009年受洗歸入主的名下。
+
+      2017年與妻子一同蒙召全職事奉，2018年開始在山景城中國基督教會實習，2021年獲得道學碩士學位並於2022年按立為教會牧師。2026年與一批有同樣異象的弟兄姐妹創立了柱石華人聖經教會。
+    en: |-
+      Pastor Bill Yang was born in Beijing and majored in chip design in college. After graduating, he worked at the Institute of Software of the Chinese Academy of Sciences. In 1996, he moved to the United States to work for a networking company.
+
+      After coming to the United States, he began exploring the Christian faith. Having grown up with an atheistic education, however, he trusted only in himself and believed that human determination could overcome anything. His heart remained hardened through many years of seeking, but by God’s grace, he committed his life to Christ in 2008 and was baptized in 2009.
+
+      In 2017, he and his wife were called together to full-time ministry. He began an internship at Mountain View Chinese Christian Church in 2018, earned a Master of Divinity degree in 2021, and was ordained as a pastor in 2022. In 2026, he and a group of brothers and sisters who shared the same vision founded Pillar Chinese Bible Church.
   email: bill.yang@pillarcbc.org
   email_label: { zh: 联系牧师, hant: 聯絡牧師, en: Email Pastor Bill }
   image: /images/pastor-yang.png

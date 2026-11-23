@@ -142,6 +142,7 @@ content:
           - { name: heading, label: 栏目标题 Heading, type: object, fields: *line }
           - { name: name, label: 姓名 Name, type: object, fields: *line }
           - { name: role, label: 职分 Role, type: object, fields: *line }
+          - { name: bio, label: 牧者简介 Biography, type: object, fields: *para }
           - { name: email, label: 邮箱 Email, type: string }
           - { name: email_label, label: 邮箱文字 Email label, type: object, fields: *line }
           - { name: image, label: 照片 Portrait, type: image }

@@ -6,13 +6,15 @@
 .about-text-link { display: inline-block; color: var(--slate); font-weight: 500; font-size: .95rem; text-underline-offset: 5px; }
 .about-mission .about-text-link { margin-top: 20px; }
 .about-pastor { padding-bottom: 10px; }
-.pastor-card { display: grid; grid-template-columns: 315px minmax(0, 1fr); gap: 36px; align-items: center; padding: 28px; background: var(--soft); border-radius: 12px; }
+.pastor-card { display: grid; grid-template-columns: 315px minmax(0, 1fr); gap: 36px; align-items: start; padding: 28px; background: var(--soft); border-radius: 12px; }
 .pastor-portrait { max-width: 315px; }
 .pastor-portrait img { width: 100%; height: auto; border-radius: 8px; }
 .pastor-content { padding-block: 8px; }
 .pastor-content h2 { font-size: .85rem; font-weight: 400; color: var(--muted); }
 .pastor-content h3 { font-size: clamp(1.65rem, 3vw, 2rem); line-height: 1.4; font-weight: 500; margin-top: 10px; }
 .pastor-content>p { color: var(--muted); font-size: .95rem; margin-top: 10px; }
+.pastor-bio { margin-top: 20px; font-size: 1rem; line-height: 1.85; }
+.pastor-bio p + p { margin-top: 16px; }
 .pastor-content .about-text-link { margin-top: 22px; }
 .pastor-content .pastor-email { font-size: .85rem; margin-top: 4px; overflow-wrap: anywhere; }
 .about-visit { background: #F5F2EB; margin-top: 44px; padding-block: 30px; }

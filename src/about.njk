@@ -49,6 +49,11 @@ eleventyComputed:
         <h2 id="pastor-heading">{{ a.pastor.heading | t(c) }}</h2>
         <h3>{{ a.pastor.name | t(c) }}</h3>
         <p>{{ a.pastor.role | t(c) }}</p>
+        <div class="pastor-bio">
+          {%- for paragraph in (a.pastor.bio | t(c)).split("\n\n") %}
+          <p>{{ paragraph }}</p>
+          {%- endfor %}
+        </div>
         <a class="about-text-link" href="mailto:{{ a.pastor.email }}">{{ a.pastor.email_label | t(c) }} <span aria-hidden="true">↗</span></a>
         <p class="pastor-email">{{ a.pastor.email }}</p>
       </div>
