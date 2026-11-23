@@ -4,7 +4,7 @@ The website of Pillar Chinese Bible Church, in Simplified Chinese, Traditional C
 
 | | Address |
 | --- | --- |
-| Live site | https://pillarcbc.pages.dev |
+| Live site | https://pillarcbc.org |
 | Shared preview after merging to `main` | https://main.pillarcbc.pages.dev |
 | Edit content | https://app.pagescms.org |
 | Code | https://github.com/Pillar-Chinese-Bible-Church/pcbc-website |
@@ -95,7 +95,7 @@ Pages CMS / Dashboard → editing branch → PR + passing checks → main
 | Branch | What it is | Address |
 | --- | --- | --- |
 | `main` | Validated code and content PRs merge here; shared preview | https://main.pillarcbc.pages.dev |
-| `live` | The real site | https://pillarcbc.pages.dev |
+| `live` | The real site | https://pillarcbc.org |
 
 **To publish:** review the Cloudflare preview for a commit on `main` and copy its full
 40-character commit SHA. On GitHub open **Actions → Publish website → Run workflow**,
@@ -278,6 +278,18 @@ Use this checklist to rebuild or move the site. Domain setup may still need conf
 4. **Domain.** In the Cloudflare project → **Custom domains**, add the church's domain. If the domain also handles
    church email, keep its existing MX and other email records exactly as they are.
 
+### The pillarcbc.org domain today
+
+- **Registration:** Hostinger, in a Hostinger account shared with the site maintainer; paid until 12 August 2029.
+  The transfer to Cloudflare Registrar is still to do: turn off the transfer lock and get the EPP code in Hostinger, then
+  Cloudflare → **Domain Registration → Transfer Domains**.
+- **DNS:** Cloudflare (nameservers `michael.ns.cloudflare.com` and `sara.ns.cloudflare.com`), zone **pillarcbc.org**.
+- **Website:** `pillarcbc.org` and `www.pillarcbc.org` are custom domains on the **pillarcbc** Pages project. A redirect
+  rule (**Rules → Redirect Rules → "www to pillarcbc.org"**) sends `www` to `https://pillarcbc.org`, keeping path and query.
+- **Email:** Google Workspace. Keep these DNS records exactly as they are, all **DNS only**: MX `smtp.google.com` (priority 1),
+  TXT `v=spf1 include:_spf.google.com ~all`, TXT `google._domainkey` (DKIM) and TXT `_dmarc`.
+- Records left over from Hostinger (`ftp`, `autoconfig`, `autodiscover`, `hostingermail-a/b/c._domainkey`) are unused and can be deleted.
+
 ## Troubleshooting
 
 | Problem | What to check |
@@ -297,7 +309,6 @@ Use this checklist to rebuild or move the site. Domain setup may still need conf
 - Build the planned message-delivery feature; the current Send button is intentionally inactive.
 - Confirm the church-life details (weekend worship practice, in-person small groups, dumplings at Lunar New Year) or replace them with real ones.
 - Have the pastor or elders review the 信仰告白. It follows the topics of City Light Bible Church's statement and is written fresh, not copied.
-- Connect the church's own domain.
 - Get the logo as a vector file (SVG, AI or PDF) from the designer. The current `logo-pillar.svg` was traced by hand from a small image.
 
 ## Events and preview examples
@@ -428,7 +439,7 @@ only the current page's font family. The mobile hamburger button has a localized
 name and switches to a close icon when expanded; navigation remains usable without JS.
 
 Metadata and the sitemap use the production origin in `SITE_URL`, defaulting to
-`https://pillarcbc.pages.dev`. When the production domain changes, set `SITE_URL` to
+`https://pillarcbc.org` (also set in both Cloudflare build environments). When the production domain changes, set `SITE_URL` to
 its HTTPS origin in both Cloudflare build environments and rebuild. Do not set it to a
 feature-preview address. Each page supplies its own description, canonical URL and
 Open Graph metadata. Sample event pages are noindex and omitted from the sitemap;
