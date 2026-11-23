@@ -23,7 +23,7 @@ eleventyComputed:
     <section class="contact-form-section" aria-labelledby="contact-form-heading">
       <h2 id="contact-form-heading">{{ f.formTitle }}</h2>
       <p class="contact-intro">{{ f.formIntro }}</p>
-      <form id="contact-form" method="post" action="{{ L.prefix }}/contact/" aria-labelledby="contact-form-heading">
+      <form id="contact-form" method="post" action="/api/contact" data-language="{{ c }}" data-sending="{{ f.sending }}" data-success="{{ f.success }}" data-unavailable="{{ f.unavailable }}" data-error="{{ f.error }}" data-verification="{{ f.verification }}" data-rate-limited="{{ f.rateLimited }}" aria-labelledby="contact-form-heading">
         <p class="contact-required">{{ f.required }}</p>
         <p class="contact-context" hidden>{{ f.regarding }}: <span id="contact-context"></span></p>
         <div class="contact-fields">
@@ -48,7 +48,11 @@ eleventyComputed:
           <textarea id="contact-message" name="message" rows="7" minlength="10" maxlength="4000" required aria-describedby="message-hint"></textarea>
           <div class="contact-message-hint"><small id="message-hint">{{ f.messageHint }}</small><span id="message-count" aria-hidden="true">0 / 4,000</span></div>
         </div>
-        <button class="btn dark contact-send" type="button">{{ f.send }}</button>
+        <div class="contact-trap" aria-hidden="true"><label for="contact-website">Website</label><input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+        <div id="contact-verification"></div>
+        <p id="contact-status" class="contact-status" role="status" aria-live="polite" tabindex="-1">{{ f.loading }}</p>
+        <noscript><p>{{ f.noScript }}</p></noscript>
+        <button class="btn dark contact-send" type="submit" disabled>{{ f.send }}</button>
       </form>
     </section>
     <aside class="contact-sidebar" aria-label="{{ f.emailTitle }}">

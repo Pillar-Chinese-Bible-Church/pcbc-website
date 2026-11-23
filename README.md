@@ -238,7 +238,7 @@ scripts/check.mjs             Tests plus production/preview build and link check
 EDITING.md                    Chinese guide for content editors
 ```
 
-Built with [Eleventy](https://www.11ty.dev) 3. There's no server code; the output is plain HTML, CSS and a little JavaScript.
+Built with [Eleventy](https://www.11ty.dev) 3. Pages are static HTML, CSS and JavaScript; a Cloudflare Pages Function handles contact submissions.
 
 ## Accounts and services
 
@@ -354,7 +354,7 @@ run `npm run build` for a normal build or
 `CF_PAGES_BRANCH=codex/website-events npm run build` to check the sample preview.
 Use Node 22, as specified by `.nvmrc` and the Cloudflare build configuration.
 
-## Contact page (form only)
+## Contact form delivery
 
 The contact page is available at `/contact/`, `/zh-hant/contact/`, and `/en/contact/`.
 Header/footer Contact links, the statement-of-faith Contact button, and inquiry
@@ -362,19 +362,26 @@ links from Sunday, gatherings, and events route there. Inquiry links preselect a
 topic and optionally show a public gathering/event title as context. Language
 links retain that public inquiry context, but not personal form inputs.
 
-The contact form intentionally has **no email delivery integration**. The page presents
-an ordinary contact form without unfinished-feature notices. **Send message** is
-styled as an enabled button, but is intentionally a no-op (`type="button"`): it
-sends no request, navigates nowhere, preserves the fields, and shows no success
-message. The form script also prevents implicit submission and does not send,
-save, or log visitor inputs. There is no backend, account setup, credential, or
-Cloudflare configuration required. Direct `mailto:` links still open the visitor's
-email app, where the visitor sends their email themselves.
+The contact form posts to `/api/contact`, a Cloudflare Pages Function. It validates
+fields and Turnstile before sending plain-text email through Resend to the fixed
+recipient `info@pillarcbc.org`. The sender is `website@pillarcbc.org`; the visitor's
+email is Reply-To. Google Workspace continues to handle the church inbox.
 
-Copy lives in `src/_data/contact.js`, layout in `src/contact.njk`, and presentation
-logic in `src/assets/contact.js`. A later email-delivery PR must add server/provider
-validation and spam protection, explicit pending/error/success states, and a real
-submission handler before replacing the inert Send button with a real submit action.
+The form stays disabled unless its runtime settings, Resend secret, Turnstile
+keys and KV abuse-counter binding are configured. Sending, accepted, verification,
+rate-limit and error messages are available in all three languages. Failed sends
+preserve the typed message; repeated clicks are blocked while sending and after
+acceptance. No automatic send retry is made because a timed-out request may already
+have been accepted. Provider acceptance does not prove inbox delivery.
+
+See [CONTACT-SETUP.md](CONTACT-SETUP.md) for Production and Preview configuration,
+manual delivery verification and the existing Publish website workflow. Message
+content is not logged or stored by the application; Resend processes the content
+to deliver email. KV stores only daily-salted IP hashes and temporary counters.
+The KV throttle is eventually consistent, not an atomic global quota.
+
+Copy lives in `src/_data/contact.js`, layout in `src/contact.njk`, browser behavior
+in `src/assets/contact.js`, and the endpoint in `functions/api/contact.js`.
 
 ## Giving page
 

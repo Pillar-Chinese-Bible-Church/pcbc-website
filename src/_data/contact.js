@@ -1,4 +1,4 @@
-// Reviewed interface copy. Delivery is intentionally disconnected in this PR.
+// Reviewed interface copy for all contact form states.
 export default {
   "zh-Hans": {
     title: "联系我们", intro: "想了解教会、参加聚会，或有问题想聊聊？欢迎与我们联系。",
@@ -7,6 +7,9 @@ export default {
     topics: { visit: "第一次来教会", gatherings: "团契与每周聚会", events: "近期活动", beliefs: "信仰问题", giving: "奉献咨询", other: "其他问题" },
     message: "留言内容", messageHint: "请填写 10–4,000 个字符。", required: "所有字段均为必填。",
     regarding: "关于", send: "发送留言",
+    loading: "正在准备表单…", sending: "正在发送…", success: "留言已提交，谢谢！教会会通过你填写的邮箱回复。",
+    unavailable: "表单暂时无法使用，请通过右侧邮箱联系教会。", error: "暂时无法确认留言是否发送成功。内容已保留，请稍后再试，或直接发送邮件。",
+    verification: "请完成验证后再发送。", rateLimited: "提交次数较多，请稍等一分钟再试。", noScript: "请启用 JavaScript 使用表单，或直接发送邮件联系教会。",
     emailTitle: "直接发送邮件", emailIntro: "你现在就可以通过电子邮件联系教会。", emailAction: "给教会发邮件",
     visitTitle: "欢迎来参加主日崇拜", address: "地址", directions: "查看路线", home: "← 回到首页",
   },
@@ -17,6 +20,9 @@ export default {
     topics: { visit: "第一次來教會", gatherings: "團契與每週聚會", events: "近期活動", beliefs: "信仰問題", giving: "奉獻諮詢", other: "其他問題" },
     message: "留言內容", messageHint: "請填寫 10–4,000 個字元。", required: "所有欄位均為必填。",
     regarding: "關於", send: "發送留言",
+    loading: "正在準備表單…", sending: "正在發送…", success: "留言已提交，謝謝！教會會透過你填寫的信箱回覆。",
+    unavailable: "表單暫時無法使用，請透過右側信箱聯絡教會。", error: "暫時無法確認留言是否發送成功。內容已保留，請稍後再試，或直接發送郵件。",
+    verification: "請完成驗證後再發送。", rateLimited: "提交次數較多，請稍等一分鐘再試。", noScript: "請啟用 JavaScript 使用表單，或直接發送郵件聯絡教會。",
     emailTitle: "直接發送郵件", emailIntro: "你現在就可以透過電子郵件聯絡教會。", emailAction: "給教會發郵件",
     visitTitle: "歡迎來參加主日崇拜", address: "地址", directions: "查看路線", home: "← 回到首頁",
   },
@@ -27,6 +33,9 @@ export default {
     topics: { visit: "Visiting for the first time", gatherings: "Groups & weekly gatherings", events: "Upcoming events", beliefs: "Questions about our faith", giving: "Giving questions", other: "Something else" },
     message: "Message", messageHint: "Please use 10–4,000 characters.", required: "All fields are required.",
     regarding: "Regarding", send: "Send message",
+    loading: "Preparing the form…", sending: "Sending…", success: "Your message has been submitted. Thank you! The church will reply to the email address you provided.",
+    unavailable: "The form is temporarily unavailable. Please use the church email address to contact us.", error: "We could not confirm whether your message was sent. Your message is still here. Try again later or email the church directly.",
+    verification: "Please complete the verification before sending.", rateLimited: "Too many submissions. Please wait a minute and try again.", noScript: "Enable JavaScript to use the form, or email the church directly.",
     emailTitle: "Email us directly", emailIntro: "You can contact the church by email now.", emailAction: "Email the church",
     visitTitle: "Join us on Sunday", address: "Address", directions: "Get directions", home: "← Back to home",
   },
