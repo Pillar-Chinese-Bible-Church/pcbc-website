@@ -97,35 +97,13 @@ verse:
 values:
   heading:
     zh: 我们的核心价值
-    en: Our Values
+    hant: 我們的核心價值
+    en: Our Core Values
   mission:
-    zh: 我们的使命：宣讲神的话语，坚固弟兄姊妹的信心，把福音传给还不认识耶稣的人，一切都是为了荣耀神。
-    en: Our mission is to glorify God by preaching His Word, building up one another’s faith, and bringing the gospel to people who don’t yet know Jesus.
-  items:
-    - title:
-        zh: 全心爱主
-        en: Wholehearted love for Jesus
-      text:
-        zh: 我们不想要只是走形式的信仰。我们盼望自己是一群真心爱耶稣、愿意一生跟随祂的人。
-        en: We don’t want a faith that just goes through the motions. We want to be people who truly love Jesus and follow Him for life.
-    - title:
-        zh: 解经讲道
-        en: Expository preaching
-      text:
-        zh: 主日聚会，我们是来听神说话的。讲台按着经卷一段一段解释圣经的原意，因为只有神的话能改变人心。
-        en: On Sundays we come to hear from God. Our sermons explain the Bible passage by passage, because only God’s Word can change a heart.
-    - title:
-        zh: 真实的群体
-        en: Real community
-      text:
-        zh: 神把我们收进祂的家，我们就是弟兄姊妹。我们一起吃饭、彼此代祷，不只聊天气和工作，也聊信仰和生命。
-        en: God brought us into His family, so we’re brothers and sisters. We share meals and pray for each other, and we talk about more than the weather and work.
-    - title:
-        zh: 带着爱心传福音
-        en: Sharing the gospel with love
-      text:
-        zh: 耶稣看见人群像羊没有牧人，就怜悯他们。我们也盼望把身边的朋友带到这位好牧人面前。
-        en: Jesus looked at the crowds and had compassion on them, because they were like sheep without a shepherd. We want to bring our friends to that Good Shepherd.
+    zh: 忠于圣经、持守福音、彼此相爱、积极宣教，在真理和爱中一同成长，越来越像基督。
+    hant: 忠於聖經、持守福音、彼此相愛、積極宣教，在真理和愛中一同成長，越來越像基督。
+    en: Faithful to Scripture, holding fast to the gospel, loving one another, and actively engaging in missions, we grow together in truth and love to become more like Christ.
   button:
-    zh: 阅读完整的信仰告白
-    en: Read our full Statement of Faith
+    zh: 认识我们的核心价值
+    hant: 認識我們的核心價值
+    en: Explore our core values

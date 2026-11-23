@@ -117,11 +117,11 @@ eleventyComputed:
       <h2>{{ h.values.heading | t(c) }}</h2>
       <p class="intro">{{ h.values.mission | t(c) }}</p>
       <div class="vlist">
-        {%- for v in h.values.items %}
-        <div class="vitem"><span class="num">{{ loop.index }}</span><div><h3>{{ v.title | t(c) }}</h3><p>{{ v.text | t(c) }}</p></div></div>
+        {%- for v in values.items %}
+        <div class="vitem"><span class="num">{{ loop.index }}</span><div><h3>{{ v.title | t(c) }}</h3><p>{{ v.summary | t(c) }}</p></div></div>
         {%- endfor %}
       </div>
-      <p class="more"><a class="btn dark" href="{{ L.prefix }}/teach/">{{ h.values.button | t(c) }}</a></p>
+      <p class="more"><a class="btn dark" href="{{ L.prefix }}/about/#core-values">{{ h.values.button | t(c) }}</a></p>
     </div>
   </section>
 </main>

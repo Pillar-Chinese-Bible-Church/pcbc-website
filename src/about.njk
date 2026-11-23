@@ -24,8 +24,22 @@ eleventyComputed:
     <h2 id="mission-heading">{{ a.mission.heading | t(c) }}</h2>
     <div>
       <p>{{ a.mission.text | t(c) }}</p>
+      <p>{{ a.mission.welcome | t(c) }}</p>
       <a class="about-text-link" href="{{ L.prefix }}/teach/">{{ a.beliefs_link | t(c) }} <span aria-hidden="true">→</span></a>
     </div>
+  </section>
+
+  <section class="about-values wrap" id="core-values" aria-labelledby="values-heading">
+    <h2 id="values-heading">{{ homepage.values.heading | t(c) }}</h2>
+    <ol class="core-values-list">
+      {%- for value in values.items %}
+      <li>
+        <h3>{{ value.title | t(c) }}</h3>
+        <p>{{ value.text | t(c) }}</p>
+        <p class="refs">{{ value.refs | t(c) }}</p>
+      </li>
+      {%- endfor %}
+    </ol>
   </section>
 
   <section class="about-pastor wrap" aria-labelledby="pastor-heading">

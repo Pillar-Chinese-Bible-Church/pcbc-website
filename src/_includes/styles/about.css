@@ -46,3 +46,17 @@
   .row:nth-child(even) .pic { order: 0; }
 }
 
+
+/* Official core values share their titles and copy with the homepage summaries. */
+.about-mission p + p { margin-top: 16px; }
+.about-values { padding-block: 8px 48px; scroll-margin-top: 88px; }
+.about-values > h2 { font-size: 1.75rem; font-weight: 500; margin-bottom: 24px; }
+.core-values-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+.core-values-list li { border-top: 1px solid var(--line); padding-top: 20px; }
+.core-values-list h3 { font-size: 1.3rem; line-height: 1.5; font-weight: 500; margin-bottom: 12px; }
+.core-values-list p { line-height: 1.85; }
+.core-values-list .refs { margin-top: 12px; color: var(--muted); font-size: .9rem; }
+@media (max-width: 760px) {
+  .core-values-list { grid-template-columns: 1fr; gap: 24px; }
+  .about-values { padding-bottom: 32px; }
+}

@@ -28,16 +28,17 @@ function inspect(value, location) {
 const required = {
   "site.yml": ["name", "address", "map_link", "email", "sunday.time", "sunday.place", "sunday.note"],
   "homepage.yml": ["hero.title", "hero.subtitle", "hero.button", "hero.about_button", "hero.image", "hero.image_alt", "sunday.heading", "sunday.image", "sunday.image_alt", "week.heading", "verse.text", "verse.reference", "values.heading", "values.mission", "values.button"],
-  "about.yml": ["title", "intro", "mission.heading", "mission.text", "pastor.name", "pastor.role", "pastor.email", "pastor.image", "pastor.image_alt", "life.heading"],
+  "about.yml": ["title", "intro", "mission.heading", "mission.text", "mission.welcome", "pastor.name", "pastor.role", "pastor.email", "pastor.image", "pastor.image_alt", "life.heading"],
   "beliefs.yml": ["title", "intro", "question", "button"],
   "events.yml": ["heading", "intro"],
   "photos.yml": ["label"],
   "giving.yml": ["title", "intro", "payee", "zelle_email", "office_email", "qr_image", "qr_alt", "methods_heading"],
 };
 const lists = {
-  "homepage.yml": { "week.gatherings": ["name", "time"], "values.items": ["title", "text"] },
+  "homepage.yml": { "week.gatherings": ["name", "time"] },
   "about.yml": { "life.rows": ["title", "text", "image", "image_alt"] },
   "beliefs.yml": { items: ["title", "text", "refs"] },
+  "values.yml": { items: ["title", "summary", "text", "refs"] },
   "photos.yml": { strip: ["image", "alt"] },
 };
 const at = (value, key) => key.split(".").reduce((child, part) => child?.[part], value);
@@ -58,7 +59,7 @@ export function assertRequiredContent(value, name) {
   }
 }
 export function validateContent() {
-  for (const name of new Set([...Object.keys(required), ...fs.readdirSync("src/_data").filter(name => name.endsWith(".yml"))])) {
+  for (const name of new Set([...Object.keys(required), ...Object.keys(lists), ...fs.readdirSync("src/_data").filter(name => name.endsWith(".yml"))])) {
     const value = readYaml(path.join("src/_data", name));
     assertRequiredContent(value, name);
     assertLocalizedContent(value, name);

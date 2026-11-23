@@ -1,121 +1,135 @@
-# 信仰告白（请牧者审阅后再修改）
-# 每段文字有三个格子：zh = 简体，en = English，hant = 繁體（可以不填，网站会自动从简体转换）。
-
+# Source: PCBC 信仰告白 v5, supplied by Pastor Bill Yang.
+# Traditional Chinese preserves the source wording; Simplified Chinese is converted.
+# English is a translation prepared for review alongside the website preview.
 title:
   zh: 信仰告白
-  en: What We Teach
+  hant: 信仰告白
+  en: Statement of Faith
 intro:
-  zh: 以下是我们教会所相信、所教导的要点。每一条都附上相关经文以供查考。
-  en: These are the main points our church believes and teaches. Each point lists Bible passages for reference.
+  zh: 以下是我们教会所相信、所教导的信仰告白，并附上相关经文以供查考。
+  hant: 以下是我們教會所相信、所教導的信仰告白，並附上相關經文以供查考。
+  en: This statement sets out what our church believes and teaches, with Scripture references for further study.
 items:
   - title:
       zh: 圣经
+      hant: 聖經
       en: The Bible
     text:
-      zh: 我们相信圣经是神写给人的话。新旧约六十六卷书都是圣灵借着人写成的，完全无误，是我们信仰和生活的最高权威。圣经从不过时，在日常生活中给我们教导、安慰、鼓励和命令。
-      en: We believe the Bible is God’s Word to us. The Holy Spirit moved human authors to write all 66 books of the Old and New Testaments. It is without error and is the final authority for what we believe and how we live. It never goes out of date, and it teaches, comforts, encourages and directs us in everyday life.
+      zh: 我们相信，圣经由旧约和新约共六十六卷书组成。圣经都是神所默示的，由人受圣灵感动而写成，其原稿毫无错误。是我们信仰与生活的最高权威，人在圣灵的光照下，能够明白圣经。
+      hant: 我們相信，聖經由舊約和新約共六十六卷書組成。聖經都是神所默示的，由人受聖靈感動而寫成，其原稿毫無錯誤。是我們信仰與生活的最高權威，人在聖靈的光照下，能夠明白聖經。
+      en: We believe that the Bible consists of the sixty-six books of the Old and New Testaments. All Scripture is inspired by God, written by people moved by the Holy Spirit, and without error in its original manuscripts. It is the highest authority for our faith and life, and through the illumination of the Holy Spirit, people can understand Scripture.
     refs:
-      zh: 诗19:7–11；诗119:160；林前2:7–13；提后3:16；彼后1:20–21
-      en: Ps 19:7–11; Ps 119:160; 1 Cor 2:7–13; 2 Tim 3:16; 2 Pet 1:20–21
+      zh: 诗篇 19:7-11；以赛亚书 40:8；马太福音 5:18；提摩太后书 3:16-17；彼得后书 1:19-21；启示录 22:18-19
+      hant: 詩篇 19:7-11；以賽亞書 40:8；馬太福音 5:18；提摩太後書 3:16-17；彼得後書 1:19-21；啟示錄 22:18-19
+      en: Psalm 19:7-11; Isaiah 40:8; Matthew 5:18; 2 Timothy 3:16-17; 2 Peter 1:19-21; Revelation 22:18-19
   - title:
-      zh: 独一的神
-      en: One God
+      zh: 神
+      hant: 神
+      en: God
     text:
-      zh: 我们相信只有一位真神，永远存在于圣父、圣子、圣灵三个位格之中。
-      en: "We believe there is one true God, who exists eternally as three Persons: the Father, the Son and the Holy Spirit."
+      zh: 我们相信，只有一位又真又活的神，祂是万物的创造主。祂永恒完美地以三个位格存在，即圣父、圣子与圣灵。三位一体中的每个位格在本质上均完全为神，在荣耀和权柄上相等，并且当受同样的敬拜。并在创造与救赎的工作中，各自履行有别而和谐的职分。
+      hant: 我們相信，只有一位又真又活的神，祂是萬物的創造主。祂永恆完美地以三個位格存在，即聖父、聖子與聖靈。三位一體中的每個位格在本質上均完全為神，在榮耀和權柄上相等，並且當受同樣的敬拜。並在創造與救贖的工作中，各自履行有別而和諧的職分。
+      en: "We believe that there is only one true and living God, the Creator of all things. He exists eternally and perfectly in three Persons: the Father, the Son, and the Holy Spirit. Each Person of the Trinity is fully God in essence, equal in glory and authority, and worthy of the same worship. In the works of creation and redemption, each fulfills distinct and harmonious roles."
     refs:
-      zh: 申6:4；赛45:5–7；太28:19；林后13:14
-      en: Deut 6:4; Isa 45:5–7; Matt 28:19; 2 Cor 13:14
+      zh: 创世记 1:1、26；申命记 6:4；以赛亚书 45:5-7；马太福音 28:19；约翰福音 4:24；罗马书 1:20；哥林多后书 13:14；歌罗西书 1:15-20；启示录 4:11
+      hant: 創世記 1:1、26；申命記 6:4；以賽亞書 45:5-7；馬太福音 28:19；約翰福音 4:24；羅馬書 1:20；哥林多後書 13:14；歌羅西書 1:15-20；啟示錄 4:11
+      en: Genesis 1:1, 26; Deuteronomy 6:4; Isaiah 45:5-7; Matthew 28:19; John 4:24; Romans 1:20; 2 Corinthians 13:14; Colossians 1:15-20; Revelation 4:11
   - title:
-      zh: 父神
+      zh: 圣父
+      hant: 聖父
       en: God the Father
     text:
-      zh: 我们相信父神掌管整个宇宙。祂创造万有、托住万有，也治理万有。
-      en: We believe God the Father rules over the whole universe. He made all things, holds all things together and governs all things.
+      zh: 我们相信，圣父对整个宇宙拥有至高的主权。祂是万有的创造者、维护者与统治者。
+      hant: 我們相信，聖父對整個宇宙擁有至高的主權。祂是萬有的創造者、維護者與統治者。
+      en: We believe that God the Father has supreme sovereignty over the entire universe. He is the Creator, Sustainer, and Ruler of all things.
     refs:
-      zh: 创1:1–31；诗103:19；罗11:36；林前8:6
-      en: Gen 1:1–31; Ps 103:19; Rom 11:36; 1 Cor 8:6
+      zh: 创世记 1:1-31；诗篇 103:19；诗篇 145:8-9；以赛亚书 64:8；罗马书 11:36；哥林多前书 8:6
+      hant: 創世記 1:1-31；詩篇 103:19；詩篇 145:8-9；以賽亞書 64:8；羅馬書 11:36；哥林多前書 8:6
+      en: Genesis 1:1-31; Psalm 103:19; Psalm 145:8-9; Isaiah 64:8; Romans 11:36; 1 Corinthians 8:6
   - title:
-      zh: 耶稣基督
-      en: Jesus Christ
+      zh: 圣子：耶稣基督
+      hant: 聖子：耶穌基督
+      en: "God the Son: Jesus Christ"
     text:
-      zh: 我们相信耶稣基督是完全的神，也是完全的人。祂由圣灵感孕、童贞女马利亚所生，神性和人性联合在一个位格里。祂在十字架上舍命，成就了我们的救赎；第三天从死里复活，胜过了死亡。
-      en: We believe Jesus Christ is fully God and fully man. He was conceived by the Holy Spirit and born of the virgin Mary, uniting a divine and a human nature in one person. By dying on the cross He accomplished our redemption, and on the third day He rose from the dead, defeating death.
+      zh: 我们相信，耶稣基督是真神，也是真人。祂由圣灵感孕，童贞女马利亚所生。祂在世过着完全无罪的生活，在十字架上舍身流血，成为我们的赎罪祭，并从死里复活。祂升天，如今坐在至高者的右边，担任我们的大祭司和中保。
+      hant: 我們相信，耶穌基督是真神，也是真人。祂由聖靈感孕，童貞女馬利亞所生。祂在世過著完全無罪的生活，在十字架上捨身流血，成為我們的贖罪祭，並從死裡復活。祂升天，如今坐在至高者的右邊，擔任我們的大祭司和中保。
+      en: We believe that Jesus Christ is truly God and truly man. He was conceived by the Holy Spirit and born of the virgin Mary. He lived a completely sinless life on earth, gave His life and shed His blood on the cross as the atoning sacrifice for our sins, and rose from the dead. He ascended into heaven and now sits at the right hand of the Most High, serving as our High Priest and Mediator.
     refs:
-      zh: 路1:35；约1:14；徒2:30–33；罗3:24–25；彼前2:24
-      en: Luke 1:35; John 1:14; Acts 2:30–33; Rom 3:24–25; 1 Pet 2:24
+      zh: 以赛亚书 53:5-6；约翰福音 1:1-2；约翰福音 5:26-29；罗马书 1:4；罗马书 3:24-25；腓立比书 2:6-7；希伯来书 4:15；彼得前书 2:24
+      hant: 以賽亞書 53:5-6；約翰福音 1:1-2；約翰福音 5:26-29；羅馬書 1:4；羅馬書 3:24-25；腓立比書 2:6-7；希伯來書 4:15；彼得前書 2:24
+      en: Isaiah 53:5-6; John 1:1-2; John 5:26-29; Romans 1:4; Romans 3:24-25; Philippians 2:6-7; Hebrews 4:15; 1 Peter 2:24
   - title:
       zh: 圣灵
+      hant: 聖靈
       en: The Holy Spirit
     text:
-      zh: 我们相信圣灵在世上成就神的旨意。祂叫世人为罪自责，荣耀主耶稣，使人重生、能够相信耶稣得救，也在信徒生命中工作，使我们越来越像基督。
-      en: We believe the Holy Spirit carries out God’s will in the world. He convicts people of sin and glorifies Jesus. He gives new birth so that people can believe and be saved, and He keeps working in believers to make them more like Christ.
+      zh: 我们相信，圣灵来是为了荣耀主耶稣基督。祂使世人知罪，使信徒重生、成圣，并住在每一位信徒心中。祂引领、教导并赋予信徒能力敬虔度日和忠心服事。
+      hant: 我們相信，聖靈來是為了榮耀主耶穌基督。祂使世人知罪，使信徒重生、成聖，並住在每一位信徒心中。祂引領、教導並賦予信徒能力敬虔度日和忠心服事。
+      en: We believe that the Holy Spirit came to glorify the Lord Jesus Christ. He convicts the world of sin, gives believers new birth, sanctifies them, and dwells in every believer. He guides, teaches, and empowers believers to live godly lives and serve faithfully.
     refs:
-      zh: 约3:5–7；约16:7–9；罗8:9；林后3:18；弗2:22
-      en: John 3:5–7; John 16:7–9; Rom 8:9; 2 Cor 3:18; Eph 2:22
+      zh: 约翰福音 3:3-8；使徒行传 1:8；哥林多前书 12:4-6；以弗所书 1:14；2:22
+      hant: 約翰福音 3:3-8；使徒行傳 1:8；哥林多前書 12:4-6；以弗所書 1:14；2:22
+      en: John 3:3-8; Acts 1:8; 1 Corinthians 12:4-6; Ephesians 1:14; 2:22
   - title:
       zh: 人
+      hant: 人
       en: Humanity
     text:
-      zh: 我们相信神照着自己的形像造人，为要人敬拜祂。因亚当的悖逆，罪进入世界，人人都在思想、言语和行为上得罪了神，落在属灵和肉身的死亡之下，靠自己无法回转归向神。我们唯一的盼望是神借着耶稣基督所赐的恩典。在基督里蒙拯救的人，得以重新活出敬拜神的人生。
-      en: We believe God made every person in His image, to worship Him. Through Adam’s disobedience sin entered the world. Everyone has sinned against God in thought, word and deed, lives under spiritual and physical death, and cannot turn back to God on their own. Our only hope is God’s grace in Jesus Christ. Those He saves are restored to a life of worshiping God.
+      zh: 我们相信，神按祂的形像创造所有人，有男有女，人的终极目的是敬拜祂，荣耀祂。因着亚当的悖逆，人类失去了起初的无罪状态，承受灵性与肉身死亡的刑罚，本性变得败坏，不再选择跟随神。每个人都在思想、言语和行为上犯罪，违背了神。人因罪与神隔绝，无法靠自己的努力与神恢复关系或赢得神的接纳。
+      hant: 我們相信，神按祂的形像創造所有人，有男有女，人的終極目的是敬拜祂，榮耀祂。因著亞當的悖逆，人類失去了起初的無罪狀態，承受靈性與肉身死亡的刑罰，本性變得敗壞，不再選擇跟隨神。每個人都在思想、言語和行為上犯罪，違背了神。人因罪與神隔絕，無法靠自己的努力與神恢復關係或贏得神的接納。
+      en: We believe that God created all people in His image, male and female, and that the ultimate purpose of humanity is to worship and glorify Him. Through Adam’s disobedience, humanity lost its original innocence, came under the penalty of spiritual and physical death, and became corrupt in nature, no longer choosing to follow God. Every person sins in thought, word, and deed, disobeying God. Sin separates people from God, and they cannot restore their relationship with Him or earn His acceptance through their own efforts.
     refs:
-      zh: 创1:26–27；创3:1–19；赛43:7；罗3:23；罗6:23；弗2:1–10
-      en: Gen 1:26–27; Gen 3:1–19; Isa 43:7; Rom 3:23; Rom 6:23; Eph 2:1–10
+      zh: 创世记 1:26-27；3:1-24；以赛亚书 43:7；罗马书 3:23；6:23；以弗所书 2:1-10
+      hant: 創世記 1:26-27；3:1-24；以賽亞書 43:7；羅馬書 3:23；6:23；以弗所書 2:1-10
+      en: Genesis 1:26-27; 3:1-24; Isaiah 43:7; Romans 3:23; 6:23; Ephesians 2:1-10
   - title:
       zh: 救恩
+      hant: 救恩
       en: Salvation
     text:
-      zh: 我们相信人得救唯独本乎恩、唯独因着信、唯独在基督里。耶稣在十字架上替我们承担了悖逆神应受的刑罚。人不能靠行善或任何方法救自己。凡信靠耶稣的人，罪得赦免，与神和好，被收纳为神的儿女，并有永远与神同在的应许。
-      en: We believe salvation is by grace alone, through faith alone, in Christ alone. On the cross Jesus took the punishment we deserved for rebelling against God. No one can save themselves by good works or any other way. Everyone who trusts in Jesus is forgiven, brought back to God, adopted as His child, and promised eternal life with Him.
+      zh: 我们相信，救恩完全是出于神的恩典。耶稣基督的流血与复活是我们得称为义和蒙救赎的唯一根据，祂替我们承受因悖逆神而当受的刑罚。凡愿意认罪悔改，凭信心接受耶稣基督的人，罪都蒙赦免，皆由圣灵重生，成为神的儿女。
+      hant: 我們相信，救恩完全是出於神的恩典。耶穌基督的流血與復活是我們得稱為義和蒙救贖的唯一根據，祂替我們承受因悖逆神而當受的刑罰。凡願意認罪悔改，憑信心接受耶穌基督的人，罪都蒙赦免，皆由聖靈重生，成為神的兒女。
+      en: We believe that salvation is entirely by God’s grace. The shed blood and resurrection of Jesus Christ are the sole basis of our justification and redemption. He bore in our place the punishment we deserve for rebelling against God. All who are willing to confess their sins and repent, receiving Jesus Christ by faith, are forgiven, born again by the Holy Spirit, and made children of God.
     refs:
-      zh: 约1:12；徒2:38；罗8:14–17；弗2:8–10；彼前1:18–19；彼前3:18
-      en: John 1:12; Acts 2:38; Rom 8:14–17; Eph 2:8–10; 1 Pet 1:18–19; 1 Pet 3:18
+      zh: 约翰福音 1:12，3:16-19；罗马书 8:14-17；哥林多后书 5:17；以弗所书 2:8-10；提多书 3:5；彼得前书 1:18-19
+      hant: 約翰福音 1:12，3:16-19；羅馬書 8:14-17；哥林多後書 5:17；以弗所書 2:8-10；提多書 3:5；彼得前書 1:18-19
+      en: John 1:12, 3:16-19; Romans 8:14-17; 2 Corinthians 5:17; Ephesians 2:8-10; Titus 3:5; 1 Peter 1:18-19
   - title:
       zh: 教会
+      hant: 教會
       en: The Church
     text:
-      zh: 我们相信神要每一位基督徒加入一个地方教会，与住在同一地区的信徒定期聚会、一同敬拜。加入教会就是委身去爱、去服事其他肢体：彼此劝勉、坚固彼此的信心，在实际生活中互相照顾。
-      en: "We believe God calls every Christian to belong to a local church: believers in one place who meet regularly to worship together. Joining a church means committing to love and serve its members by encouraging one another, strengthening one another’s faith, and caring for one another in practical ways."
+      zh: 我们相信，教会是基督的身体，基督是教会的元首。教会在各地由重生，蒙神恩召，因祂的爱联合的信徒，依据圣经的教导组成。加入教会，就是委身于教会中的其他成员，并彼此服事，彼此劝勉，彼此关怀。地方教会的存在是为了敬拜、团契以及向未得救的人传福音。
+      hant: 我們相信，教會是基督的身體，基督是教會的元首。教會在各地由重生，蒙神恩召，因祂的愛聯合的信徒，依據聖經的教導組成。加入教會，就是委身於教會中的其他成員，並彼此服事，彼此勸勉，彼此關懷。地方教會的存在是為了敬拜、團契以及向未得救的人傳福音。
+      en: We believe that the church is the body of Christ, and Christ is its head. Local churches are formed according to the teaching of Scripture by believers who are born again, called by God, and united by His love. Joining a church means committing ourselves to its other members, serving, encouraging, and caring for one another. The local church exists for worship, fellowship, and proclaiming the gospel to those who are not yet saved.
     refs:
-      zh: 徒2:42；罗12:3–16；弗4:11–16；来10:24–25
-      en: Acts 2:42; Rom 12:3–16; Eph 4:11–16; Heb 10:24–25
-  - title:
-      zh: 天使
-      en: Angels
-    text:
-      zh: 我们相信天使是神所造的，为要事奉、敬拜祂，传达祂的信息，并服事信徒。魔鬼是堕落的天使，邪恶、诡诈、有能力，但仍在耶稣基督的主权和能力之下。
-      en: "We believe God created angels to serve and worship Him, carry His messages and help believers. Demons are fallen angels: evil, deceptive and powerful, yet still under the authority and power of Jesus Christ."
-    refs:
-      zh: 太8:29；路2:9–14；路7:21；提前4:1；来1:6–7, 14；启1:1–3
-      en: Matt 8:29; Luke 2:9–14; Luke 7:21; 1 Tim 4:1; Heb 1:6–7, 14; Rev 1:1–3
-  - title:
-      zh: 末世
-      en: The Last Things
-    text:
-      zh: 我们相信耶稣基督必再来，建立祂公义、和平的国度。祂要彻底击败撒但，创造新天新地，那里不再有罪、悲伤和疾病。信徒要在新天新地里与神同在，永远敬拜祂、以祂为乐。
-      en: We believe Jesus Christ will come again and set up His kingdom of justice, peace and righteousness. He will defeat Satan for good and make a new heaven and a new earth, where there is no more sin, sorrow or sickness. Believers will live there with God, worshiping and enjoying Him forever.
-    refs:
-      zh: 太25:41；彼后3:10；启20:1–10；启21:1–8
-      en: Matt 25:41; 2 Pet 3:10; Rev 20:1–10; Rev 21:1–8
+      zh: 马太福音 28:19-20；约翰福音 1:12-13；使徒行传 2:42；罗马书 12:3-16；以弗所书 2:19-21，4:11-16
+      hant: 馬太福音 28:19-20；約翰福音 1:12-13；使徒行傳 2:42；羅馬書 12:3-16；以弗所書 2:19-21，4:11-16
+      en: Matthew 28:19-20; John 1:12-13; Acts 2:42; Romans 12:3-16; Ephesians 2:19-21, 4:11-16
   - title:
       zh: 婚姻与性
+      hant: 婚姻與性
       en: Marriage and Sexuality
     text:
-      zh: 我们相信神设立婚姻是一男一女、一夫一妻终身的盟约，象征基督与教会之间的爱。神也定意性关系只在婚姻中的夫妻之间。
-      en: We believe God designed marriage as a lifelong covenant between one man and one woman, a picture of Christ’s love for the church. God intends sexual intimacy only between a husband and wife within marriage.
+      zh: 我们相信，神所设计的婚姻，是一男一女结为夫妻、一生一世在盟约中彼此委身。婚姻旨在彰显基督与祂的新妇，即教会之间的盟约之爱。此外，神的旨意是，性亲密关系只能存在于彼此结婚的男女之间。
+      hant: 我們相信，神所設計的婚姻，是一男一女結為夫妻、一生一世在盟約中彼此委身。婚姻旨在彰顯基督與祂的新婦，即教會之間的盟約之愛。此外，神的旨意是，性親密關係只能存在於彼此結婚的男女之間。
+      en: We believe that marriage, as designed by God, unites one man and one woman as husband and wife in lifelong covenant commitment to one another. Marriage is intended to display the covenant love between Christ and His bride, the church. Furthermore, God’s will is that sexual intimacy take place only between a man and a woman who are married to each other.
     refs:
-      zh: 创1:27–28；创2:23–24；罗1:24–28；林前6:9–10；弗5:22–33；帖前4:1–8
-      en: Gen 1:27–28; Gen 2:23–24; Rom 1:24–28; 1 Cor 6:9–10; Eph 5:22–33; 1 Thess 4:1–8
+      zh: 创世记 1:26-28；2:18-24；马太福音 19:3-9；罗马书 1:24-28；哥林多前书 5:1；6:9-10；以弗所书 5:22-33；帖撒罗尼迦前书 4:1-8
+      hant: 創世記 1:26-28；2:18-24；馬太福音 19:3-9；羅馬書 1:24-28；哥林多前書 5:1；6:9-10；以弗所書 5:22-33；帖撒羅尼迦前書 4:1-8
+      en: Genesis 1:26-28; 2:18-24; Matthew 19:3-9; Romans 1:24-28; 1 Corinthians 5:1; 6:9-10; Ephesians 5:22-33; 1 Thessalonians 4:1-8
   - title:
-      zh: 性别
-      en: Gender
+      zh: 基督的再来
+      hant: 基督的再來
+      en: The Return of Christ
     text:
-      zh: 我们相信神照着自己的形像造了亚当和夏娃，男人和女人在神面前同样尊贵，又各有不同。这男女之别是神起初美好的设计，为要叫人蒙福、得喜乐。
-      en: We believe God created Adam and Eve in His image, male and female, equal in worth before Him and distinct from each other. This distinction is part of God’s good design from the beginning, given for the blessing and joy of the people He made.
+      zh: 我们相信，耶稣基督必再来，建立以公正、和平与公义为特征的永恒国度。随后，祂将击败撒但，创造新天新地，其中再无罪恶、悲伤或疾病。届时，所有人都将复活并受审判，信徒将居住在新天新地，与神相交，敬拜祂，并以祂为乐，直到永远。而拒绝祂的人将面临与神永远的分离。
+      hant: 我們相信，耶穌基督必再來，建立以公正、和平與公義為特徵的永恆國度。隨後，祂將擊敗撒但，創造新天新地，其中再無罪惡、悲傷或疾病。屆時，所有人都將復活並受審判，信徒將居住在新天新地，與神相交，敬拜祂，並以祂為樂，直到永遠。而拒絕祂的人將面臨與神永遠的分離。
+      en: We believe that Jesus Christ will come again to establish an eternal kingdom characterized by justice, peace, and righteousness. He will then defeat Satan and create a new heaven and a new earth, where there will be no more sin, sorrow, or sickness. At that time, all people will be raised and judged. Believers will dwell in the new heaven and new earth, in fellowship with God, worshiping and enjoying Him forever. Those who reject Him will face eternal separation from God.
     refs:
-      zh: 创1:27–28；申22:5；林前6:9–10
-      en: Gen 1:27–28; Deut 22:5; 1 Cor 6:9–10
+      zh: 马太福音 24:30-42；25:41；使徒行传 1:11；哥林多前书 15:35-58；彼得后书 3:10；启示录 20:1-10；21:1-8
+      hant: 馬太福音 24:30-42；25:41；使徒行傳 1:11；哥林多前書 15:35-58；彼得後書 3:10；啟示錄 20:1-10；21:1-8
+      en: Matthew 24:30-42; 25:41; Acts 1:11; 1 Corinthians 15:35-58; 2 Peter 3:10; Revelation 20:1-10; 21:1-8
 question:
   zh: 对我们的信仰有疑问？欢迎在主日后找我们聊聊，或者给我们留言。
   en: Questions about what we believe? Come talk with us after a Sunday service, or send us a note.
