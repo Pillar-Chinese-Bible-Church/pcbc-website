@@ -4,19 +4,20 @@ import fs from "node:fs";
 import vm from "node:vm";
 import { parseHTML } from "linkedom";
 const tick = () => new Promise(resolve => setImmediate(resolve));
-async function page(result = { code: "accepted" }, available = true) {
+async function page(result = { code: "accepted" }, available = true, loadScript = true) {
   const { document } = parseHTML(`<html><head></head><body><form id="contact-form" action="/api/contact" data-language="en" data-sending="Sending" data-success="Success" data-unavailable="Unavailable" data-error="Error" data-verification="Verify" data-rate-limited="Wait"><input name="name" value="Visitor"><input name="email" value="visitor@example.com"><select id="contact-topic" name="topic"><option value="visit">Visit</option></select><textarea id="contact-message" name="message">Sunday visit question</textarea><input name="website" value=""><div id="contact-verification"></div><p id="contact-status"></p><button type="submit" disabled>Send</button></form><span id="message-count"></span><span id="contact-context"></span><p class="contact-context" hidden></p><a data-lang href="https://pillarcbc.org/zh-hant/contact/">繁</a></body></html>`);
   const form = document.getElementById("contact-form");
   form.reportValidity = () => true;
   form.reset = () => { document.getElementById("contact-message").value = ""; };
   document.getElementById("contact-status").focus = () => {};
   let callbacks;
+  let loadTimeout;
   let posts = 0;
   let resolvePost;
   const turnstile = { render: (selector, options) => { callbacks = options; return 1; }, getResponse: () => "token", reset: () => {} };
   vm.runInNewContext(fs.readFileSync("src/assets/contact.js", "utf8"), {
     document, URL, URLSearchParams, AbortSignal,
-    window: { location: { search: "?topic=visit&regarding=Sunday" }, turnstile },
+    window: { location: { search: "?topic=visit&regarding=Sunday" }, turnstile, setTimeout: callback => { loadTimeout = callback; return 1; }, clearTimeout: () => { loadTimeout = undefined; } },
     FormData: class { get(key) { return form.querySelector(`[name="${key}"]`).value; } },
     fetch: async (_, options) => {
       if (!options.method) return { ok: available, json: async () => ({ siteKey: "public" }) };
@@ -25,8 +26,8 @@ async function page(result = { code: "accepted" }, available = true) {
     },
   });
   await tick();
-  if (available) { document.querySelector("script").onload(); callbacks.callback(); }
-  return { document, form, status: document.getElementById("contact-status"), button: form.querySelector("button"), posts: () => posts, finish: () => resolvePost(), submit: () => form.dispatchEvent(new document.defaultView.Event("submit", { cancelable: true })) };
+  if (available && loadScript) { document.querySelector("script").onload(); callbacks.callback(); }
+  return { expireLoading: () => loadTimeout?.(), document, form, status: document.getElementById("contact-status"), button: form.querySelector("button"), posts: () => posts, finish: () => resolvePost(), submit: () => form.dispatchEvent(new document.defaultView.Event("submit", { cancelable: true })) };
 }
 test("button remains unavailable without configured endpoint", async () => {
   const ui = await page({}, false);
@@ -55,4 +56,18 @@ test("provider failure and rate limits keep message content and never display su
     assert.equal(ui.document.getElementById("contact-message").value, "Sunday visit question");
     assert.equal(ui.button.disabled, true);
   }
+});
+
+test("a stalled verification script shows the email fallback instead of Preparing forever", async () => {
+  const ui = await page({}, true, false);
+  ui.expireLoading();
+  assert.equal(ui.status.textContent, "Unavailable");
+  assert.equal(ui.button.disabled, true);
+  assert.equal(ui.posts(), 0);
+});
+test("successful widget initialization cancels the loading timeout", async () => {
+  const ui = await page();
+  ui.expireLoading();
+  assert.equal(ui.button.disabled, false);
+  assert.equal(ui.status.textContent, "");
 });

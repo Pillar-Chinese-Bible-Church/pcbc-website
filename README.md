@@ -486,3 +486,10 @@ Shared image files are not automatically deleted because other content may use t
 
 Giving content is editable under **Pages CMS → 奉献 Giving**. When changing the Zelle
 recipient, update and verify the original QR image together with the email text.
+
+
+Shared CSS and JavaScript URLs include a content-derived version. Updating source
+assets or stylesheet modules changes that version so browsers fetch the matching
+files after publication, even when older assets are still cached. The contact
+honeypot is also hidden in HTML, and a stalled Turnstile load shows the direct-email
+fallback after 15 seconds instead of leaving the form on Preparing indefinitely.

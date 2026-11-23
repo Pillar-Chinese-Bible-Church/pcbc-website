@@ -24,8 +24,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ L.font }}:wght@300;400;500;600&amp;display=swap">
-<link rel="stylesheet" href="/assets/site.css">
-{% if L.prefix == "" and pagePath == "/" %}<script src="/assets/lang.js"></script>{% endif %}
+<link rel="stylesheet" href="/assets/site.css?v={{ assets.version }}">
+{% if L.prefix == "" and pagePath == "/" %}<script src="/assets/lang.js?v={{ assets.version }}"></script>{% endif %}
 </head>
 <body>
 <a class="skip-link" href="#main">{{ u.skip }}</a>
@@ -79,6 +79,6 @@
     {%- endif %}
   </div>
 </footer>
-<script src="/assets/site.js"></script>
+<script src="/assets/site.js?v={{ assets.version }}"></script>
 </body>
 </html>

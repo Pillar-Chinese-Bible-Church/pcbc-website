@@ -18,7 +18,12 @@ export function checkSite(directory = "_site", production = false) {
     for (const link of document.querySelectorAll('a[href^="mailto:"]')) {
       assert.match(link.getAttribute("href"), /^mailto:[^\s@?]+@[^\s@?]+\.[^\s@?]+(?:\?|$)/, `${relative}: invalid email link`);
     }
-    const languageScript = document.querySelector('script[src="/assets/lang.js"]');
+    const languageScript = [...document.querySelectorAll("script[src]")].find(element =>
+      new URL(element.getAttribute("src"), pageUrl).pathname === "/assets/lang.js");
+    for (const element of document.querySelectorAll('script[src^="/assets/"], link[rel="stylesheet"][href^="/assets/"]')) {
+      const target = new URL(element.getAttribute("src") || element.getAttribute("href"), pageUrl);
+      assert.match(target.searchParams.get("v") || "", /^[a-f0-9]{16}$/, `${relative}: unversioned asset ${target.pathname}`);
+    }
     assert.equal(!!languageScript, relative === "index.html", `${relative}: language detection belongs only on /`);
     const ids = [...document.querySelectorAll("[id]")].map(element => element.id);
     assert.equal(new Set(ids).size, ids.length, `${relative}: duplicate IDs`);

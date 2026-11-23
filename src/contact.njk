@@ -48,7 +48,7 @@ eleventyComputed:
           <textarea id="contact-message" name="message" rows="7" minlength="10" maxlength="4000" required aria-describedby="message-hint"></textarea>
           <div class="contact-message-hint"><small id="message-hint">{{ f.messageHint }}</small><span id="message-count" aria-hidden="true">0 / 4,000</span></div>
         </div>
-        <div class="contact-trap" aria-hidden="true"><label for="contact-website">Website</label><input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+        <div class="contact-trap" hidden aria-hidden="true"><label for="contact-website">Website</label><input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
         <div id="contact-verification"></div>
         <p id="contact-status" class="contact-status" role="status" aria-live="polite" tabindex="-1">{{ f.loading }}</p>
         <noscript><p>{{ f.noScript }}</p></noscript>
@@ -74,4 +74,4 @@ eleventyComputed:
     <a class="contact-back" href="{{ L.prefix }}/">{{ f.home }}</a>
   </div>
 </main>
-<script src="/assets/contact.js" defer></script>
+<script src="/assets/contact.js?v={{ assets.version }}" defer></script>

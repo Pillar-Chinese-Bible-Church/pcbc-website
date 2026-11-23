@@ -12,7 +12,13 @@
     status.textContent = text;
     status.classList.toggle("contact-status-error", !!error);
   }
-  function unavailable() { show(form.dataset.unavailable, true); button.disabled = true; }
+  function unavailable() {
+    window.clearTimeout(loadTimer);
+    show(form.dataset.unavailable, true);
+    button.disabled = true;
+  }
+  // A stalled third-party script must not leave the form stuck on Preparing.
+  var loadTimer = window.setTimeout(unavailable, 15000);
 
   // Runtime configuration keeps secret values out of generated HTML and allows
   // preview and production to use separate Turnstile widgets and destinations.
@@ -32,6 +38,7 @@
             "expired-callback": function () { if (!busy && !sent) { button.disabled = true; show(form.dataset.verification); } },
             "error-callback": function () { if (!busy && !sent) { button.disabled = true; show(form.dataset.verification, true); } },
           });
+          window.clearTimeout(loadTimer);
           show(form.dataset.verification);
         } catch (_) { unavailable(); }
       };
