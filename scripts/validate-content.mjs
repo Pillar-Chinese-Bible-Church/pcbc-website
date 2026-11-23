@@ -28,7 +28,7 @@ function inspect(value, location) {
 const required = {
   "site.yml": ["name", "address", "map_link", "email", "sunday.time", "sunday.place", "sunday.note"],
   "homepage.yml": ["hero.title", "hero.subtitle", "hero.button", "hero.about_button", "hero.image", "hero.image_alt", "sunday.heading", "sunday.image", "sunday.image_alt", "week.heading", "verse.text", "verse.reference", "values.heading", "values.mission", "values.button"],
-  "about.yml": ["title", "intro", "mission.heading", "mission.text", "mission.welcome", "pastor.name", "pastor.role", "pastor.email", "pastor.image", "pastor.image_alt", "life.heading"],
+  "about.yml": ["title", "intro", "mission.heading", "mission.text", "mission.welcome", "pastor.name", "pastor.role", "pastor.bio", "pastor.email", "pastor.image", "pastor.image_alt", "life.heading"],
   "beliefs.yml": ["title", "intro", "question", "button"],
   "events.yml": ["heading", "intro"],
   "photos.yml": ["label"],
