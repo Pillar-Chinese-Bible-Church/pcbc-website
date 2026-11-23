@@ -1,6 +1,7 @@
 // Reviewed interface copy for all contact form states.
 export default {
   "zh-Hans": {
+    verify: "开始验证", retryVerification: "重新验证", verifying: "正在验证，请稍候…", verifiedLabel: "验证成功", verified: "验证成功，可以发送留言。", verificationRetry: "验证未能完成。请点击“重新验证”，或直接发送邮件。", verificationExpired: "验证已过期，请重新验证。",
     title: "联系我们", intro: "想了解教会、参加聚会，或有问题想聊聊？欢迎与我们联系。",
     formTitle: "给我们留言", formIntro: "请留下你的姓名、邮箱和想说的话。",
     name: "姓名", email: "电子邮箱", topic: "想咨询什么？", chooseTopic: "请选择主题",
@@ -9,11 +10,12 @@ export default {
     regarding: "关于", send: "发送留言",
     loading: "正在准备表单…", sending: "正在发送…", success: "留言已提交，谢谢！教会会通过你填写的邮箱回复。",
     unavailable: "表单暂时无法使用，请通过右侧邮箱联系教会。", error: "暂时无法确认留言是否发送成功。内容已保留，请稍后再试，或直接发送邮件。",
-    verification: "请完成验证后再发送。", rateLimited: "提交次数较多，请稍等一分钟再试。", noScript: "请启用 JavaScript 使用表单，或直接发送邮件联系教会。",
+    verification: "请点击“开始验证”，验证成功后即可发送留言。", rateLimited: "提交次数较多，请稍等一分钟再试。", noScript: "请启用 JavaScript 使用表单，或直接发送邮件联系教会。",
     emailTitle: "直接发送邮件", emailIntro: "你现在就可以通过电子邮件联系教会。", emailAction: "给教会发邮件",
     visitTitle: "欢迎来参加主日崇拜", address: "地址", directions: "查看路线", home: "← 回到首页",
   },
   "zh-Hant": {
+    verify: "開始驗證", retryVerification: "重新驗證", verifying: "正在驗證，請稍候…", verifiedLabel: "驗證成功", verified: "驗證成功，可以發送留言。", verificationRetry: "驗證未能完成。請點擊「重新驗證」，或直接發送郵件。", verificationExpired: "驗證已過期，請重新驗證。",
     title: "聯絡我們", intro: "想了解教會、參加聚會，或有問題想聊聊？歡迎與我們聯絡。",
     formTitle: "給我們留言", formIntro: "請留下你的姓名、信箱和想說的話。",
     name: "姓名", email: "電子信箱", topic: "想詢問什麼？", chooseTopic: "請選擇主題",
@@ -22,11 +24,12 @@ export default {
     regarding: "關於", send: "發送留言",
     loading: "正在準備表單…", sending: "正在發送…", success: "留言已提交，謝謝！教會會透過你填寫的信箱回覆。",
     unavailable: "表單暫時無法使用，請透過右側信箱聯絡教會。", error: "暫時無法確認留言是否發送成功。內容已保留，請稍後再試，或直接發送郵件。",
-    verification: "請完成驗證後再發送。", rateLimited: "提交次數較多，請稍等一分鐘再試。", noScript: "請啟用 JavaScript 使用表單，或直接發送郵件聯絡教會。",
+    verification: "請點擊「開始驗證」，驗證成功後即可發送留言。", rateLimited: "提交次數較多，請稍等一分鐘再試。", noScript: "請啟用 JavaScript 使用表單，或直接發送郵件聯絡教會。",
     emailTitle: "直接發送郵件", emailIntro: "你現在就可以透過電子郵件聯絡教會。", emailAction: "給教會發郵件",
     visitTitle: "歡迎來參加主日崇拜", address: "地址", directions: "查看路線", home: "← 回到首頁",
   },
   en: {
+    verify: "Verify before sending", retryVerification: "Try verification again", verifying: "Verifying, please wait…", verifiedLabel: "Verified", verified: "Verified. You can now send your message.", verificationRetry: "Verification could not finish. Try verification again, or email us directly.", verificationExpired: "Verification expired. Please verify again.",
     title: "Contact Us", intro: "Curious about the church, joining a gathering, or have a question? We would love to hear from you.",
     formTitle: "Leave us a message", formIntro: "Tell us your name, email, and what is on your mind.",
     name: "Name", email: "Email address", topic: "What would you like to ask about?", chooseTopic: "Choose a topic",
@@ -35,7 +38,7 @@ export default {
     regarding: "Regarding", send: "Send message",
     loading: "Preparing the form…", sending: "Sending…", success: "Your message has been submitted. Thank you! The church will reply to the email address you provided.",
     unavailable: "The form is temporarily unavailable. Please use the church email address to contact us.", error: "We could not confirm whether your message was sent. Your message is still here. Try again later or email the church directly.",
-    verification: "Please complete the verification before sending.", rateLimited: "Too many submissions. Please wait a minute and try again.", noScript: "Enable JavaScript to use the form, or email the church directly.",
+    verification: "Click “Verify before sending” to enable Send message.", rateLimited: "Too many submissions. Please wait a minute and try again.", noScript: "Enable JavaScript to use the form, or email the church directly.",
     emailTitle: "Email us directly", emailIntro: "You can contact the church by email now.", emailAction: "Email the church",
     visitTitle: "Join us on Sunday", address: "Address", directions: "Get directions", home: "← Back to home",
   },

@@ -38,3 +38,7 @@
 .contact-status:empty { display: none; }
 .contact-status-error { color: #8b2525; }
 .contact-trap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+
+.contact-verify { display: block; margin-bottom: 12px; font: 500 1rem/1.5 var(--font); cursor: pointer; border: 1px solid var(--slate); background: var(--white); color: var(--slate); }
+.contact-verify:disabled { opacity: .65; cursor: default; }
+#contact-verification { max-width: 100%; }
