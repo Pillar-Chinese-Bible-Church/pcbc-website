@@ -67,7 +67,7 @@ export default function (eleventyConfig) {
   // Every <img> is resized into several sizes and re-encoded; this also drops photo metadata such as GPS location.
   eleventyConfig.addPlugin(eleventyImageTransformPlugin, {
     formats: ["webp", "jpeg"],
-    widths: [480, 960, 1600],
+    widths: [480, 960, 1280, 1600],
     htmlOptions: {
       imgAttributes: { loading: "lazy", decoding: "async", sizes: "100vw" },
     },
