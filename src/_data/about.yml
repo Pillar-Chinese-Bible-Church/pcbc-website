@@ -1,17 +1,27 @@
-# Pastor details, portrait, introduction and mission from the church's existing pages,
-# reviewed 2026-11-16: https://pillarcbc.org/關於我們/ and https://pillarcbc.org/en/about-us/
-# Do not add biographical details without a church-approved source.
-title: { zh: 关于我们, hant: 關於我們, en: About Us }
+# Introduction and church vision: PCBC 核心價值 v3, supplied by Pastor Bill Yang.
+# Traditional Chinese preserves the source wording; English is translated for review.
+# Existing sourced pastor details and church-life information remain unchanged.
+title:
+  zh: 关于我们
+  hant: 關於我們
+  en: About Us
 intro:
-  zh: 柱石华人圣经教会以圣经为根基，陪伴华人家庭在信仰、生活与彼此相爱中一同成长。
-  hant: 柱石華人聖經教會以聖經為根基，陪伴華人家庭在信仰、生活與彼此相愛中一同成長。
-  en: Pillar Chinese Bible Church is rooted in the Bible, walking alongside Chinese families as we grow together in faith, in daily life, and in love for one another.
+  zh: 柱石华人圣经教会（Pillar Chinese Bible Church，简称PCBC）是一间位于硅谷、以耶稣基督为中心、以圣经为信仰与生活最高权威的福音派教会。我们相信，教会属于基督，必须按照神在圣经中的教导来建立，而不是随从人的传统、喜好或时代的潮流。
+  hant: 柱石華人聖經教會（Pillar Chinese Bible Church，簡稱PCBC）是一間位於硅谷、以耶穌基督為中心、以聖經為信仰與生活最高權威的福音派教會。我們相信，教會屬於基督，必須按照神在聖經中的教導來建立，而不是隨從人的傳統、喜好或時代的潮流。
+  en: Pillar Chinese Bible Church (PCBC) is an evangelical church in Silicon Valley, centered on Jesus Christ, with the Bible as the highest authority for faith and life. We believe that the church belongs to Christ and must be built according to God’s teaching in Scripture, rather than following human traditions, preferences, or the trends of the times.
 mission:
-  heading: { zh: 使命宣言, hant: 使命宣言, en: Our Mission }
+  heading:
+    zh: 我们所追求的教会
+    hant: 我們所追求的教會
+    en: The Church We Seek to Build
   text:
-    zh: 以神的话语为根基，在敬拜中彼此合一，我们存在是为了荣耀神：在硅谷建立一个跨世代、双语的信仰群体，借着基督的爱使生命得着改变。
-    hant: 以神的話語為根基，在敬拜中彼此合一，我們存在是為了榮耀神：在矽谷建立一個跨世代、雙語的信仰群體，藉著基督的愛使生命得著改變。
-    en: Rooted in God’s Word and united in worship, we exist to glorify God by cultivating a multi-generational, bilingual community in Silicon Valley that transforms lives through the love of Christ.
+    zh: 我们深知世上没有一间完美的教会，但我们渴望靠着神的恩典，建立一间忠于圣经、持守福音、彼此相爱、积极宣教的健康教会。我们重视忠心的释经讲道-按着正意分解真理的道、合乎圣经的敬拜、有意义的教会成员关系，以及彼此委身的门徒生活，使每一位信徒在圣经的真理和爱中一同成长，越来越像基督。
+    hant: 我們深知世上沒有一間完美的教會，但我們渴望靠著神的恩典，建立一間忠於聖經、持守福音、彼此相愛、積極宣教的健康教會。我們重視忠心的釋經講道-按著正意分解真理的道、合乎聖經的敬拜、有意義的教會成員關係，以及彼此委身的門徒生活，使每一位信徒在聖經的真理和愛中一同成長，越來越像基督。
+    en: We know that no church in this world is perfect, but by God’s grace we long to build a healthy church that is faithful to Scripture, holds fast to the gospel, loves one another, and actively engages in missions. We value faithful expository preaching that rightly handles the word of truth, biblical worship, meaningful church membership, and a life of discipleship marked by commitment to one another, so that every believer grows together in biblical truth and love, becoming more like Christ.
+  welcome:
+    zh: 无论你正在探索信仰，或是希望在圣经真理中扎根成长，我们都诚挚欢迎你与我们一同认识基督、经历福音，并在祂的教会中彼此扶持、共同成长。
+    hant: 無論你正在探索信仰，或是希望在聖經真理中紮根成長，我們都誠摯歡迎你與我們一同認識基督、經歷福音，並在祂的教會中彼此扶持、共同成長。
+    en: Whether you are exploring the faith or seeking to become rooted and grow in biblical truth, we warmly welcome you to know Christ and experience the gospel with us, supporting one another and growing together in His church.
 pastor:
   heading: { zh: 牧者介绍, hant: 牧者介紹, en: Our Pastor }
   name: { zh: 杨东牧师, hant: 楊東牧師, en: Pastor Bill Yang }

@@ -102,14 +102,23 @@ content:
         fields:
           - { name: heading, label: 标题 Heading, type: object, fields: *line }
           - { name: mission, label: 使命 Mission, type: object, fields: *para }
-          - name: items
-            label: 价值（可以添加、删除、拖动排序）Values
-            type: object
-            list: true
-            fields:
-              - { name: title, label: 标题 Title, type: object, fields: *line }
-              - { name: text, label: 文字 Text, type: object, fields: *para }
           - { name: button, label: 按钮文字 Button, type: object, fields: *line }
+
+  - name: core_values
+    label: 核心价值 Core Values
+    type: file
+    path: src/_data/values.yml
+    format: yaml
+    fields:
+      - name: items
+        label: 价值（首页摘要及关于我们全文）Values
+        type: object
+        list: true
+        fields:
+          - { name: title, label: 标题 Title, type: object, fields: *line }
+          - { name: summary, label: 首页摘要 Homepage summary, type: object, fields: *para }
+          - { name: text, label: 完整内容 Full text, type: object, fields: *para }
+          - { name: refs, label: 经文出处 Bible references, type: object, fields: *line }
 
   - name: about
     label: 关于我们 About Us
@@ -125,6 +134,7 @@ content:
         fields:
           - { name: heading, label: 标题 Heading, type: object, fields: *line }
           - { name: text, label: 内容 Text, type: object, fields: *para }
+          - { name: welcome, label: 欢迎语 Welcome, type: object, fields: *para }
       - name: pastor
         label: 牧者 Pastor
         type: object
