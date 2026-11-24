@@ -18,6 +18,10 @@ export function checkSite(directory = "_site", production = false) {
     assert.equal(document.querySelectorAll("main#main").length, 1, `${relative}: needs one main landmark`);
     assert.equal(document.querySelectorAll("h1").length, 1, `${relative}: needs one primary heading`);
     assert.ok(document.querySelector("h1")?.textContent.trim(), `${relative}: primary heading is empty`);
+    const sermonNavigation = document.querySelector('#nav a[href$="/sermons/"]');
+    assert.ok(sermonNavigation, `${relative}: sermon navigation must remain visible even without content`);
+    assert.equal(document.querySelector('#nav a[data-nav-section="sunday"]'), null, `${relative}: sermon navigation replaces the Sunday anchor tab`);
+    if (relative.endsWith("sermons/index.html") || relative.endsWith("bulletin/index.html")) assert.equal(sermonNavigation.getAttribute("aria-current"), "page", `${relative}: sermon navigation should be active`);
     for (const link of document.querySelectorAll('a[href^="mailto:"]')) {
       assert.match(link.getAttribute("href"), /^mailto:[^\s@?]+@[^\s@?]+\.[^\s@?]+(?:\?|$)/, `${relative}: invalid email link`);
     }

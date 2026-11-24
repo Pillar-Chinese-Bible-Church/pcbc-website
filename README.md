@@ -514,8 +514,10 @@ The real collection starts empty in `content/sermons.yml`. Each Sunday has one s
   point the reusable QR at the final production domain's `/bulletin/` URL.
 - All routes have `/zh-hant/` and `/en/` equivalents. Traditional Chinese uses the
   existing OpenCC fallback. Website language does not change the recorded audio.
-- The homepage links and sermon navigation appear only when real published
-  retained entries exist. With previous entries but no current bulletin, the
+- The always-visible Sermons navigation replaces the previous Sunday anchor
+  tab. It opens the archive's empty state before the first entry is published.
+  The homepage retains Sunday service information; its bulletin/archive links
+  appear only when real published retained entries exist. With previous entries but no current bulletin, the
   archive remains available and the homepage states that this week's bulletin
   has not been published. A recent bulletin is always labeled with its date.
 

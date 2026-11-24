@@ -51,8 +51,7 @@
     </a>
     <button class="menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav" aria-label="{{ u.menu }}" data-open="{{ u.close }}" data-closed="{{ u.menu }}"><span class="menu-icon" aria-hidden="true"></span></button>
     <nav class="nav" id="nav">
-      <a href="{{ home }}#sunday" data-nav-section="sunday">{{ u.nav.sunday }}</a>
-      {% if sd.hasContent %}<a href="{{ sermonBase }}/sermons/"{% if '/sermons/' in pagePath and not sermonPreviewPage or sermonPage or (sermonPreviewPage and sermonPreviewPage.view != 'home') %} aria-current="page"{% endif %}>{{ sermonUi[L.code].archive }}</a>{% endif %}
+      <a href="{{ sermonBase }}/sermons/"{% if sermonPage or pagePath == '/sermons/' or pagePath == '/bulletin/' or (sermonPreviewPage and sermonPreviewPage.view != 'home') %} aria-current="page"{% endif %}>{{ sermonUi[L.code].archive }}</a>
       {% if eventData.upcoming.length %}<a href="{{ home }}#events" data-nav-section="events" data-events-nav data-last-event-end="{{ eventData.latestEnd }}">{{ u.nav.events }}</a>{% endif %}
       <a href="{{ home }}#groups" data-nav-section="groups">{{ u.nav.groups }}</a>
       <a href="{{ L.prefix }}/about/"{% if pagePath == '/about/' %} aria-current="page"{% endif %}>{{ u.nav.about }}</a>
