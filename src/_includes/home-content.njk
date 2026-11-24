@@ -15,38 +15,39 @@
     </div>
   </section>
 
-  <section class="band" id="sunday">
+  <section class="band" id="sunday" aria-labelledby="sunday-heading">
     <div class="wrap sunday-wrap">
       <div class="sunday-overview">
-        <h2>{{ h.sunday.heading | t(c) }}</h2>
-        <div class="sunday-facts">
-          <p class="sunday-time">{{ site.sunday.time | t(c) }}</p>
-          <p class="sunday-location"><span>{{ u.at }} {{ site.sunday.place }}</span><a class="sunday-directions" href="{{ site.map_link }}" target="_blank" rel="noopener">{{ u.events.directions }} ↗</a></p>
-          <p class="sunday-note">{{ site.sunday.note | t(c) }}</p>
-          {% if sd.hasContent %}<div class="sunday-sermon-links">
-            {% if sd.current and sd.current.bulletin %}<a class="btn dark" href="{{ sermonBase }}/bulletin/">{{ sermonUi[c].thisBulletin }}</a>{% else %}<p>{{ sermonUi[c].notReady }}</p>{% endif %}
-            <a class="sermon-text-link" href="{{ sermonBase }}/sermons/">{{ sermonUi[c].archive }}</a>
-          </div>{% endif %}
-        </div>
-      </div>
-      <details class="sunday-details">
-        <summary>{{ u.sundayDetails }}</summary>
-        <div class="sunday-detail-content">
-          <div class="sunday-photo"><img src="{{ h.sunday.image }}" alt="{{ h.sunday.image_alt | t(c) }}" sizes="(max-width: 760px) 100vw, 400px"></div>
-          <div class="sunday-visitor">
-            <h3>{{ h.sunday.first_time | t(c) }}</h3>
-            <details class="visit-details">
-              <summary>{{ h.sunday.first_time_link | t(c) }}</summary>
-              <p>{{ site.sunday.time | t(c) }} · {{ site.sunday.note | t(c) }}</p>
-              <p><a href="{{ site.map_link }}" target="_blank" rel="noopener">{{ site.address }}</a></p>
-              <a href="{{ L.prefix }}/contact/?topic=visit">{{ u.events.question }}</a>
-            </details>
-            <h3>{{ h.sunday.missed | t(c) }}</h3>
-            {% if site.links.youtube %}<a href="{{ site.links.youtube }}">{{ h.sunday.missed_link | t(c) }}</a>
-            {% else %}<p class="video-pending">{{ h.sunday.missed_link | t(c) }}<br><small>{{ u.videoPending }}</small></p>{% endif %}
+        <div class="sunday-copy">
+          {% if h.sunday.eyebrow | t(c) %}<p class="sunday-eyebrow">{{ h.sunday.eyebrow | t(c) }}</p>{% endif %}
+          <h2 id="sunday-heading">{{ h.sunday.heading | t(c) }}</h2>
+          {% if h.sunday.intro | t(c) %}<p class="sunday-intro">{{ h.sunday.intro | t(c) }}</p>{% endif %}
+          <div class="sunday-facts">
+            <div class="sunday-fact sunday-fact-time">
+              <span class="sunday-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></span>
+              <div><p class="sunday-time">{{ site.sunday.time | t(c) }}</p><p class="sunday-note">{{ site.sunday.note | t(c) }}</p></div>
+            </div>
+            <div class="sunday-fact sunday-fact-location">
+              <span class="sunday-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 11-8 11S4 16 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg></span>
+              {% set addressParts = site.address.split(', ') %}
+              <p class="sunday-address">{{ addressParts[0] }}{% if addressParts.length > 1 %}<br>{{ addressParts.slice(1).join(', ') }}{% endif %}</p>
+            </div>
+          </div>
+          <div class="sunday-actions">
+            <a class="btn dark" href="{{ site.map_link }}" target="_blank" rel="noopener">{{ u.events.directions }} <span aria-hidden="true">↗</span></a>
+            <a class="sunday-contact" href="{{ L.prefix }}/contact/?topic=visit">{{ u.events.question }}</a>
+          </div>
+          <div class="sunday-resources">
+            <p>{{ u.sundayResources }}</p>
+            <div class="sunday-resource-links">
+              {% if sd.current and sd.current.bulletin %}<a href="{{ sermonBase }}/bulletin/">{{ sermonUi[c].thisBulletin }}</a>{% endif %}
+              <a href="{{ sermonBase }}/sermons/">{{ sermonUi[c].archive }}</a>
+              {% if site.links.youtube %}<a href="{{ site.links.youtube }}" target="_blank" rel="noopener">{{ h.sunday.youtube_label | t(c) }} <span aria-hidden="true">↗</span></a>{% endif %}
+            </div>
           </div>
         </div>
-      </details>
+        <div class="sunday-photo"><img src="{{ h.sunday.image }}" alt="{{ h.sunday.image_alt | t(c) }}" sizes="(max-width: 820px) calc(100vw - 40px), (max-width: 1100px) 58vw, 620px"></div>
+      </div>
     </div>
   </section>
 

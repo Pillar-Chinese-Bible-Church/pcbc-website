@@ -117,11 +117,10 @@ content:
         label: 主日崇拜 Sunday worship section
         type: object
         fields:
+          - { name: eyebrow, label: 标题上方小字 Eyebrow, type: object, fields: *line }
           - { name: heading, label: 标题 Heading, type: object, fields: *line }
-          - { name: first_time, label: “第一次来？”, type: object, fields: *line }
-          - { name: first_time_link, label: “第一次来”的链接文字, type: object, fields: *line }
-          - { name: missed, label: “错过了主日？”, type: object, fields: *line }
-          - { name: missed_link, label: “错过了主日”的链接文字, type: object, fields: *line }
+          - { name: intro, label: 欢迎语 Welcome text, type: object, fields: *line }
+          - { name: youtube_label, label: YouTube 链接文字 Channel link text, type: object, fields: *line }
           - { name: image, label: 照片 Photo, type: image }
           - { name: image_alt, label: 照片说明 Photo description, type: object, fields: *line }
       - name: week
