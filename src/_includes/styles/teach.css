@@ -1,5 +1,6 @@
 /* 信仰告白: shared page heading, followed by topics and scripture references. */
-.wrap.tbody { max-width: 800px; padding-block: 56px 80px; }
+.wrap.tbody { padding-block: 56px 80px; }
+.tlist, .task { max-width: 760px; }
 .tlist { list-style: none; padding: 0; margin: 0; display: grid; gap: 36px; }
 .tlist h2 { font-size: 1.3rem; font-weight: 500; margin: 0 0 8px; }
 .tlist .refs { margin-top: 8px; color: var(--muted); font-size: 0.9rem; }

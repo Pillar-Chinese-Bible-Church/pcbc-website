@@ -1,5 +1,6 @@
 /* About: church introduction, sourced pastor details, and the relocated Church Life rows. */
-.about-mission { display: grid; grid-template-columns: minmax(0, .65fr) minmax(0, 1.35fr); gap: 32px 56px; padding-block: 42px; }
+.about-mission { display: grid; gap: 24px; padding-block: 42px; }
+.about-mission>div { max-width: 48rem; }
 .about-mission h2, .about-page .together>h2 { font-size: 1.75rem; font-weight: 500; }
 .about-page .together>h2 { margin-bottom: 24px; }
 .about-mission p { font-size: 1.15rem; line-height: 1.85; }
@@ -24,7 +25,7 @@
 .about-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 18px 24px; }
 .about-actions .btn { margin-top: 0; }
 @media (max-width: 760px) {
-  .about-mission { grid-template-columns: 1fr; gap: 16px; padding-block: 30px; }
+  .about-mission { gap: 16px; padding-block: 30px; }
   .about-mission p { font-size: 1.05rem; }
   .pastor-card { grid-template-columns: 1fr; padding: 22px; gap: 20px; }
   .pastor-portrait { width: 100%; justify-self: center; }
