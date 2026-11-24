@@ -1,14 +1,14 @@
 ---
 pagination:
-  data: langs
+  data: sermonArchivePages
   size: 1
-  alias: L
-permalink: "{{ L.prefix }}/sermons/index.html"
-pagePath: "/sermons/"
+  alias: sermonArchivePage
+permalink: "{{ sermonArchivePage.language.prefix }}{{ sermonArchivePage.path }}index.html"
 layout: base.njk
 eleventyComputed:
-  pageTitle: "{{ sermonUi[L.code].title }} · {{ site.name | t(L.code) }}"
-  pageDescription: "{{ sermonUi[L.code].intro }}"
+  pagePath: "{{ sermonArchivePage.path }}"
+  pageTitle: "{{ sermonUi[sermonArchivePage.language.code].title }} · {{ site.name | t(sermonArchivePage.language.code) }}"
+  pageDescription: "{{ sermonUi[sermonArchivePage.language.code].intro }}"
 ---
-{% set sd = sermonData %}{% set sermonBase = L.prefix %}{% set sermonHome = L.prefix + '/' %}
+{% set L = sermonArchivePage.language %}{% set archivePage = sermonArchivePage %}{% set sd = sermonData %}{% set sermonBase = L.prefix %}{% set sermonHome = L.prefix + '/' %}
 {% include "sermons/archive.njk" %}

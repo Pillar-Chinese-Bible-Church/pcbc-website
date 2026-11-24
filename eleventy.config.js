@@ -4,7 +4,7 @@ import * as OpenCC from "opencc-js";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import { eventData, formatEventDate } from "./lib/events.js";
 import { readEvents } from "./lib/content.js";
-import { readSermons, sermonData, formatSermonDate, previewAllowed } from "./lib/sermons.js";
+import { readSermons, sermonData, formatSermonDate, previewAllowed, paginatePastSermons } from "./lib/sermons.js";
 import { sermonPreviewPages } from "./lib/sermon-previews.js";
 import { locales, timeZone } from "./lib/locales.js";
 import { validateContent } from "./scripts/validate-content.mjs";
@@ -47,6 +47,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addWatchTarget("src/_includes/styles/");
   eleventyConfig.addGlobalData("eventData", getEvents);
   eleventyConfig.addGlobalData("sermonData", getSermons);
+  eleventyConfig.addGlobalData("sermonArchivePages", () => paginatePastSermons(getSermons().recent).flatMap(page => locales.map(language => ({ ...page, language }))));
   eleventyConfig.addGlobalData("sermonPreviewEnabled", () => previewAllowed());
   eleventyConfig.addGlobalData("sermonPreviewPages", () => previewAllowed() ? sermonPreviewPages() : []);
   eleventyConfig.addGlobalData("sermonPages", () => getSermons().items.flatMap((sermon, index, items) => locales.flatMap(language => {

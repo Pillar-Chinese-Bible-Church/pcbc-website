@@ -1,5 +1,5 @@
 {#- Shared page frame: header, language switch, footer. Pages set `L` (language) and `pagePath` ("/" or "/teach/"). -#}
-{%- set L = sermonPreviewPage.language if sermonPreviewPage else (sermonPage.language if sermonPage else (eventPage.language if eventPage else L)) -%}
+{%- set L = sermonPreviewPage.language if sermonPreviewPage else (sermonArchivePage.language if sermonArchivePage else (sermonPage.language if sermonPage else (eventPage.language if eventPage else L))) -%}
 {%- set sd = sermonPreviewPage.data if sermonPreviewPage else sermonData -%}
 {%- set sermonBase = L.prefix + sermonPreviewPage.prefix if sermonPreviewPage else L.prefix -%}
 {%- set u = ui[L.code] -%}
@@ -51,7 +51,7 @@
     </a>
     <button class="menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav" aria-label="{{ u.menu }}" data-open="{{ u.close }}" data-closed="{{ u.menu }}"><span class="menu-icon" aria-hidden="true"></span></button>
     <nav class="nav" id="nav">
-      <a href="{{ sermonBase }}/sermons/"{% if sermonPage or pagePath == '/sermons/' or pagePath == '/bulletin/' or (sermonPreviewPage and sermonPreviewPage.view != 'home') %} aria-current="page"{% endif %}>{{ sermonUi[L.code].archive }}</a>
+      <a href="{{ sermonBase }}/sermons/"{% if sermonArchivePage or sermonPage or pagePath == '/sermons/' or pagePath == '/bulletin/' or (sermonPreviewPage and sermonPreviewPage.view != 'home') %} aria-current="page"{% endif %}>{{ sermonUi[L.code].archive }}</a>
       {% if eventData.upcoming.length %}<a href="{{ home }}#events" data-nav-section="events" data-events-nav data-last-event-end="{{ eventData.latestEnd }}">{{ u.nav.events }}</a>{% endif %}
       <a href="{{ home }}#groups" data-nav-section="groups">{{ u.nav.groups }}</a>
       <a href="{{ L.prefix }}/about/"{% if pagePath == '/about/' %} aria-current="page"{% endif %}>{{ u.nav.about }}</a>

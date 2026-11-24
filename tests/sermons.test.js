@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { assertSermon, assertSermonCollection, sermonData, sundayWindow, dateString, dateNumber, previewAllowed, pruneSermons, formatSermonDate } from "../lib/sermons.js";
+import { assertSermon, assertSermonCollection, sermonData, sundayWindow, dateString, dateNumber, previewAllowed, pruneSermons, formatSermonDate, paginatePastSermons, SERMONS_PER_PAGE } from "../lib/sermons.js";
 import { sermonPreviewScenarios, sermonPreviewPages } from "../lib/sermon-previews.js";
 import { readFileSync } from "node:fs";
 import { parseHTML } from "linkedom";
@@ -12,6 +12,24 @@ const now = Date.parse("2026-11-23T12:00:00Z");
 const entry = { date: "2026-11-22", published: true, title: { zh: "感谢", en: "Thanks" }, passage: { zh: "诗篇100", en: "Psalm 100" }, speaker: { zh: "讲员", en: "Speaker" }, recording: "pending" };
 const bulletin = { program: [{ label: { zh: "祷告", en: "Prayer" } }], announcements: [] };
 const collection = (items, current_bulletin = "") => ({ version: 1, current_bulletin, items });
+test("static archive pagination covers empty, exact and partial pages without omissions", () => {
+  for (const count of [0, 1, 6, 7, 12, 13, 51, 52]) {
+    const items = Array.from({ length: count }, (_, index) => ({ date: String(index) }));
+    const pages = paginatePastSermons(items);
+    assert.equal(pages.length, Math.max(1, Math.ceil(count / SERMONS_PER_PAGE)));
+    assert.deepEqual(pages.flatMap(page => page.items), items);
+    assert.equal(pages[0].path, "/sermons/");
+    assert.equal(pages[0].previous, null);
+    assert.equal(pages.at(-1).next, null);
+    for (const [index, page] of pages.entries()) {
+      assert.ok(page.items.length <= 6);
+      assert.equal(page.number, index + 1);
+      assert.equal(page.previous?.path, pages[index - 1]?.path);
+      assert.equal(page.next?.path, pages[index + 1]?.path);
+      if (index) assert.equal(page.path, `/sermons/page/${index + 1}/`);
+    }
+  }
+});
 test("first launch has no content, navigation or bulletin target", () => {
   const data = sermonData(collection([]), now);
   assert.equal(data.hasContent, false);
@@ -77,7 +95,7 @@ test("preview UI covers empty, bulletin-first, recorded and past-only without a 
   env.addFilter("sermonDate", formatSermonDate);
   const s = sermonUi.en;
   for (const scene of sermonPreviewScenarios(now)) {
-    const context = { L: { code: "en", prefix: "/en" }, sermonUi, sd: scene.data, sermonBase: "/preview", sermonHome: "/", site: { sunday: { time: { en: "Sunday" } }, name: { en: "Church" }, links: {} }, ui: { en: { nav: { sunday: "Sunday" } } } };
+    const context = { L: { code: "en", prefix: "/en" }, archivePage: paginatePastSermons(scene.data.recent)[0], sermonUi, sd: scene.data, sermonBase: "/preview", sermonHome: "/", site: { sunday: { time: { en: "Sunday" } }, name: { en: "Church" }, links: {} }, ui: { en: { nav: { sunday: "Sunday" } } } };
     const archive = parseHTML(env.render("sermons/archive.njk", context)).document;
     assert.equal(archive.querySelectorAll("h1").length, 1);
     if (scene.id === "empty") assert.match(archive.querySelector("main").textContent, /coming soon/);
@@ -89,6 +107,39 @@ test("preview UI covers empty, bulletin-first, recorded and past-only without a 
       assert.ok(detail.includes(scene.id === "recorded" ? s.sampleVideo : s.pending));
       assert.doesNotMatch(detail, /youtube-nocookie|data-video-load/);
     }
+  }
+});
+test("past-sermon pages preserve current Sunday and render working first/middle/last controls", () => {
+  const env = new nunjucks.Environment(new nunjucks.FileSystemLoader("src/_includes"));
+  env.addFilter("t", value => typeof value === "string" ? value : value?.en || "");
+  env.addFilter("sermonDate", formatSermonDate);
+  const scenario = sermonPreviewScenarios(now).find(scene => scene.id === "recorded");
+  const pages = paginatePastSermons(scenario.data.recent);
+  assert.equal(pages.length, 3);
+  for (const archivePage of pages) {
+    const document = parseHTML(env.render("sermons/archive.njk", {
+      L: { code: "en" }, sd: scenario.data, archivePage, sermonUi, sermonBase: "/en/_preview/sermons/recorded", site: { links: {} }
+    })).document;
+    assert.equal(document.querySelectorAll(".sermon-row").length, archivePage.items.length);
+    assert.ok(document.querySelector(".sermon-current"));
+    assert.equal(document.querySelector(".sermon-pagination [aria-current]").textContent, String(archivePage.number));
+    assert.equal(!!document.querySelector('[rel="prev"]'), archivePage.number > 1);
+    assert.equal(!!document.querySelector('[rel="next"]'), archivePage.number < pages.length);
+    assert.ok(document.querySelector(".sermon-pagination").textContent.includes(`Page ${archivePage.number} of 3`));
+    for (const link of document.querySelectorAll(".sermon-pagination a")) {
+      assert.ok(link.getAttribute("href").startsWith("/en/_preview/sermons/recorded/sermons/"));
+      assert.ok(link.getAttribute("href").endsWith("#past-sermons"));
+    }
+  }
+});
+test("preview archives generate a route for every page and locale", () => {
+  const pages = sermonPreviewPages(now);
+  for (const prefix of ["", "/en", "/zh-hant"]) {
+    for (const number of [1, 2, 3]) {
+      const path = number === 1 ? "/sermons/" : `/sermons/page/${number}/`;
+      assert.ok(pages.some(page => page.language.prefix === prefix && page.id === "recorded" && page.path === path));
+    }
+    assert.equal(pages.filter(page => page.language.prefix === prefix && page.id === "empty" && page.view === "archive").length, 1);
   }
 });
 test("real recording creates exactly one privacy-enhanced player after Play; no script leaves a YouTube link", () => {

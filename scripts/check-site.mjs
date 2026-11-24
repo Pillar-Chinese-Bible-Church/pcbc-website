@@ -21,7 +21,13 @@ export function checkSite(directory = "_site", production = false) {
     const sermonNavigation = document.querySelector('#nav a[href$="/sermons/"]');
     assert.ok(sermonNavigation, `${relative}: sermon navigation must remain visible even without content`);
     assert.equal(document.querySelector('#nav a[data-nav-section="sunday"]'), null, `${relative}: sermon navigation replaces the Sunday anchor tab`);
-    if (relative.endsWith("sermons/index.html") || relative.endsWith("bulletin/index.html")) assert.equal(sermonNavigation.getAttribute("aria-current"), "page", `${relative}: sermon navigation should be active`);
+    if (relative.endsWith("sermons/index.html") || /sermons\/page\/\d+\/index.html$/.test(relative) || relative.endsWith("bulletin/index.html")) assert.equal(sermonNavigation.getAttribute("aria-current"), "page", `${relative}: sermon navigation should be active`);
+    const archivePagination = document.querySelector(".sermon-pagination");
+    if (archivePagination) {
+      assert.ok(document.getElementById("past-sermons"), `${relative}: pagination needs a history anchor`);
+      assert.equal(archivePagination.querySelectorAll('[aria-current="page"]').length, 1, `${relative}: pagination must mark exactly one current page`);
+      assert.ok(document.querySelectorAll(".sermon-row").length <= 6, `${relative}: too many past sermons on one page`);
+    }
     for (const link of document.querySelectorAll('a[href^="mailto:"]')) {
       assert.match(link.getAttribute("href"), /^mailto:[^\s@?]+@[^\s@?]+\.[^\s@?]+(?:\?|$)/, `${relative}: invalid email link`);
     }

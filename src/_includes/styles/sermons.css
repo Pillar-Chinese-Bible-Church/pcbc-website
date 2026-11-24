@@ -13,6 +13,11 @@
 .sermon-history { padding-block: 42px; }
 .sermon-history-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; }
 .sermon-history-heading>p { color: var(--muted); font-size: .9rem; }
+.sermon-pagination { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 22px; margin-top: 28px; }
+.sermon-pagination ul { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0; }
+.sermon-pagination li>a, .sermon-pagination li>span { display: grid; place-items: center; min-width: 44px; min-height: 44px; padding: 6px 10px; border-radius: 999px; color: var(--slate); text-decoration: none; }
+.sermon-pagination [aria-current] { background: var(--night); color: var(--white); }
+.sermon-pagination>p { color: var(--muted); font-size: .9rem; }
 .sermon-row { display: grid; grid-template-columns: 240px minmax(0,1fr); align-items: center; gap: 32px; padding-block: 28px; border-bottom: 1px solid var(--line); }
 .sermon-row h3 a { text-decoration: none; }
 .sermon-thumbnail { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; width: 100%; aspect-ratio: 16/9; position: relative; overflow: hidden; border-radius: 10px; background: var(--night); color: var(--white); text-decoration: none; }

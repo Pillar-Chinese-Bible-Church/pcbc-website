@@ -508,6 +508,11 @@ The real collection starts empty in `content/sermons.yml`. Each Sunday has one s
 `YYYY-MM-DD` identifier shared by its sermon and bulletin. Keep that date stable.
 
 - `/sermons/` is the archive; `/sermons/YYYY-MM-DD/` is a sermon page.
+- Past sermons are paginated six per page. Page one stays at `/sermons/`;
+  later pages use `/sermons/page/2/`, `/sermons/page/3/`, and so on. The current
+  Sunday section stays above the archive. Previous/next and numbered links work
+  without JavaScript and jump to the past-sermons section. Small/empty archives
+  have no pagination controls. Language switches retain the page number.
 - `/sermons/YYYY-MM-DD/bulletin/` is the dated bulletin.
 - `/bulletin/` always works, including before the first bulletin is published.
   It renders the explicitly selected `current_bulletin` from the same collection;
@@ -566,6 +571,8 @@ The preview bar switches between **no content**, **bulletin published**,
 archive, detail and bulletin templates in all three languages. Dates are generated
 relative to the current Pacific Sunday. The sample speaker, program and titles
 are illustrative, and sample videos never request a real recording or thumbnail.
+Nonempty scenarios include 13 past Sundays so the first, middle and final
+pagination pages can be reviewed.
 
 The state picker also appears on the regular feature-preview homepage and all
 other feature pages, so reviewers do not need to discover the special routes.
