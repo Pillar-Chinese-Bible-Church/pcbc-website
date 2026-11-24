@@ -527,10 +527,13 @@ The real collection starts empty in `content/sermons.yml`. Each Sunday has one s
   existing OpenCC fallback. Website language does not change the recorded audio.
 - The always-visible Sermons navigation replaces the previous Sunday anchor
   tab. It opens the archive's empty state before the first entry is published.
-  The homepage retains Sunday service information; its bulletin/archive links
-  appear only when real published retained entries exist. With previous entries but no current bulletin, the
-  archive remains available and the homepage states that this week's bulletin
-  has not been published. Dated bulletins remain accessible from the sermon archive.
+  The homepage keeps the service time, full address, directions, visitor contact
+  link and entrance photo visible without expanding anything. Its secondary
+  resources row sits below the text and photo. It always links to the sermon
+  archive and links to the YouTube
+  channel when configured. The weekly bulletin link appears only when the
+  current bulletin is published. Dated bulletins and unpublished-week notices
+  remain available in the sermon archive.
 
 A weekly entry has localized title and speaker, `published`, and a
 `recording` status of `pending`, `ready`, or `unavailable`. `ready` requires an

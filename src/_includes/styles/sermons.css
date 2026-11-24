@@ -54,9 +54,6 @@
 .sermon-video-placeholder h2 { font-size: 1.5rem; font-weight: 500; }
 .sermon-video-placeholder p { max-width: 36em; color: var(--muted); }
 .sermon-neighbors { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-top: 28px; font-size: .9rem; color: var(--slate); }
-.sunday-sermon-links { margin-top: 16px; display: flex; align-items: center; flex-wrap: wrap; gap: 14px 24px; }
-.sunday-sermon-links .btn { margin-top: 0; font-size: .9rem; padding: 9px 21px; }
-.sunday-sermon-links p { color: var(--muted); font-size: .9rem; }
 .sermon-preview-bar { background: #F5F2EB; border-bottom: 1px solid var(--line); padding-block: 12px; color: var(--ink); font: 400 .9rem/1.6 var(--font); }
 .sermon-preview-bar .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; }
 .sermon-preview-bar a { color: var(--slate); text-underline-offset: 4px; padding-block: 4px; }

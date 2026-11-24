@@ -23,21 +23,18 @@ hero:
     zh: 全教会在十字架前的大合照
     en: The whole church together in front of the cross
 sunday:
+  eyebrow:
+    zh: 一起敬拜 · 一同成长
+    en: Worship together · Grow together
   heading:
-    zh: 主日崇拜
-    en: Sunday Worship
-  first_time:
-    zh: 你是新朋友吗？
-    en: First time?
-  first_time_link:
-    zh: 了解我们的活动
-    en: Here’s what to expect
-  missed:
-    zh: 错过了主日？
-    en: Missed a Sunday?
-  missed_link:
-    zh: 在 YouTube 收看讲道直播
-    en: Watch the livestream on YouTube
+    zh: 主日崇拜，欢迎你来
+    en: Join us for Sunday worship
+  intro:
+    zh: 欢迎你这个主日与我们一同敬拜。
+    en: We’d love to welcome you this Sunday.
+  youtube_label:
+    zh: 教会 YouTube 频道
+    en: Church YouTube channel
   image: /images/building.jpg
   image_alt:
     zh: 弟兄姊妹站在教会门口的台阶上
