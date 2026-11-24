@@ -16,7 +16,7 @@
 
 /* Visitor information and the entrance photo stay visible together. */
 .band { background: #F5F2EB; color: var(--ink); }
-.sunday-wrap { max-width: 1100px; padding-block: 44px; }
+.sunday-wrap { max-width: 1100px; padding-block: 44px 24px; }
 .sunday-overview { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 28px; align-items: center; }
 .sunday-copy { min-width: 0; }
 .sunday-eyebrow { color: var(--slate); font-size: .8rem; letter-spacing: .08em; margin-bottom: 8px; }
@@ -38,14 +38,14 @@
 .sunday-contact { font-size: .9rem; }
 .sunday-photo picture { display: block; }
 .sunday-photo img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 8px; }
-.sunday-resources { border-top: 1px solid var(--line); margin-top: 24px; padding-top: 16px; }
-.sunday-resources>p { color: var(--ink); font-size: .9rem; font-weight: 500; }
-.sunday-resource-links { display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: .95rem; margin-top: 6px; }
+.sunday-resources { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px 24px; border-top: 1px solid var(--line); margin-top: 28px; padding-top: 16px; }
+.sunday-resources>p { color: var(--muted); font-size: .8rem; }
+.sunday-resource-links { display: flex; flex-wrap: wrap; gap: 10px 26px; font-size: .9rem; }
 .sunday-resource-links a { padding-block: 4px; }
 @media (max-width: 820px) {
-  .sunday-wrap { padding-block: 32px; }
+  .sunday-wrap { padding-block: 32px 22px; }
   .sunday-overview { grid-template-columns: 1fr; gap: 26px; }
-  .sunday-resources { margin-top: 22px; }
+  .sunday-resources { align-items: flex-start; flex-direction: column; gap: 6px; margin-top: 22px; }
   .sunday-resource-links { gap: 8px 22px; }
 }
 @media (max-width: 760px) {

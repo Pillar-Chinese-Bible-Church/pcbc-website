@@ -529,8 +529,8 @@ The real collection starts empty in `content/sermons.yml`. Each Sunday has one s
   tab. It opens the archive's empty state before the first entry is published.
   The homepage keeps the service time, full address, directions, visitor contact
   link and entrance photo visible without expanding anything. Its secondary
-  resources group sits directly below the visit actions, before the photo on
-  mobile. It always links to the sermon archive and links to the YouTube
+  resources row sits below the text and photo. It always links to the sermon
+  archive and links to the YouTube
   channel when configured. The weekly bulletin link appears only when the
   current bulletin is published. Dated bulletins and unpublished-week notices
   remain available in the sermon archive.
