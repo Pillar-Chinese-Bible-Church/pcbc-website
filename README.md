@@ -367,12 +367,14 @@ fields and Turnstile before sending plain-text email through Resend to the fixed
 recipient `info@pillarcbc.org`. The sender is `website@pillarcbc.org`; the visitor's
 email is Reply-To. Google Workspace continues to handle the church inbox.
 
-Visitors explicitly select **Verify before sending**; Send remains disabled until
-verification succeeds. Configuration and the Turnstile script load in parallel
-on that click. Loading is limited to 15 seconds and a challenge to 45 seconds;
-errors, expiry, and timeouts offer a manual retry without clearing fields. Late
-callbacks from previous attempts are ignored, and failed sends require a fresh
-verification. No Cloudflare dashboard change is needed for this execution mode.
+The standard Cloudflare Turnstile widget initializes when the contact page opens,
+with its configuration and script loading in parallel. Cloudflare controls whether
+verification is automatic or needs its checkbox; Send remains disabled until a
+valid result arrives. There is no extra Start verification button or application
+challenge deadline. The native widget handles retry and token refresh. A 15-second
+resource-loading timeout offers a reload control if initialization fails. Late
+callbacks from previous widgets are ignored; failed sends preserve fields and
+initialize a fresh verification. No Cloudflare dashboard change is required.
 
 The form stays disabled unless its runtime settings, Resend secret, Turnstile
 keys and KV abuse-counter binding are configured. Sending, accepted, verification,

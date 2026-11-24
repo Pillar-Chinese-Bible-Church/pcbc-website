@@ -5,25 +5,23 @@
   var button = form.querySelector("[type=submit]");
   var status = document.getElementById("contact-status");
   var sendLabel = button.textContent;
-  var verify = document.getElementById("contact-verify");
+  var retryButton = document.getElementById("contact-retry");
   var widget;
   var token = "";
   var attempt = 0;
-  var timer;
+  var loadTimer;
   var script;
   var controller;
   var busy = false;
-  var checking = false;
   var sent = false;
   function show(text, error) {
     status.textContent = text;
     status.classList.toggle("contact-status-error", !!error);
   }
-  function cancelVerification() {
+  function cleanup() {
     attempt++;
-    checking = false;
     token = "";
-    window.clearTimeout(timer);
+    window.clearTimeout(loadTimer);
     if (controller) controller.abort();
     if (script) {
       script.onload = script.onerror = null;
@@ -36,26 +34,22 @@
     }
     button.disabled = true;
   }
-  function retry(text, error) {
-    cancelVerification();
-    verify.disabled = busy || sent;
-    verify.textContent = form.dataset.retryVerification;
-    show(text, error);
-  }
-  verify.addEventListener("click", async function () {
-    if (checking || busy || sent) return;
-    cancelVerification();
-    checking = true;
+  async function initialize(preserveStatus) {
+    if (busy || sent) return;
+    cleanup();
     var current = attempt;
-    verify.disabled = true;
-    verify.textContent = form.dataset.verifying;
-    show(form.dataset.verifying);
+    retryButton.hidden = true;
+    if (!preserveStatus) show(form.dataset.loading);
     controller = new AbortController();
-    // Bound both script loading and challenge execution. Late callbacks from a
-    // timed-out attempt cannot unlock Send or overwrite a newer attempt.
-    timer = window.setTimeout(function () {
-      if (current === attempt) retry(form.dataset.verificationRetry, true);
-    }, 15000);
+    function failed() {
+      if (current !== attempt || busy || sent) return;
+      cleanup();
+      retryButton.hidden = false;
+      show(form.dataset.verificationRetry, true);
+    }
+    // Only bound resource loading. Once rendered, let the native widget manage
+    // its own challenge timing, checkbox, retries, and token refresh.
+    loadTimer = window.setTimeout(failed, 15000);
     try {
       var api = window.turnstile ? Promise.resolve() : new Promise(function (resolve, reject) {
         script = document.createElement("script");
@@ -65,7 +59,6 @@
         script.onerror = reject;
         document.head.appendChild(script);
       });
-      // Load configuration and the third-party API together, instead of serially.
       var results = await Promise.all([
         fetch(form.action, { headers: { Accept: "application/json" }, signal: controller.signal })
           .then(function (response) { if (!response.ok) throw new Error(); return response.json(); }),
@@ -73,46 +66,58 @@
       ]);
       if (current !== attempt) return;
       if (!results[0].siteKey || !window.turnstile) throw new Error();
-      window.clearTimeout(timer);
-      timer = window.setTimeout(function () {
-        if (current === attempt) retry(form.dataset.verificationRetry, true);
-      }, 45000);
+      window.clearTimeout(loadTimer);
+      if (!preserveStatus) show(form.dataset.verification);
       widget = window.turnstile.render("#contact-verification", {
-        sitekey: results[0].siteKey, action: "contact", execution: "execute", appearance: "execute",
-        retry: "never", "refresh-expired": "manual", "refresh-timeout": "manual", size: "flexible",
-        language: form.dataset.language === "zh-Hans" ? "zh-CN" : form.dataset.language === "zh-Hant" ? "zh-TW" : "en",
+        sitekey: results[0].siteKey, action: "contact", theme: "light", size: "flexible",
+        execution: "render", appearance: "always", retry: "auto",
+        "refresh-expired": "auto", "refresh-timeout": "auto",
+        language: form.dataset.language === "zh-Hans" ? "zh-cn" : form.dataset.language === "zh-Hant" ? "zh-tw" : "en",
         callback: function (response) {
-          if (current !== attempt || !checking || busy || sent) return;
-          window.clearTimeout(timer);
-          checking = false;
-          if (!response) { retry(form.dataset.verificationRetry, true); return; }
+          if (current !== attempt || busy || sent || !response) return;
           token = response;
-          button.disabled = !token;
-          verify.textContent = form.dataset.verifiedLabel;
+          button.disabled = false;
+          retryButton.hidden = true;
           show(form.dataset.verified);
         },
-        "expired-callback": function () { if (current === attempt && !busy && !sent) retry(form.dataset.verificationExpired, false); },
-        "timeout-callback": function () { if (current === attempt && !busy && !sent) retry(form.dataset.verificationRetry, true); },
+        "before-interactive-callback": function () {
+          if (current === attempt && !busy && !sent) show(form.dataset.verification);
+        },
+        "expired-callback": function () {
+          if (current !== attempt || busy || sent) return;
+          token = "";
+          button.disabled = true;
+          show(form.dataset.verificationExpired);
+        },
+        "timeout-callback": function () {
+          if (current !== attempt || busy || sent) return;
+          token = "";
+          button.disabled = true;
+          show(form.dataset.verification);
+        },
         "error-callback": function () {
-          if (current === attempt && !busy && !sent) retry(form.dataset.verificationRetry, true);
-          return true;
+          if (current !== attempt || busy || sent) return;
+          token = "";
+          button.disabled = true;
+          retryButton.hidden = false;
+          show(form.dataset.verificationRetry, true);
         },
       });
-      window.turnstile.execute(widget);
-    } catch (_) {
-      if (current === attempt) retry(form.dataset.verificationRetry, true);
-    }
-  });
+    } catch (_) { failed(); }
+  }
+  retryButton.addEventListener("click", function () { initialize(false); });
+  // Prepare the standard Cloudflare widget early, while the visitor fills in
+  // their message, instead of downloading and constructing it on a button click.
+  initialize(false);
 
   form.addEventListener("submit", async function (event) {
     event.preventDefault();
     if (busy || sent || !form.reportValidity()) return;
-    if (checking) return;
     if (!token) { show(form.dataset.verification, true); return; }
     var fields = new FormData(form);
     busy = true;
     button.disabled = true;
-    verify.disabled = true;
+    retryButton.hidden = true;
     button.textContent = form.dataset.sending;
     form.setAttribute("aria-busy", "true");
     show(form.dataset.sending);
@@ -137,10 +142,8 @@
       form.removeAttribute("aria-busy");
       button.textContent = sendLabel;
       // Keep fields on every failure. A fresh challenge is required before retrying.
-      cancelVerification();
-      verify.disabled = sent;
-      verify.hidden = sent;
-      verify.textContent = form.dataset.retryVerification;
+      cleanup();
+      if (!sent) initialize(true);
       status.focus();
     }
   });
