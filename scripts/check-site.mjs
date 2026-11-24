@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import { parseHTML } from "linkedom";
 import { locales } from "../lib/locales.js";
 import { readEvents } from "../lib/content.js";
+import { readSermons, sermonData } from "../lib/sermons.js";
 
 export function checkSite(directory = "_site", production = false) {
   const root = path.resolve(directory);
@@ -11,10 +12,22 @@ export function checkSite(directory = "_site", production = false) {
   const pages = new Map(files.map(file => [path.join(root, file), parseHTML(fs.readFileSync(path.join(root, file), "utf8")).document]));
   for (const [file, document] of pages) {
     const relative = path.relative(root, file).replaceAll(path.sep, "/");
+    assert.equal(!!document.querySelector("[data-sermon-preview-controls]"), !production, `${relative}: preview state controls must appear on feature pages only`);
+    assert.equal(!!document.querySelector('script[src^="/assets/sermon-preview.js"]'), !production, `${relative}: preview state script must never run in production`);
     const pageUrl = new URL(relative.replace(/index\.html$/, ""), "https://local.invalid/");
     assert.equal(document.querySelectorAll("main#main").length, 1, `${relative}: needs one main landmark`);
     assert.equal(document.querySelectorAll("h1").length, 1, `${relative}: needs one primary heading`);
     assert.ok(document.querySelector("h1")?.textContent.trim(), `${relative}: primary heading is empty`);
+    const sermonNavigation = document.querySelector('#nav a[href$="/sermons/"]');
+    assert.ok(sermonNavigation, `${relative}: sermon navigation must remain visible even without content`);
+    assert.equal(document.querySelector('#nav a[data-nav-section="sunday"]'), null, `${relative}: sermon navigation replaces the Sunday anchor tab`);
+    if (relative.endsWith("sermons/index.html") || /sermons\/page\/\d+\/index.html$/.test(relative) || relative.endsWith("bulletin/index.html")) assert.equal(sermonNavigation.getAttribute("aria-current"), "page", `${relative}: sermon navigation should be active`);
+    const archivePagination = document.querySelector(".sermon-pagination");
+    if (archivePagination) {
+      assert.ok(document.getElementById("past-sermons"), `${relative}: pagination needs a history anchor`);
+      assert.equal(archivePagination.querySelectorAll('[aria-current="page"]').length, 1, `${relative}: pagination must mark exactly one current page`);
+      assert.ok(document.querySelectorAll(".sermon-row").length <= 6, `${relative}: too many past sermons on one page`);
+    }
     for (const link of document.querySelectorAll('a[href^="mailto:"]')) {
       assert.match(link.getAttribute("href"), /^mailto:[^\s@?]+@[^\s@?]+\.[^\s@?]+(?:\?|$)/, `${relative}: invalid email link`);
     }
@@ -49,6 +62,11 @@ export function checkSite(directory = "_site", production = false) {
     }
   }
   if (production) {
+    assert.ok(!files.some(file => file.replaceAll(path.sep, "/").includes("_preview/sermons/")), "Sermon preview routes leaked into production");
+    const retained = new Set(sermonData(readSermons()).datedItems.map(entry => entry.date));
+    for (const entry of readSermons().items.filter(entry => !retained.has(entry.date))) {
+      for (const locale of locales) assert.ok(!fs.existsSync(path.join(root, locale.prefix, "sermons", entry.date)), `Excluded sermon leaked into production: ${entry.date}`);
+    }
     for (const event of readEvents().filter(event => event.sample || !event.published || Date.parse(event.end) <= Date.now())) {
       for (const locale of locales) assert.ok(!fs.existsSync(path.join(root, locale.prefix, "events", event.slug, "index.html")), `Excluded event leaked into production: ${event.slug}`);
     }

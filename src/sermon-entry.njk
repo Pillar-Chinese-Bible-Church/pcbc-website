@@ -1,0 +1,16 @@
+---
+pagination:
+  data: sermonPages
+  size: 1
+  alias: sermonPage
+permalink: "{{ sermonPage.language.prefix }}{{ sermonPage.path }}index.html"
+layout: base.njk
+eleventyComputed:
+  pagePath: "{{ sermonPage.path }}"
+  # Computed strings must preserve raw text; base.njk escapes it at the HTML boundary.
+  pageTitle: "{{ sermonPage.sermon.title | t(sermonPage.language.code) | safe }} · {{ site.name | t(sermonPage.language.code) | safe }}"
+  pageDescription: "{{ sermonUi[sermonPage.language.code].intro }}"
+---
+{% set L = sermonPage.language %}{% set sd = sermonData %}{% set e = sermonPage.sermon %}{% set sermonBase = L.prefix %}{% set sermonHome = L.prefix + '/' %}
+{% set newer = sermonPage.newer %}{% set older = sermonPage.older %}
+{% if sermonPage.view == 'bulletin' %}{% include "sermons/bulletin.njk" %}{% else %}{% include "sermons/detail.njk" %}{% endif %}

@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "urn:pcbc:content:sermon:v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["date", "published", "title", "speaker", "recording"],
+  "properties": {
+    "date": {"type": "string", "format": "date"},
+    "published": {"type": "boolean"},
+    "sample": {"type": "boolean"},
+    "title": {"$ref": "#/definitions/text"},
+    "speaker": {"$ref": "#/definitions/text"},
+    "recording": {"type": "string", "enum": ["pending", "ready", "unavailable"]},
+    "youtube_id": {"type": "string", "pattern": "^[A-Za-z0-9_-]{11}$"},
+    "bulletin": {
+      "type": "object", "additionalProperties": false, "required": ["program", "announcements"],
+      "properties": {
+        "program": {"type": "array", "minItems": 1, "maxItems": 40, "items": {"type": "object", "additionalProperties": false, "required": ["label"], "properties": {
+          "label": {"$ref": "#/definitions/text"}, "detail": {"$ref": "#/definitions/text"}
+        }}},
+        "announcements": {"type": "array", "maxItems": 30, "items": {"type": "object", "additionalProperties": false, "required": ["heading", "text"], "properties": {
+          "heading": {"$ref": "#/definitions/text"}, "text": {"$ref": "#/definitions/text"},
+          "link": {"type": "string", "format": "https-url"}, "link_label": {"$ref": "#/definitions/text"}
+        }, "dependencies": {"link": ["link_label"], "link_label": ["link"]}}}
+      }
+    }
+  },
+  "allOf": [
+    {"if": {"properties": {"recording": {"const": "ready"}}}, "then": {"required": ["youtube_id"]}, "else": {"not": {"required": ["youtube_id"]}}}
+  ],
+  "definitions": {
+    "text": {"type": "object", "additionalProperties": false, "required": ["zh", "en"], "properties": {
+      "zh": {"type": "string", "pattern": "\\S", "maxLength": 12000},
+      "en": {"type": "string", "pattern": "\\S", "maxLength": 12000},
+      "hant": {"type": "string", "maxLength": 12000}
+    }}
+  }
+}

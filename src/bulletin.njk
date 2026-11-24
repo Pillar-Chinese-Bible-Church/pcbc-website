@@ -1,0 +1,15 @@
+---
+pagination:
+  data: langs
+  size: 1
+  alias: L
+permalink: "{{ L.prefix }}/bulletin/index.html"
+pagePath: "/bulletin/"
+layout: base.njk
+eleventyComputed:
+  pageTitle: "{{ sermonUi[L.code].bulletin }} · {{ site.name | t(L.code) }}"
+  pageDescription: "{{ sermonUi[L.code].intro }}"
+---
+{# The dated entry is chosen at request time. A static/fail-open response stays empty. #}
+{% set sd = sermonData %}{% set e = null %}{% set weeklyBulletinPage = true %}{% set sermonBase = L.prefix %}{% set sermonHome = L.prefix + '/' %}
+{% include "sermons/bulletin.njk" %}

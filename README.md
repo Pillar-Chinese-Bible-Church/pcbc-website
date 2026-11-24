@@ -502,3 +502,106 @@ assets or stylesheet modules changes that version so browsers fetch the matching
 files after publication, even when older assets are still cached. The contact
 honeypot is also hidden in HTML, and a stalled Turnstile load shows the direct-email
 fallback after 15 seconds instead of leaving the form on Preparing indefinitely.
+
+
+## Sunday sermons and text bulletins
+
+The real collection starts empty in `content/sermons.yml`. Each Sunday has one stable
+`YYYY-MM-DD` identifier shared by its sermon and bulletin. Keep that date stable.
+
+- `/sermons/` is the archive; `/sermons/YYYY-MM-DD/` is a sermon page.
+- Past sermons are paginated six per page. Page one stays at `/sermons/`;
+  later pages use `/sermons/page/2/`, `/sermons/page/3/`, and so on. The current
+  Sunday section stays above the archive. Previous/next and numbered links work
+  without JavaScript and jump to the past-sermons section. Small/empty archives
+  have no pagination controls. Language switches retain the page number.
+- `/sermons/YYYY-MM-DD/bulletin/` is the dated bulletin.
+- `/bulletin/` always works, including before the first bulletin is published.
+  A small Cloudflare Pages Function checks the date on each request using
+  `America/Los_Angeles`. Monday–Saturday targets the coming Sunday; Sunday
+  targets that day through 11:59 p.m. It redirects to that exact published
+  bulletin, or shows “not published yet.” It never falls back to a past Sunday.
+  Point the reusable QR at the final production domain's `/bulletin/` URL.
+  Responses use `no-store`; weekly rollover needs no rebuild.
+- All routes have `/zh-hant/` and `/en/` equivalents. Traditional Chinese uses the
+  existing OpenCC fallback. Website language does not change the recorded audio.
+- The always-visible Sermons navigation replaces the previous Sunday anchor
+  tab. It opens the archive's empty state before the first entry is published.
+  The homepage retains Sunday service information; its bulletin/archive links
+  appear only when real published retained entries exist. With previous entries but no current bulletin, the
+  archive remains available and the homepage states that this week's bulletin
+  has not been published. Dated bulletins remain accessible from the sermon archive.
+
+A weekly entry has localized title and speaker, `published`, and a
+`recording` status of `pending`, `ready`, or `unavailable`. `ready` requires an
+11-character `youtube_id`; omit that field for other statuses. `bulletin` is
+optional; when supplied it has an ordered `program` and `announcements` list.
+Announcement headings, paragraphs/line breaks and optional labeled HTTPS links
+are formatted by the templates. Arbitrary HTML is escaped. No PDF, image upload,
+video upload, new database or storage bucket is needed. A print stylesheet is included.
+
+Publish an entry with its Sunday date and bulletin before the service through the
+normal reviewed workflow. Later change `recording` to `ready`, add the YouTube ID,
+preview and publish again. Recording availability is independent of bulletin
+publication; no manual current-bulletin selector is needed. Published future
+bulletin pages are prebuilt so the weekly route can reach them when their week
+arrives. The detailed dashboard editing experience is a separate follow-up;
+Pages CMS fields are provided meanwhile.
+
+The weekly function reads a generated date-only `/assets/bulletins.json` manifest;
+it contains no drafts, samples, or bulletin text. Only the three localized weekly
+bulletin routes invoke the new function. Archives, dated pages and other assets
+remain static. Missing/invalid manifests return an unavailable response with the
+safe empty page. The static weekly page is also always empty, preventing stale
+bulletin content if function execution is unavailable. See Cloudflare's
+[Pages routing](https://developers.cloudflare.com/pages/functions/routing/) and
+[static asset binding](https://developers.cloudflare.com/pages/functions/api-reference/#envassetsfetch).
+
+### Retention
+
+Builds include at most 52 published Sundays, newest first, within the latest
+52 Pacific calendar weeks (current Sunday and previous 51 Sundays), plus
+published future Sundays, still capped at 52 records overall. Future dated
+pages are public when explicitly published, but stay out of the archive until
+their week. Drafts and samples are excluded. Age filtering works even with gaps.
+
+Run `npm run sermons:prune` when preparing an update to remove expired/overflow
+published source records. It preserves
+unpublished drafts and later future entries. Review that diff and generate the
+normal preview before publishing. Validation rejects more than 52 published
+source records, prompting pruning before the next weekly update can merge.
+Builds never silently rewrite the reviewed commit or alter the publish workflow.
+
+Archive ordering and retention are evaluated on rebuild/publication; there is no
+scheduler or database. The weekly QR route alone evaluates the current week at
+request time; homepage/archive snapshots stay as built until replaced. Historical text remains in Git
+history, but there are no accumulated PDF/video binaries. Older recordings remain on YouTube; the
+archive links to the channel when `site.links.youtube` has been supplied.
+
+### Preview scenarios
+
+Run `npm run dev:sermons` and visit `http://localhost:8088/_preview/sermons/bulletin/home/`.
+The preview bar switches between **no content**, **this Sunday only (no past sermons)**, **bulletin published**,
+**recording published** and **this week not published**, using the actual homepage,
+archive, detail and bulletin templates in all three languages. Dates are generated
+relative to this week’s Sunday in Pacific time. The sample speaker, program and titles
+are illustrative, and sample videos never request a real recording or thumbnail.
+The current-only scenario keeps the bulletin and recording placeholder available while
+showing a distinct empty history with no pagination or older-recording links.
+The remaining nonempty scenarios include 13 past Sundays so the first, middle and final
+pagination pages can be reviewed.
+
+The state picker also appears on the regular feature-preview homepage and all
+other feature pages, so reviewers do not need to discover the special routes.
+To force a fixed state in a shareable URL, append `?sermon_state=empty`,
+`?sermon_state=current-only`, `?sermon_state=bulletin`, `?sermon_state=recorded`, or
+`?sermon_state=past-only`. The preview redirects to that scenario for the current
+page type (home, sermon archive, or bulletin). `?sermon_state=actual` returns to
+the unmodified real collection. Unknown values are ignored. Neither the picker
+nor the override script is referenced by `main` or `live` builds.
+
+Feature-branch builds generate these review routes automatically. Ordinary local
+builds omit them unless `SERMONS_PREVIEW=1` is set. `main` and `live` always omit them,
+even with that override. They are noindex, excluded from the sitemap, and never
+mixed into the empty canonical collection. `npm run check` checks real/preview
+links and production isolation, alongside the existing website checks.

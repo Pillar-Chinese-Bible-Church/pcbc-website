@@ -1,0 +1,18 @@
+{% set s = sermonUi[L.code] %}
+<main id="main" class="sermon-detail-page">
+  <section class="page-heading"><div class="wrap"><h1>{{ e.title | t(L.code) | escape }}</h1><p><time datetime="{{ e.date }}">{{ e.date | sermonDate(L.code) }}</time><br>{{ e.speaker | t(L.code) | escape }}</p></div></section>
+  <div class="wrap sermon-detail">
+    <a class="sermon-text-link sermon-back" href="{{ sermonBase }}{{ sd | sermonArchiveReturn(e.date) }}">{{ s.back }}</a>
+    {% if e.sample %}<p class="sample-label">{{ s.sample }}</p>{% endif %}
+    {% if e.recording == 'ready' and not e.sample %}
+      <div class="sermon-video" data-sermon-video data-video-id="{{ e.youtube_id }}" data-video-title="{{ e.title | t(L.code) | escape }}">
+        <button type="button" data-video-load aria-label="{{ s.play }}: {{ e.title | t(L.code) | escape }}" hidden><img eleventy:ignore src="https://i.ytimg.com/vi/{{ e.youtube_id }}/hqdefault.jpg" alt="" width="480" height="360"><span class="sermon-play" aria-hidden="true">▶</span><span class="sermon-play-caption">{{ s.play }} · {{ s.playNote }}</span></button>
+      </div>
+      <a class="sermon-text-link" href="https://www.youtube.com/watch?v={{ e.youtube_id }}" target="_blank" rel="noopener">{{ s.youtube }}</a>
+    {% else %}
+      <div class="sermon-video-placeholder"><h2>{{ s.sampleVideo if e.recording == 'ready' else (s.unavailable if e.recording == 'unavailable' else s.pending) }}</h2>{% if e.recording == 'ready' %}<p>{{ s.sampleVideoNote }}</p>{% endif %}</div>
+    {% endif %}
+    <nav class="sermon-neighbors" aria-label="{{ s.past }}">{% if newer %}<a href="{{ sermonBase }}/sermons/{{ newer.date }}/">{{ s.newer }} · {{ newer.date | sermonDate(L.code) }}</a>{% endif %}{% if older %}<a href="{{ sermonBase }}/sermons/{{ older.date }}/">{{ s.older }} · {{ older.date | sermonDate(L.code) }}</a>{% endif %}</nav>
+  </div>
+  {% if e.bulletin %}<section class="sermon-current"><div class="wrap sermon-recording-band"><div><h2>{{ s.bulletin }}</h2><p>{{ s.program }} · {{ s.announcements }}</p></div><a class="btn dark" href="{{ sermonBase }}/sermons/{{ e.date }}/bulletin/">{{ s.readBulletin }}</a></div></section>{% else %}<p class="wrap sermon-no-bulletin">{{ s.noBulletin }}</p>{% endif %}
+</main>

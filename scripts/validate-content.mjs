@@ -3,6 +3,8 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import { readYaml, readEvents, assertLocalizedContent, assertInterfaceTranslations, isHttpsUrl } from "../lib/content.js";
 import { eventData } from "../lib/events.js";
+import { readSermons } from "../lib/sermons.js";
+import sermonUi from "../src/_data/sermonUi.js";
 import ui from "../src/_data/ui.js";
 import contact from "../src/_data/contact.js";
 
@@ -65,6 +67,9 @@ export function validateContent() {
     assertLocalizedContent(value, name);
     inspect(value, name);
   }
+  const sermons = readSermons();
+  if (sermons.items.filter(item => item.published).length > 52) throw new Error("Sermon source exceeds 52 published entries; run npm run sermons:prune, review the diff and regenerate the preview.");
+  assertInterfaceTranslations(sermonUi, "sermonUi");
   const items = readEvents();
   eventData({ items }, { CF_PAGES_BRANCH: "live" }); // Includes duplicates and interval checks, even for drafts.
   for (const event of items) inspect(event, `events.${event.slug}`);

@@ -1,7 +1,9 @@
 {#- Shared page frame: header, language switch, footer. Pages set `L` (language) and `pagePath` ("/" or "/teach/"). -#}
-{%- set L = eventPage.language if eventPage else L -%}
+{%- set L = sermonPreviewPage.language if sermonPreviewPage else (sermonArchivePage.language if sermonArchivePage else (sermonPage.language if sermonPage else (eventPage.language if eventPage else L))) -%}
+{%- set sd = sermonPreviewPage.data if sermonPreviewPage else sermonData -%}
+{%- set sermonBase = L.prefix + sermonPreviewPage.prefix if sermonPreviewPage else L.prefix -%}
 {%- set u = ui[L.code] -%}
-{%- set home = L.prefix + "/" -%}
+{%- set home = sermonBase + "/home/" if sermonPreviewPage else L.prefix + "/" -%}
 <!doctype html>
 <html lang="{{ L.code }}">
 <head>
@@ -16,7 +18,7 @@
 <meta property="og:url" content="{{ (L.prefix + pagePath) | absoluteUrl(deployment.url) }}">
 <meta property="og:site_name" content="{{ site.name | t(L.code) }}">
 <meta name="twitter:card" content="summary">
-{% if eventPage and eventPage.event.sample %}<meta name="robots" content="noindex, nofollow">{% endif %}
+{% if sermonPreviewPage or (eventPage and eventPage.event.sample) %}<meta name="robots" content="noindex, nofollow">{% endif %}
 {%- for l in langs %}
 <link rel="alternate" hreflang="{{ l.code }}" href="{{ (l.prefix + pagePath) | absoluteUrl(deployment.url) }}">
 {%- endfor %}
@@ -26,9 +28,21 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family={{ L.font }}:wght@300;400;500;600&amp;display=swap">
 <link rel="stylesheet" href="/assets/site.css?v={{ assets.version }}">
-{% if L.prefix == "" and pagePath == "/" %}<script src="/assets/lang.js?v={{ assets.version }}"></script>{% endif %}
+{% if L.prefix == "" and pagePath == "/" and not sermonPreviewPage %}<script src="/assets/lang.js?v={{ assets.version }}"></script>{% endif %}
 </head>
 <body>
+{% if sermonPreviewEnabled %}
+{% set previewView = ('home' if sermonPreviewPage.view == 'home' else ('bulletin' if sermonPreviewPage.view == 'bulletin' else 'sermons')) if sermonPreviewPage else ('bulletin' if 'bulletin/' in pagePath else ('sermons' if '/sermons/' in pagePath else 'home')) %}
+<nav class="sermon-preview-bar" aria-label="{{ sermonUi[L.code].preview }}" data-sermon-preview-controls><div class="wrap">
+{% if sermonPreviewPage %}<span>{{ sermonUi[L.code].sample }}</span>{% endif %}
+<label class="sermon-preview-picker">{{ sermonUi[L.code].preview }}
+<select data-sermon-preview-state>
+<option data-state="actual" value="{{ L.prefix }}/"{% if not sermonPreviewPage %} selected{% endif %}>{{ sermonUi[L.code].previewExit }}</option>
+{% for scene, label in sermonUi[L.code].scenes %}<option data-state="{{ scene }}" value="{{ L.prefix }}/_preview/sermons/{{ scene }}/{{ previewView }}/"{% if sermonPreviewPage and scene == sermonPreviewPage.id %} selected{% endif %}>{{ label }}</option>{% endfor %}
+</select></label>
+<noscript>{% for scene, label in sermonUi[L.code].scenes %}<a href="{{ L.prefix }}/_preview/sermons/{{ scene }}/{{ previewView }}/">{{ label }}</a>{% endfor %}</noscript>
+<span class="sermon-preview-page-links"><a href="{{ home }}">{{ sermonUi[L.code].home }}</a><a href="{{ sermonBase }}/sermons/">{{ sermonUi[L.code].archive }}</a><a href="{{ sermonBase }}/bulletin/">{{ sermonUi[L.code].bulletin }}</a></span></div></nav>
+{% endif %}
 <a class="skip-link" href="#main">{{ u.skip }}</a>
 <header class="top">
   <div class="wrap">
@@ -38,7 +52,7 @@
     </a>
     <button class="menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav" aria-label="{{ u.menu }}" data-open="{{ u.close }}" data-closed="{{ u.menu }}"><span class="menu-icon" aria-hidden="true"></span></button>
     <nav class="nav" id="nav">
-      <a href="{{ home }}#sunday" data-nav-section="sunday">{{ u.nav.sunday }}</a>
+      <a href="{{ sermonBase }}/sermons/"{% if sermonArchivePage or sermonPage or pagePath == '/sermons/' or pagePath == '/bulletin/' or (sermonPreviewPage and sermonPreviewPage.view != 'home') %} aria-current="page"{% endif %}>{{ sermonUi[L.code].archive }}</a>
       {% if eventData.upcoming.length %}<a href="{{ home }}#events" data-nav-section="events" data-events-nav data-last-event-end="{{ eventData.latestEnd }}">{{ u.nav.events }}</a>{% endif %}
       <a href="{{ home }}#groups" data-nav-section="groups">{{ u.nav.groups }}</a>
       <a href="{{ L.prefix }}/about/"{% if pagePath == '/about/' %} aria-current="page"{% endif %}>{{ u.nav.about }}</a>
@@ -81,5 +95,7 @@
   </div>
 </footer>
 <script src="/assets/site.js?v={{ assets.version }}"></script>
+{% if sermonPreviewEnabled %}<script src="/assets/sermon-preview.js?v={{ assets.version }}" defer></script>{% endif %}
+{% if sermonPage or sermonPreviewPage %}<script src="/assets/sermons.js?v={{ assets.version }}" defer></script>{% endif %}
 </body>
 </html>

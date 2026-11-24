@@ -4,6 +4,8 @@ import * as OpenCC from "opencc-js";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import { eventData, formatEventDate } from "./lib/events.js";
 import { readEvents } from "./lib/content.js";
+import { readSermons, sermonData, formatSermonDate, previewAllowed, paginatePastSermons, sermonArchiveReturn } from "./lib/sermons.js";
+import { sermonPreviewPages } from "./lib/sermon-previews.js";
 import { locales, timeZone } from "./lib/locales.js";
 import { validateContent } from "./scripts/validate-content.mjs";
 
@@ -36,12 +38,23 @@ function pick(field, lang) {
 export default function (eleventyConfig) {
   // One event snapshot per build, shared by cards, navigation, detail pages and sitemap.
   let events;
+  let sermons;
+  const getSermons = () => sermons ||= sermonData(readSermons());
   const getEvents = () => events ||= eventData({ items: readEvents() });
-  eleventyConfig.on("eleventy.before", () => { events = undefined; validateContent(); });
+  eleventyConfig.on("eleventy.before", () => { events = undefined; sermons = undefined; validateContent(); });
   eleventyConfig.addWatchTarget("content/");
   eleventyConfig.addWatchTarget("schemas/");
   eleventyConfig.addWatchTarget("src/_includes/styles/");
   eleventyConfig.addGlobalData("eventData", getEvents);
+  eleventyConfig.addGlobalData("sermonData", getSermons);
+  eleventyConfig.addGlobalData("sermonArchivePages", () => paginatePastSermons(getSermons().recent).flatMap(page => locales.map(language => ({ ...page, language }))));
+  eleventyConfig.addGlobalData("sermonPreviewEnabled", () => previewAllowed());
+  eleventyConfig.addGlobalData("sermonPreviewPages", () => previewAllowed() ? sermonPreviewPages() : []);
+  eleventyConfig.addGlobalData("bulletinManifest", () => ({ version: 1, preview: previewAllowed(), dates: getSermons().datedItems.filter(item => item.bulletin).map(item => item.date) }));
+  eleventyConfig.addGlobalData("sermonPages", () => getSermons().datedItems.flatMap((sermon, index, items) => locales.flatMap(language => {
+    const page = { sermon, language, newer: items[index - 1], older: items[index + 1] };
+    return [{ ...page, view: "sermon", path: `/sermons/${sermon.date}/` }, ...(sermon.bulletin ? [{ ...page, view: "bulletin", path: `/sermons/${sermon.date}/bulletin/` }] : [])];
+  })));
   eleventyConfig.addGlobalData("eventPages", () => getEvents().items.flatMap(event => locales.map(language => ({ event, language }))));
   eleventyConfig.addDataExtension("yml,yaml", (contents) => yaml.load(contents));
   eleventyConfig.addFilter("json", value => JSON.stringify(value));
@@ -51,6 +64,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("t", (field, lang) => pick(field, lang));
   eleventyConfig.addFilter("tt", (field, lang) => escape(pick(field, lang)).replace(/\n/g, "<br>"));
   eleventyConfig.addFilter("hant", (s) => toHant(s || ""));
+  eleventyConfig.addFilter("sermonDate", formatSermonDate);
+  eleventyConfig.addFilter("sermonArchiveReturn", sermonArchiveReturn);
   eleventyConfig.addFilter("eventDate", (s, lang) => formatEventDate(s, lang));
   eleventyConfig.addFilter("eventTime", (s, lang) => formatEventDate(s, lang, true));
   for (const [name, part] of [["eventMonth", "month"], ["eventDay", "day"]]) {

@@ -1,0 +1,119 @@
+{%- set c = L.code -%}
+{%- set h = homepage -%}
+{%- set u = ui[c] -%}
+<main id="main">
+  <section class="hero">
+    <img class="hero-img" src="{{ h.hero.image }}" alt="{{ h.hero.image_alt | t(c) }}" loading="eager" fetchpriority="high">
+    <div class="wrap">
+      <h1>{{ h.hero.title | tt(c) | safe }}</h1>
+      <p>{{ h.hero.subtitle | t(c) }}</p>
+      <div class="hero-actions">
+        <a class="btn" href="#sunday">{{ h.hero.button | t(c) }}</a>
+        {% if eventData.upcoming.length %}<a class="btn outline" href="#events" data-events-nav data-last-event-end="{{ eventData.latestEnd }}">{{ u.nav.events }} ↓</a>{% endif %}
+        <a class="btn outline" href="{{ L.prefix }}/about/">{{ h.hero.about_button | t(c) }}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="sunday">
+    <div class="wrap sunday-wrap">
+      <div class="sunday-overview">
+        <h2>{{ h.sunday.heading | t(c) }}</h2>
+        <div class="sunday-facts">
+          <p class="sunday-time">{{ site.sunday.time | t(c) }}</p>
+          <p class="sunday-location"><span>{{ u.at }} {{ site.sunday.place }}</span><a class="sunday-directions" href="{{ site.map_link }}" target="_blank" rel="noopener">{{ u.events.directions }} ↗</a></p>
+          <p class="sunday-note">{{ site.sunday.note | t(c) }}</p>
+          {% if sd.hasContent %}<div class="sunday-sermon-links">
+            {% if sd.current and sd.current.bulletin %}<a class="btn dark" href="{{ sermonBase }}/bulletin/">{{ sermonUi[c].thisBulletin }}</a>{% else %}<p>{{ sermonUi[c].notReady }}</p>{% endif %}
+            <a class="sermon-text-link" href="{{ sermonBase }}/sermons/">{{ sermonUi[c].archive }}</a>
+          </div>{% endif %}
+        </div>
+      </div>
+      <details class="sunday-details">
+        <summary>{{ u.sundayDetails }}</summary>
+        <div class="sunday-detail-content">
+          <div class="sunday-photo"><img src="{{ h.sunday.image }}" alt="{{ h.sunday.image_alt | t(c) }}" sizes="(max-width: 760px) 100vw, 400px"></div>
+          <div class="sunday-visitor">
+            <h3>{{ h.sunday.first_time | t(c) }}</h3>
+            <details class="visit-details">
+              <summary>{{ h.sunday.first_time_link | t(c) }}</summary>
+              <p>{{ site.sunday.time | t(c) }} · {{ site.sunday.note | t(c) }}</p>
+              <p><a href="{{ site.map_link }}" target="_blank" rel="noopener">{{ site.address }}</a></p>
+              <a href="{{ L.prefix }}/contact/?topic=visit">{{ u.events.question }}</a>
+            </details>
+            <h3>{{ h.sunday.missed | t(c) }}</h3>
+            {% if site.links.youtube %}<a href="{{ site.links.youtube }}">{{ h.sunday.missed_link | t(c) }}</a>
+            {% else %}<p class="video-pending">{{ h.sunday.missed_link | t(c) }}<br><small>{{ u.videoPending }}</small></p>{% endif %}
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  {% include "events.njk" %}
+
+  <section class="week" id="groups">
+    <div class="wrap">
+    <h2>{{ h.week.heading | t(c) }}</h2>
+    {%- if h.week.intro | t(c) %}
+    <p class="intro">{{ h.week.intro | t(c) }}</p>
+    {%- endif %}
+    <div class="boxes">
+      {%- for g in h.week.gatherings %}
+      <div class="box">
+        <h3>{{ g.name | t(c) }}</h3>
+        {%- if g.time | t(c) %}<p><b>{{ u.time }}</b>{{ g.time | t(c) }}</p>{% endif %}
+        {%- if g.place | t(c) %}<p><b>{{ u.place }}</b>{{ g.place | t(c) }}</p>{% endif %}
+        {%- if g.topic | t(c) %}<p><b>{{ u.topic }}</b>{{ g.topic | t(c) }}</p>{% endif %}
+        <a href="{{ L.prefix }}/contact/?topic=gatherings&amp;regarding={{ g.name | t(c) | urlencode }}" aria-label="{{ u.askAbout }} {{ g.name | t(c) }}">{{ u.more }}<span class="sr-only">: {{ g.name | t(c) }}</span></a>
+      </div>
+      {%- endfor %}
+    </div>
+    </div>
+  </section>
+
+  <section class="verse">
+    <div class="wrap">
+      <p class="v">{{ h.verse.text | tt(c) | safe }}</p>
+      <p class="r">{{ h.verse.reference | t(c) }}</p>
+      {%- if h.verse.note | t(c) %}
+      <p class="n">{{ h.verse.note | t(c) }}</p>
+      {%- endif %}
+    </div>
+  </section>
+
+  <div class="strip" role="group" aria-label="{{ photos.label | t(c) }}" data-photo-strip>
+    {%- for p in photos.strip %}
+    <button class="photo-open" type="button" disabled aria-label="{{ u.photos.open }}: {{ p.alt | t(c) }}" aria-haspopup="dialog" aria-controls="photo-viewer">
+      <img src="{{ p.image }}" alt="{{ p.alt | t(c) }}" sizes="(max-width: 640px) 240px, 320px" eleventy:widths="320,480,720,960,1600,2400">
+      <span class="photo-expand" aria-hidden="true">⤢</span>
+    </button>
+    {%- endfor %}
+  </div>
+  <dialog class="photo-viewer" id="photo-viewer" aria-label="{{ photos.label | t(c) }}">
+    <div class="photo-toolbar">
+      <span data-photo-count aria-live="polite" aria-atomic="true"></span>
+      <button type="button" data-photo-close autofocus aria-label="{{ u.close }}"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+    <figure class="photo-figure">
+      <div class="photo-stage" data-photo-stage></div>
+    </figure>
+    <div class="photo-navigation">
+      <button type="button" data-photo-prev aria-label="{{ u.photos.previous }}">←</button>
+      <button type="button" data-photo-next aria-label="{{ u.photos.next }}">→</button>
+    </div>
+  </dialog>
+
+  <section class="values">
+    <div class="wrap">
+      <h2>{{ h.values.heading | t(c) }}</h2>
+      <p class="intro">{{ h.values.mission | t(c) }}</p>
+      <div class="vlist">
+        {%- for v in values.items %}
+        <div class="vitem"><span class="num">{{ loop.index }}</span><div><h3>{{ v.title | t(c) }}</h3><p>{{ v.summary | t(c) }}</p></div></div>
+        {%- endfor %}
+      </div>
+      <p class="more"><a class="btn dark" href="{{ L.prefix }}/about/#core-values">{{ h.values.button | t(c) }}</a></p>
+    </div>
+  </section>
+</main>

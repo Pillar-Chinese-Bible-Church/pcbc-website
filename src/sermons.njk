@@ -1,0 +1,14 @@
+---
+pagination:
+  data: sermonArchivePages
+  size: 1
+  alias: sermonArchivePage
+permalink: "{{ sermonArchivePage.language.prefix }}{{ sermonArchivePage.path }}index.html"
+layout: base.njk
+eleventyComputed:
+  pagePath: "{{ sermonArchivePage.path }}"
+  pageTitle: "{{ sermonUi[sermonArchivePage.language.code].title }} · {{ site.name | t(sermonArchivePage.language.code) }}"
+  pageDescription: "{{ sermonUi[sermonArchivePage.language.code].intro }}"
+---
+{% set L = sermonArchivePage.language %}{% set archivePage = sermonArchivePage %}{% set sd = sermonData %}{% set sermonBase = L.prefix %}{% set sermonHome = L.prefix + '/' %}
+{% include "sermons/archive.njk" %}

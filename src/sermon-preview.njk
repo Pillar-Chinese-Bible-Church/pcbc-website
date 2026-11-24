@@ -1,0 +1,24 @@
+---
+pagination:
+  data: sermonPreviewPages
+  size: 1
+  alias: sermonPreviewPage
+permalink: "{{ sermonPreviewPage.language.prefix }}{{ sermonPreviewPage.pagePath }}index.html"
+layout: base.njk
+eleventyComputed:
+  pagePath: "{{ sermonPreviewPage.pagePath }}"
+  pageTitle: "{{ sermonUi[sermonPreviewPage.language.code].title }} · {{ sermonUi[sermonPreviewPage.language.code].sample }}"
+  pageDescription: "{{ sermonUi[sermonPreviewPage.language.code].intro }}"
+---
+{% set L = sermonPreviewPage.language %}{% set sd = sermonPreviewPage.data %}{% set e = sermonPreviewPage.entry %}{% set sermonBase = L.prefix + sermonPreviewPage.prefix %}{% set sermonHome = sermonBase + '/home/' %}
+{% set archivePage = sermonPreviewPage.archivePage %}
+{% set newer = sermonPreviewPage.newer %}{% set older = sermonPreviewPage.older %}
+{% if sermonPreviewPage.view == 'home' %}
+  {% include "home-content.njk" %}
+{% elif sermonPreviewPage.view == 'archive' %}
+  {% include "sermons/archive.njk" %}
+{% elif sermonPreviewPage.view == 'bulletin' %}
+  {% include "sermons/bulletin.njk" %}
+{% else %}
+  {% include "sermons/detail.njk" %}
+{% endif %}

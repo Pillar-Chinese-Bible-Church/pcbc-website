@@ -1,5 +1,13 @@
 {
   "version": 1,
-  "include": ["/api/contact"],
+  "include": [
+    "/api/contact",
+    "/bulletin",
+    "/bulletin/*",
+    "/en/bulletin",
+    "/en/bulletin/*",
+    "/zh-hant/bulletin",
+    "/zh-hant/bulletin/*"
+  ],
   "exclude": []
 }
