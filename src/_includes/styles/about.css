@@ -1,11 +1,11 @@
 /* About: church introduction, sourced pastor details, and the relocated Church Life rows. */
-.about-mission { display: grid; grid-template-columns: minmax(0, .65fr) minmax(0, 1.35fr); gap: 32px 56px; padding-block: 42px; }
+.about-mission { display: grid; gap: 24px; padding-block: 42px; }
+.about-mission>div { max-width: 48rem; }
 .about-mission h2, .about-page .together>h2 { font-size: 1.75rem; font-weight: 500; }
 .about-page .together>h2 { margin-bottom: 24px; }
 .about-mission p { font-size: 1.15rem; line-height: 1.85; }
 .about-text-link { display: inline-block; color: var(--slate); font-weight: 500; font-size: .95rem; text-underline-offset: 5px; }
 .about-mission .about-text-link { margin-top: 20px; }
-.about-pastor { padding-bottom: 10px; }
 .pastor-card { display: grid; grid-template-columns: 315px minmax(0, 1fr); gap: 36px; align-items: start; padding: 28px; background: var(--soft); border-radius: 12px; }
 .pastor-portrait { max-width: 315px; }
 .pastor-portrait img { width: 100%; height: auto; border-radius: 8px; }
@@ -24,7 +24,7 @@
 .about-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 18px 24px; }
 .about-actions .btn { margin-top: 0; }
 @media (max-width: 760px) {
-  .about-mission { grid-template-columns: 1fr; gap: 16px; padding-block: 30px; }
+  .about-mission { gap: 16px; padding-block: 30px; }
   .about-mission p { font-size: 1.05rem; }
   .pastor-card { grid-template-columns: 1fr; padding: 22px; gap: 20px; }
   .pastor-portrait { width: 100%; justify-self: center; }
@@ -51,7 +51,7 @@
 
 /* Official core values share their titles and copy with the homepage summaries. */
 .about-mission p + p { margin-top: 16px; }
-.about-values { padding-block: 8px 48px; scroll-margin-top: 88px; }
+.about-values { padding-block: 42px 0; scroll-margin-top: 88px; }
 .about-values > h2 { font-size: 1.75rem; font-weight: 500; margin-bottom: 24px; }
 .core-values-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
 .core-values-list li { border-top: 1px solid var(--line); padding-top: 20px; }
@@ -60,5 +60,5 @@
 .core-values-list .refs { margin-top: 12px; color: var(--muted); font-size: .9rem; }
 @media (max-width: 760px) {
   .core-values-list { grid-template-columns: 1fr; gap: 24px; }
-  .about-values { padding-bottom: 32px; }
+  .about-values { padding-block: 30px 0; }
 }
