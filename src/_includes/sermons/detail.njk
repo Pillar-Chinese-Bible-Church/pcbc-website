@@ -1,6 +1,6 @@
 {% set s = sermonUi[L.code] %}
 <main id="main" class="sermon-detail-page">
-  <section class="page-heading"><div class="wrap"><h1>{{ e.title | t(L.code) | escape }}</h1><p><time datetime="{{ e.date }}">{{ e.date | sermonDate(L.code) }}</time><br>{{ e.passage | t(L.code) | escape }} · {{ e.speaker | t(L.code) | escape }}</p></div></section>
+  <section class="page-heading"><div class="wrap"><h1>{{ e.title | t(L.code) | escape }}</h1><p><time datetime="{{ e.date }}">{{ e.date | sermonDate(L.code) }}</time><br>{{ e.speaker | t(L.code) | escape }}</p></div></section>
   <div class="wrap sermon-detail">
     <a class="sermon-text-link sermon-back" href="{{ sermonBase }}{{ sd | sermonArchiveReturn(e.date) }}">{{ s.back }}</a>
     {% if e.sample %}<p class="sample-label">{{ s.sample }}</p>{% endif %}

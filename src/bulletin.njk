@@ -10,5 +10,6 @@ eleventyComputed:
   pageTitle: "{{ sermonUi[L.code].bulletin }} · {{ site.name | t(L.code) }}"
   pageDescription: "{{ sermonUi[L.code].intro }}"
 ---
-{% set sd = sermonData %}{% set e = sd.current %}{% set sermonBase = L.prefix %}{% set sermonHome = L.prefix + '/' %}
+{# The dated entry is chosen at request time. A static/fail-open response stays empty. #}
+{% set sd = sermonData %}{% set e = null %}{% set weeklyBulletinPage = true %}{% set sermonBase = L.prefix %}{% set sermonHome = L.prefix + '/' %}
 {% include "sermons/bulletin.njk" %}

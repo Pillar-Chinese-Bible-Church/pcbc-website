@@ -1,6 +1,6 @@
 {% set s = sermonUi[L.code] %}
 <main id="main" class="bulletin-page">
-  <section class="page-heading"><div class="wrap"><h1>{{ s.bulletin }}</h1>{% if e %}<p><time datetime="{{ e.date }}">{{ e.date | sermonDate(L.code) }}</time> · {{ site.sunday.time | t(L.code) }}</p>{% else %}<p>{{ site.name | t(L.code) }}</p>{% endif %}</div></section>
+  <section class="page-heading"><div class="wrap"><h1>{{ s.bulletin }}</h1>{% if e %}<p><time datetime="{{ e.date }}">{{ e.date | sermonDate(L.code) }}</time> · {{ site.sunday.time | t(L.code) }}</p>{% elif weeklyBulletinPage %}<p><time data-bulletin-week datetime="{{ sd.bulletinSunday }}">{{ sd.bulletinSunday | sermonDate(L.code) }}</time> · {{ site.name | t(L.code) }}</p>{% else %}<p>{{ site.name | t(L.code) }}</p>{% endif %}</div></section>
   <div class="wrap bulletin-content">
     <a class="sermon-text-link sermon-back" href="{{ sermonBase }}{{ sd | sermonArchiveReturn(e.date) }}">{{ s.back }}</a>
     {% if e and e.bulletin %}
@@ -9,7 +9,6 @@
       <section class="sermon-columns bulletin-section"><h2>{{ s.announcements }}</h2><div>{% for notice in e.bulletin.announcements %}<article class="bulletin-announcement"><h3>{{ notice.heading | t(L.code) | escape }}</h3><p>{{ notice.text | tt(L.code) | safe }}</p>{% if notice.link %}<a class="sermon-text-link" href="{{ notice.link }}" target="_blank" rel="noopener">{{ notice.link_label | t(L.code) | escape }}</a>{% endif %}</article>{% else %}<p>{{ s.noAnnouncements }}</p>{% endfor %}</div></section>
     {% else %}
       <section class="sermon-empty"><h2>{{ s.notReady }}</h2><p>{{ site.sunday.time | t(L.code) }}<br>{{ site.address }}</p><a class="sermon-text-link" href="{{ sermonHome }}#sunday">{{ ui[L.code].nav.sunday }}</a></section>
-      {% set latest = sd.latestBulletin %}{% if latest %}<p class="sermon-recent-bulletin">{{ s.recentBulletin }}: <a href="{{ sermonBase }}/sermons/{{ latest.date }}/bulletin/">{{ latest.date | sermonDate(L.code) }}</a></p>{% endif %}
     {% endif %}
   </div>
   {% if e %}<section class="sermon-current"><div class="wrap sermon-recording-band"><div><h2>{{ e.title | t(L.code) | escape }}</h2>{% if e.recording != 'ready' %}<p class="sermon-status">{{ s.unavailable if e.recording == 'unavailable' else s.pending }}</p>{% endif %}</div><a class="btn dark" href="{{ sermonBase }}/sermons/{{ e.date }}/">{{ s.watch if e.recording == 'ready' else s.details }}</a></div></section>{% endif %}

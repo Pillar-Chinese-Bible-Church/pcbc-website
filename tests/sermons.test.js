@@ -13,10 +13,10 @@ import os from "node:os";
 import yaml from "js-yaml";
 import { execFileSync } from "node:child_process";
 
-const now = Date.parse("2026-11-23T12:00:00Z");
-const entry = { date: "2026-11-22", published: true, title: { zh: "感谢", en: "Thanks" }, passage: { zh: "诗篇100", en: "Psalm 100" }, speaker: { zh: "讲员", en: "Speaker" }, recording: "pending" };
+const now = Date.parse("2026-11-22T20:00:00Z");
+const entry = { date: "2026-11-22", published: true, title: { zh: "感谢", en: "Thanks" }, speaker: { zh: "讲员", en: "Speaker" }, recording: "pending" };
 const bulletin = { program: [{ label: { zh: "祷告", en: "Prayer" } }], announcements: [] };
-const collection = (items, current_bulletin = "") => ({ version: 1, current_bulletin, items });
+const collection = items => ({ version: 1, items });
 test("static archive pagination covers empty, exact and partial pages without omissions", () => {
   for (const count of [0, 1, 6, 7, 12, 13, 51, 52]) {
     const items = Array.from({ length: count }, (_, index) => ({ date: String(index) }));
@@ -42,7 +42,9 @@ test("first launch has no content, navigation or bulletin target", () => {
   assert.deepEqual(data.recent, []);
 });
 test("bulletin publishes before video, ready video requires a safe ID", () => {
-  const data = sermonData(collection([{ ...entry, bulletin }], entry.date), now);
+  assert.doesNotThrow(() => assertSermon(entry));
+  assert.throws(() => assertSermon({ ...entry, passage: { zh: "经文", en: "Verse" } }));
+  const data = sermonData(collection([{ ...entry, bulletin }]), now);
   assert.equal(data.current.recording, "pending");
   assert.equal(data.items.length, 1);
   assert.doesNotThrow(() => assertSermon({ ...entry, recording: "ready", youtube_id: "abcdefghijk" }));
@@ -65,15 +67,20 @@ test("Pacific week boundary works across UTC midnight and DST", () => {
   assert.equal(sundayWindow(Date.parse("2026-03-08T08:00:00Z")).sunday, "2026-03-08");
   assert.equal(formatSermonDate("2026-11-22", "en"), "November 22, 2026");
 });
-test("current bulletin is explicit, can be prepared early and cannot silently stay on last week", () => {
+test("current Sunday is automatic and future bulletins are prebuilt for request-time rollover", () => {
   const previous = { ...entry, date: "2026-11-15", bulletin };
   const next = { ...entry, date: "2026-11-29", bulletin };
-  assert.equal(sermonData(collection([previous], previous.date), now).current, null);
-  assert.equal(sermonData(collection([next], next.date), now).current.date, next.date);
-  assert.equal(sermonData(collection([next]), now).hasContent, false);
+  assert.equal(sermonData(collection([previous]), now).current, null);
+  const sunday = sermonData(collection([entry, next]), now);
+  assert.equal(sunday.current.date, entry.date);
+  assert.deepEqual(sunday.items.map(item => item.date), [entry.date]);
+  assert.deepEqual(sunday.datedItems.map(item => item.date), [next.date, entry.date]);
+  const monday = sermonData(collection([entry, next]), Date.parse("2026-11-23T08:00:00Z"));
+  assert.equal(monday.current.date, next.date);
+  assert.deepEqual(monday.recent.map(item => item.date), [entry.date]);
+  assert.equal(sermonData(collection([entry]), Date.parse("2026-11-23T08:00:00Z")).current, null);
   assert.deepEqual(pruneSermons(collection([next]), now).items, [next]);
-  assert.equal(sermonData(collection([{ ...entry, bulletin }]), now).current, null);
-  assert.throws(() => assertSermonCollection(collection([entry], entry.date)));
+  assert.throws(() => assertSermonCollection({ ...collection([entry]), current_bulletin: entry.date }));
   assert.throws(() => assertSermonCollection(collection([entry, entry])));
 });
 test("drafts, distant future and sample entries never enter the real collection output", () => {
@@ -85,12 +92,12 @@ test("drafts, distant future and sample entries never enter the real collection 
   assert.equal(sermonPreviewScenarios(now).length, 5);
   assert.ok(sermonPreviewPages(now).every(page => page.pagePath.startsWith("/_preview/sermons/") && page.data.preview));
 });
-test("pruning removes expired source records, clears deleted selection and preserves drafts", () => {
+test("pruning removes expired source records and preserves drafts", () => {
   const old = { ...entry, date: "2025-01-05", bulletin };
   const draft = { ...entry, date: "2025-01-12", published: false };
-  const result = pruneSermons(collection([entry, old, draft], old.date), now);
+  const result = pruneSermons(collection([entry, old, draft]), now);
   assert.deepEqual(result.items.map(i => i.date), [entry.date, draft.date]);
-  assert.equal(result.current_bulletin, "");
+  assert.deepEqual(Object.keys(result), ["version", "items"]);
   assert.deepEqual(pruneSermons(result, now), result);
 });
 test("preview UI covers empty, bulletin-first, recorded and past-only without a real player", () => {
@@ -183,17 +190,18 @@ test("detail return links preserve the containing archive page, including the cu
   }
   assert.equal(sermonArchiveReturn(data, "1900-01-07"), "/sermons/");
 });
-test("recent-bulletin fallback skips newer sermons that have no bulletin", () => {
+test("weekly static fallback never renders an older bulletin", () => {
   const previous = { ...entry, date: "2026-11-15", bulletin };
   const data = sermonData(collection([entry, previous]), now);
-  assert.equal(data.current, null);
-  assert.equal(data.latestBulletin.date, previous.date);
   const env = new nunjucks.Environment(new nunjucks.FileSystemLoader("src/_includes"));
   env.addFilter("t", value => value?.en || "");
   env.addFilter("sermonDate", formatSermonDate);
   env.addFilter("sermonArchiveReturn", sermonArchiveReturn);
-  const document = parseHTML(env.render("sermons/bulletin.njk", { L: { code: "en" }, e: null, sd: data, sermonUi, sermonBase: "/en", sermonHome: "/en/", site: { sunday: { time: { en: "Sunday" } } }, ui: { en: { nav: { sunday: "Sunday" } } } })).document;
-  assert.equal(document.querySelector(".sermon-recent-bulletin a").getAttribute("href"), "/en/sermons/2026-11-15/bulletin/");
+  const document = parseHTML(env.render("sermons/bulletin.njk", { L: { code: "en" }, e: null, weeklyBulletinPage: true, sd: data, sermonUi, sermonBase: "/en", sermonHome: "/en/", site: { sunday: { time: { en: "Sunday" } } }, ui: { en: { nav: { sunday: "Sunday" } } } })).document;
+  assert.equal(document.querySelector(".bulletin-program"), null);
+  assert.equal(document.querySelector(".sermon-recent-bulletin"), null);
+  assert.equal(document.querySelector(".sermon-empty h2").textContent, sermonUi.en.notReady);
+  assert.equal(document.querySelector("[data-bulletin-week]").getAttribute("datetime"), entry.date);
 });
 test("preview detail neighbors match production first, middle and last navigation", () => {
   const pages = sermonPreviewPages(now).filter(page => page.id === "recorded" && page.language.code === "en" && page.view === "sermon");
@@ -213,8 +221,21 @@ test("real detail and dated-bulletin metadata escape special characters exactly 
   const example = sermonPreviewScenarios().find(scene => scene.id === "bulletin").data.current;
   const title = "God's love & grace <script>notCode()</script>";
   const real = { ...example, sample: false, title: { zh: title, en: title } };
-  fs.writeFileSync(path.join(root, "content/sermons.yml"), yaml.dump(collection([real], real.date), { noRefs: true }));
+  const future = { ...real, date: dateString(dateNumber(real.date) + 7 * 86400000) };
+  const draft = { ...real, date: dateString(dateNumber(real.date) - 7 * 86400000), published: false };
+  const sample = { ...real, date: dateString(dateNumber(real.date) - 14 * 86400000), sample: true };
+  const withoutBulletin = { ...real, date: dateString(dateNumber(real.date) - 21 * 86400000) };
+  delete withoutBulletin.bulletin;
+  fs.writeFileSync(path.join(root, "content/sermons.yml"), yaml.dump(collection([real, future, draft, sample, withoutBulletin]), { noRefs: true }));
   execFileSync(process.execPath, ["scripts/build.mjs"], { cwd: root, env: { ...process.env, CF_PAGES_BRANCH: "live", SERMONS_PREVIEW: "1" }, timeout: 60000, stdio: "pipe" });
+  assert.deepEqual(JSON.parse(fs.readFileSync(path.join(root, "_site/assets/bulletins.json"), "utf8")), { version: 1, preview: false, dates: [future.date, real.date] });
+  for (const prefix of ["", "en", "zh-hant"]) {
+    const weekly = parseHTML(fs.readFileSync(path.join(root, "_site", prefix, "bulletin/index.html"), "utf8")).document;
+    assert.equal(weekly.querySelector(".bulletin-program"), null);
+    assert.ok(weekly.querySelector("[data-bulletin-week]"));
+    assert.ok(fs.existsSync(path.join(root, "_site", prefix, "sermons", future.date, "bulletin/index.html")));
+    for (const hidden of [draft, sample]) assert.equal(fs.existsSync(path.join(root, "_site", prefix, "sermons", hidden.date)), false);
+  }
   const siteName = yaml.load(fs.readFileSync("src/_data/site.yml", "utf8")).name.en;
   for (const suffix of ["", "bulletin/"]) {
     const document = parseHTML(fs.readFileSync(path.join(root, "_site/en/sermons", real.date, suffix, "index.html"), "utf8")).document;

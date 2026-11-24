@@ -15,7 +15,6 @@ content:
     format: yaml
     fields:
       - { name: version, label: Content version, type: number, default: 1 }
-      - { name: current_bulletin, label: 本周周报日期 Current bulletin date (YYYY-MM-DD; blank when not ready), type: string }
       - name: items
         label: 主日信息 Sundays (latest 52 weeks)
         type: object
@@ -30,7 +29,6 @@ content:
               - { name: zh, label: 简体, type: string }
               - { name: hant, label: 繁體（可以不填）, type: string }
               - { name: en, label: English, type: string }
-          - { name: passage, label: 经文 Scripture passage, type: object, fields: *sermon_text }
           - { name: speaker, label: 讲员 Speaker, type: object, fields: *sermon_text }
           - { name: recording, label: 录像状态 Recording (pending / ready / unavailable), type: string, default: pending }
           - { name: youtube_id, label: YouTube video ID (only when ready; remove otherwise), type: string }

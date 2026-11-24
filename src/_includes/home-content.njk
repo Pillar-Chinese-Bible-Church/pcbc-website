@@ -24,7 +24,7 @@
           <p class="sunday-location"><span>{{ u.at }} {{ site.sunday.place }}</span><a class="sunday-directions" href="{{ site.map_link }}" target="_blank" rel="noopener">{{ u.events.directions }} ↗</a></p>
           <p class="sunday-note">{{ site.sunday.note | t(c) }}</p>
           {% if sd.hasContent %}<div class="sunday-sermon-links">
-            {% if sd.current %}<a class="btn dark" href="{{ sermonBase }}/bulletin/">{{ sermonUi[c].thisBulletin }}</a>{% else %}<p>{{ sermonUi[c].notReady }}</p>{% endif %}
+            {% if sd.current and sd.current.bulletin %}<a class="btn dark" href="{{ sermonBase }}/bulletin/">{{ sermonUi[c].thisBulletin }}</a>{% else %}<p>{{ sermonUi[c].notReady }}</p>{% endif %}
             <a class="sermon-text-link" href="{{ sermonBase }}/sermons/">{{ sermonUi[c].archive }}</a>
           </div>{% endif %}
         </div>

@@ -63,7 +63,7 @@ export function checkSite(directory = "_site", production = false) {
   }
   if (production) {
     assert.ok(!files.some(file => file.replaceAll(path.sep, "/").includes("_preview/sermons/")), "Sermon preview routes leaked into production");
-    const retained = new Set(sermonData(readSermons()).items.map(entry => entry.date));
+    const retained = new Set(sermonData(readSermons()).datedItems.map(entry => entry.date));
     for (const entry of readSermons().items.filter(entry => !retained.has(entry.date))) {
       for (const locale of locales) assert.ok(!fs.existsSync(path.join(root, locale.prefix, "sermons", entry.date)), `Excluded sermon leaked into production: ${entry.date}`);
     }

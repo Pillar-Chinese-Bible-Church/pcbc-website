@@ -50,7 +50,8 @@ export default function (eleventyConfig) {
   eleventyConfig.addGlobalData("sermonArchivePages", () => paginatePastSermons(getSermons().recent).flatMap(page => locales.map(language => ({ ...page, language }))));
   eleventyConfig.addGlobalData("sermonPreviewEnabled", () => previewAllowed());
   eleventyConfig.addGlobalData("sermonPreviewPages", () => previewAllowed() ? sermonPreviewPages() : []);
-  eleventyConfig.addGlobalData("sermonPages", () => getSermons().items.flatMap((sermon, index, items) => locales.flatMap(language => {
+  eleventyConfig.addGlobalData("bulletinManifest", () => ({ version: 1, preview: previewAllowed(), dates: getSermons().datedItems.filter(item => item.bulletin).map(item => item.date) }));
+  eleventyConfig.addGlobalData("sermonPages", () => getSermons().datedItems.flatMap((sermon, index, items) => locales.flatMap(language => {
     const page = { sermon, language, newer: items[index - 1], older: items[index + 1] };
     return [{ ...page, view: "sermon", path: `/sermons/${sermon.date}/` }, ...(sermon.bulletin ? [{ ...page, view: "bulletin", path: `/sermons/${sermon.date}/bulletin/` }] : [])];
   })));
