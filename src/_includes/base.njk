@@ -30,11 +30,17 @@
 {% if L.prefix == "" and pagePath == "/" and not sermonPreviewPage %}<script src="/assets/lang.js?v={{ assets.version }}"></script>{% endif %}
 </head>
 <body>
-{% if sermonPreviewPage %}
-<nav class="sermon-preview-bar" aria-label="{{ sermonUi[L.code].preview }}"><div class="wrap"><span>{{ sermonUi[L.code].sample }}</span>
-{% for scene, label in sermonUi[L.code].scenes %}<a href="{{ L.prefix }}/_preview/sermons/{{ scene }}/{{ 'home' if sermonPreviewPage.view == 'home' else ('bulletin' if sermonPreviewPage.view == 'bulletin' else 'sermons') }}/"{% if scene == sermonPreviewPage.id %} aria-current="true"{% endif %}>{{ label }}</a>{% endfor %}
-<a href="{{ L.prefix }}/">{{ sermonUi[L.code].previewExit }}</a>
-<span class="sermon-preview-page-links"><a href="{{ sermonBase }}/home/">{{ sermonUi[L.code].home }}</a><a href="{{ sermonBase }}/sermons/">{{ sermonUi[L.code].archive }}</a><a href="{{ sermonBase }}/bulletin/">{{ sermonUi[L.code].bulletin }}</a></span></div></nav>
+{% if sermonPreviewEnabled %}
+{% set previewView = ('home' if sermonPreviewPage.view == 'home' else ('bulletin' if sermonPreviewPage.view == 'bulletin' else 'sermons')) if sermonPreviewPage else ('bulletin' if 'bulletin/' in pagePath else ('sermons' if '/sermons/' in pagePath else 'home')) %}
+<nav class="sermon-preview-bar" aria-label="{{ sermonUi[L.code].preview }}" data-sermon-preview-controls><div class="wrap">
+{% if sermonPreviewPage %}<span>{{ sermonUi[L.code].sample }}</span>{% endif %}
+<label class="sermon-preview-picker">{{ sermonUi[L.code].preview }}
+<select data-sermon-preview-state>
+<option data-state="actual" value="{{ L.prefix }}/"{% if not sermonPreviewPage %} selected{% endif %}>{{ sermonUi[L.code].previewExit }}</option>
+{% for scene, label in sermonUi[L.code].scenes %}<option data-state="{{ scene }}" value="{{ L.prefix }}/_preview/sermons/{{ scene }}/{{ previewView }}/"{% if sermonPreviewPage and scene == sermonPreviewPage.id %} selected{% endif %}>{{ label }}</option>{% endfor %}
+</select></label>
+<noscript>{% for scene, label in sermonUi[L.code].scenes %}<a href="{{ L.prefix }}/_preview/sermons/{{ scene }}/{{ previewView }}/">{{ label }}</a>{% endfor %}</noscript>
+<span class="sermon-preview-page-links"><a href="{{ home }}">{{ sermonUi[L.code].home }}</a><a href="{{ sermonBase }}/sermons/">{{ sermonUi[L.code].archive }}</a><a href="{{ sermonBase }}/bulletin/">{{ sermonUi[L.code].bulletin }}</a></span></div></nav>
 {% endif %}
 <a class="skip-link" href="#main">{{ u.skip }}</a>
 <header class="top">
@@ -89,6 +95,7 @@
   </div>
 </footer>
 <script src="/assets/site.js?v={{ assets.version }}"></script>
+{% if sermonPreviewEnabled %}<script src="/assets/sermon-preview.js?v={{ assets.version }}" defer></script>{% endif %}
 {% if sermonPage or sermonPreviewPage %}<script src="/assets/sermons.js?v={{ assets.version }}" defer></script>{% endif %}
 </body>
 </html>

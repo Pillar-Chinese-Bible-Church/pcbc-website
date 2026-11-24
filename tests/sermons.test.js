@@ -113,3 +113,24 @@ test("real recording creates exactly one privacy-enhanced player after Play; no 
   button.click();
   assert.equal(document.querySelectorAll("iframe").length, 1);
 });
+
+test("preview state picker supports fixed URLs and changes, but overrides are inert without preview controls", () => {
+  const source = readFileSync("src/assets/sermon-preview.js", "utf8");
+  function run(search, controls = true) {
+    const { document, window } = parseHTML(controls ? '<nav data-sermon-preview-controls><select data-sermon-preview-state><option data-state="actual" value="/en/">Actual</option><option data-state="empty" value="/en/_preview/sermons/empty/home/">Empty</option><option data-state="recorded" value="/en/_preview/sermons/recorded/home/">Recorded</option></select></nav>' : '<main></main>');
+    const visits = [];
+    const location = { search, href: `https://preview.example/en/${search}`, origin: "https://preview.example", replace: value => visits.push(value) };
+    vm.runInNewContext(source, { document, location, URL, URLSearchParams });
+    return { document, window, visits };
+  }
+  assert.deepEqual(run("?sermon_state=empty").visits, ["/en/_preview/sermons/empty/home/"]);
+  assert.deepEqual(run("?sermon_state=recorded").visits, ["/en/_preview/sermons/recorded/home/"]);
+  assert.deepEqual(run("?sermon_state=actual").visits, ["/en/"]);
+  assert.deepEqual(run("?sermon_state=unknown").visits, []);
+  assert.deepEqual(run("?sermon_state=recorded", false).visits, []);
+  const changed = run("");
+  const picker = changed.document.querySelector("select");
+  picker.querySelector('[data-state="recorded"]').setAttribute("selected", "");
+  picker.dispatchEvent(new changed.window.Event("change"));
+  assert.deepEqual(changed.visits, ["/en/_preview/sermons/recorded/home/"]);
+});

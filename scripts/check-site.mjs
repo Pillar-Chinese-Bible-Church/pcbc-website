@@ -12,6 +12,8 @@ export function checkSite(directory = "_site", production = false) {
   const pages = new Map(files.map(file => [path.join(root, file), parseHTML(fs.readFileSync(path.join(root, file), "utf8")).document]));
   for (const [file, document] of pages) {
     const relative = path.relative(root, file).replaceAll(path.sep, "/");
+    assert.equal(!!document.querySelector("[data-sermon-preview-controls]"), !production, `${relative}: preview state controls must appear on feature pages only`);
+    assert.equal(!!document.querySelector('script[src^="/assets/sermon-preview.js"]'), !production, `${relative}: preview state script must never run in production`);
     const pageUrl = new URL(relative.replace(/index\.html$/, ""), "https://local.invalid/");
     assert.equal(document.querySelectorAll("main#main").length, 1, `${relative}: needs one main landmark`);
     assert.equal(document.querySelectorAll("h1").length, 1, `${relative}: needs one primary heading`);

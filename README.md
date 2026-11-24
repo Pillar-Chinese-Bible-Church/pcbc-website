@@ -565,6 +565,15 @@ archive, detail and bulletin templates in all three languages. Dates are generat
 relative to the current Pacific Sunday. The sample speaker, program and titles
 are illustrative, and sample videos never request a real recording or thumbnail.
 
+The state picker also appears on the regular feature-preview homepage and all
+other feature pages, so reviewers do not need to discover the special routes.
+To force a fixed state in a shareable URL, append `?sermon_state=empty`,
+`?sermon_state=bulletin`, `?sermon_state=recorded`, or
+`?sermon_state=past-only`. The preview redirects to that scenario for the current
+page type (home, sermon archive, or bulletin). `?sermon_state=actual` returns to
+the unmodified real collection. Unknown values are ignored. Neither the picker
+nor the override script is referenced by `main` or `live` builds.
+
 Feature-branch builds generate these review routes automatically. Ordinary local
 builds omit them unless `SERMONS_PREVIEW=1` is set. `main` and `live` always omit them,
 even with that override. They are noindex, excluded from the sitemap, and never

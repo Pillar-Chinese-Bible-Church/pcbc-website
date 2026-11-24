@@ -47,6 +47,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addWatchTarget("src/_includes/styles/");
   eleventyConfig.addGlobalData("eventData", getEvents);
   eleventyConfig.addGlobalData("sermonData", getSermons);
+  eleventyConfig.addGlobalData("sermonPreviewEnabled", () => previewAllowed());
   eleventyConfig.addGlobalData("sermonPreviewPages", () => previewAllowed() ? sermonPreviewPages() : []);
   eleventyConfig.addGlobalData("sermonPages", () => getSermons().items.flatMap((sermon, index, items) => locales.flatMap(language => {
     const page = { sermon, language, newer: items[index - 1], older: items[index + 1] };
