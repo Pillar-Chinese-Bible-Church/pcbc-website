@@ -82,7 +82,7 @@ test("drafts, distant future and sample entries never enter the real collection 
   assert.equal(previewAllowed({}), false);
   assert.equal(previewAllowed({ SERMONS_PREVIEW: "1" }), true);
   assert.equal(previewAllowed({ CF_PAGES_BRANCH: "codex/sermons" }), true);
-  assert.equal(sermonPreviewScenarios(now).length, 4);
+  assert.equal(sermonPreviewScenarios(now).length, 5);
   assert.ok(sermonPreviewPages(now).every(page => page.pagePath.startsWith("/_preview/sermons/") && page.data.preview));
 });
 test("pruning removes expired source records, clears deleted selection and preserves drafts", () => {
@@ -105,6 +105,7 @@ test("preview UI covers empty, bulletin-first, recorded and past-only without a 
     const archive = parseHTML(env.render("sermons/archive.njk", context)).document;
     assert.equal(archive.querySelectorAll("h1").length, 1);
     if (scene.id === "empty") assert.match(archive.querySelector("main").textContent, /coming soon/);
+    else if (scene.id === "current-only") assert.ok(archive.querySelector(".sermon-history-empty"));
     else assert.ok(archive.querySelectorAll(".sermon-row").length >= 2);
     const rendered = env.render("sermons/bulletin.njk", { ...context, e: scene.data.current });
     assert.ok(rendered.includes(scene.data.current ? s.program : s.notReady));
@@ -113,6 +114,31 @@ test("preview UI covers empty, bulletin-first, recorded and past-only without a 
       assert.ok(detail.includes(scene.id === "recorded" ? s.sampleVideo : s.pending));
       assert.doesNotMatch(detail, /youtube-nocookie|data-video-load/);
     }
+  }
+});
+test("a first Sunday keeps current content and shows an empty history before and after recording publication", () => {
+  const env = new nunjucks.Environment(new nunjucks.FileSystemLoader("src/_includes"));
+  env.addFilter("t", value => typeof value === "string" ? value : value?.en || "");
+  env.addFilter("sermonDate", formatSermonDate);
+  const scenario = sermonPreviewScenarios(now).find(scene => scene.id === "current-only");
+  for (const recording of ["pending", "ready", "unavailable"]) {
+    const current = { ...scenario.data.current, recording };
+    const sd = { ...scenario.data, current, items: [current] };
+    const document = parseHTML(env.render("sermons/archive.njk", {
+      L: { code: "en" }, sd, archivePage: paginatePastSermons([])[0], sermonUi, sermonBase: "/preview", site: { links: { youtube: "https://www.youtube.com/@example" } }
+    })).document;
+    assert.ok(document.querySelector(".sermon-current"));
+    assert.equal(document.querySelector(".sermon-history-empty h2").textContent, "No past sermons yet");
+    assert.equal(document.querySelectorAll(".sermon-row").length, 0);
+    assert.equal(document.querySelector(".sermon-pagination"), null);
+    assert.equal(document.querySelector(".sermon-channel"), null);
+    assert.ok(document.querySelector('.sermon-current a[href="/preview/bulletin/"]'));
+    assert.equal(!!document.querySelector(".sermon-current .sermon-status"), recording !== "ready");
+  }
+  for (const prefix of ["", "/en", "/zh-hant"]) {
+    const pages = sermonPreviewPages(now).filter(page => page.id === "current-only" && page.language.prefix === prefix);
+    assert.equal(pages.filter(page => page.view === "archive").length, 1);
+    assert.ok(pages.some(page => page.view === "bulletin" && page.path === "/bulletin/" && page.entry));
   }
 });
 test("past-sermon pages preserve current Sunday and render working first/middle/last controls", () => {

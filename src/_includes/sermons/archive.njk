@@ -16,7 +16,8 @@
     {% if not sd.hasContent %}
       <div class="sermon-empty"><h2>{{ s.emptyTitle }}</h2><p>{{ s.emptyText }}</p><p>{{ site.sunday.time | t(L.code) }} · {{ site.address }}</p><a class="sermon-text-link" href="{{ sermonHome }}#sunday">{{ ui[L.code].nav.sunday }}</a></div>
     {% else %}
-      {% if sd.recent.length %}<div class="sermon-history-heading"><h2>{{ s.past }}</h2><p>{{ s.history }}</p></div>{% endif %}
+      {% if sd.recent.length %}<div class="sermon-history-heading"><h2>{{ s.past }}</h2><p>{{ s.history }}</p></div>
+      {% else %}<div class="sermon-empty sermon-history-empty"><h2>{{ s.noPastTitle }}</h2><p>{{ s.noPastText }}</p></div>{% endif %}
       {% for e in archivePage.items %}
       <article class="sermon-row">
         {% if e.recording == 'ready' %}
@@ -36,7 +37,7 @@
         <p>{{ s.pageStatus | replace('{page}', archivePage.number) | replace('{total}', archivePage.totalPages) }}</p>
       </nav>
       {% endif %}
-      {% if site.links.youtube %}<p class="sermon-channel">{{ s.more }} <a href="{{ site.links.youtube }}" target="_blank" rel="noopener">{{ s.channel }}</a></p>{% endif %}
+      {% if sd.recent.length and site.links.youtube %}<p class="sermon-channel">{{ s.more }} <a href="{{ site.links.youtube }}" target="_blank" rel="noopener">{{ s.channel }}</a></p>{% endif %}
     {% endif %}
     {% if sd.preview %}<p class="sample-label">{{ s.sample }}</p>{% endif %}
   </section>

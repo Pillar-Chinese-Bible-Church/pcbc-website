@@ -566,18 +566,20 @@ archive links to the channel when `site.links.youtube` has been supplied.
 ### Preview scenarios
 
 Run `npm run dev:sermons` and visit `http://localhost:8088/_preview/sermons/bulletin/home/`.
-The preview bar switches between **no content**, **bulletin published**,
+The preview bar switches between **no content**, **this Sunday only (no past sermons)**, **bulletin published**,
 **recording published** and **this week not published**, using the actual homepage,
 archive, detail and bulletin templates in all three languages. Dates are generated
 relative to the current Pacific Sunday. The sample speaker, program and titles
 are illustrative, and sample videos never request a real recording or thumbnail.
-Nonempty scenarios include 13 past Sundays so the first, middle and final
+The current-only scenario keeps the bulletin and recording placeholder available while
+showing a distinct empty history with no pagination or older-recording links.
+The remaining nonempty scenarios include 13 past Sundays so the first, middle and final
 pagination pages can be reviewed.
 
 The state picker also appears on the regular feature-preview homepage and all
 other feature pages, so reviewers do not need to discover the special routes.
 To force a fixed state in a shareable URL, append `?sermon_state=empty`,
-`?sermon_state=bulletin`, `?sermon_state=recorded`, or
+`?sermon_state=current-only`, `?sermon_state=bulletin`, `?sermon_state=recorded`, or
 `?sermon_state=past-only`. The preview redirects to that scenario for the current
 page type (home, sermon archive, or bulletin). `?sermon_state=actual` returns to
 the unmodified real collection. Unknown values are ignored. Neither the picker
