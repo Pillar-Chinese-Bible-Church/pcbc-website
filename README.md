@@ -500,3 +500,73 @@ assets or stylesheet modules changes that version so browsers fetch the matching
 files after publication, even when older assets are still cached. The contact
 honeypot is also hidden in HTML, and a stalled Turnstile load shows the direct-email
 fallback after 15 seconds instead of leaving the form on Preparing indefinitely.
+
+
+## Sunday sermons and text bulletins
+
+The real collection starts empty in `content/sermons.yml`. Each Sunday has one stable
+`YYYY-MM-DD` identifier shared by its sermon and bulletin. Keep that date stable.
+
+- `/sermons/` is the archive; `/sermons/YYYY-MM-DD/` is a sermon page.
+- `/sermons/YYYY-MM-DD/bulletin/` is the dated bulletin.
+- `/bulletin/` always works, including before the first bulletin is published.
+  It renders the explicitly selected `current_bulletin` from the same collection;
+  point the reusable QR at the final production domain's `/bulletin/` URL.
+- All routes have `/zh-hant/` and `/en/` equivalents. Traditional Chinese uses the
+  existing OpenCC fallback. Website language does not change the recorded audio.
+- The homepage links and sermon navigation appear only when real published
+  retained entries exist. With previous entries but no current bulletin, the
+  archive remains available and the homepage states that this week's bulletin
+  has not been published. A recent bulletin is always labeled with its date.
+
+A weekly entry has localized title, passage and speaker, `published`, and a
+`recording` status of `pending`, `ready`, or `unavailable`. `ready` requires an
+11-character `youtube_id`; omit that field for other statuses. `bulletin` is
+optional; when supplied it has an ordered `program` and `announcements` list.
+Announcement headings, paragraphs/line breaks and optional labeled HTTPS links
+are formatted by the templates. Arbitrary HTML is escaped. No PDF, image upload,
+video upload, new database or storage bucket is needed. A print stylesheet is included.
+
+Publish the bulletin before Sunday, set `current_bulletin` to its date and publish
+through the normal reviewed workflow. Later change `recording` to `ready`, add
+the YouTube ID, preview and publish again. Recording availability is independent
+of bulletin publication. A selected date must reference a published bulletin;
+a date before the latest Pacific Sunday will not silently appear as this week's.
+The coming Sunday's bulletin can be selected early. The detailed dashboard
+editing experience is a separate follow-up; Pages CMS fields are provided meanwhile.
+
+### Retention
+
+Builds include at most 52 published Sundays, newest first, within the latest
+52 Pacific calendar weeks (current Sunday and previous 51 Sundays), plus the
+coming Sunday if prepared early, still capped at 52 records overall. Distant
+future entries and drafts are not public. Age filtering works even with gaps.
+The current bulletin selection must point at a retained, current/coming Sunday.
+
+Run `npm run sermons:prune` when preparing an update to remove expired/overflow
+published source records and clear a deleted current selection. It preserves
+unpublished drafts and later future entries. Review that diff and generate the
+normal preview before publishing. Validation rejects more than 52 published
+source records, prompting pruning before the next weekly update can merge.
+Builds never silently rewrite the reviewed commit or alter the publish workflow.
+
+Retention is evaluated on rebuild/publication, as appropriate for this static site;
+there is no scheduler, new server or background cost. An already deployed snapshot
+stays as built until replaced. Historical text remains in Git history, but there
+are no accumulated PDF/video binaries. Older recordings remain on YouTube; the
+archive links to the channel when `site.links.youtube` has been supplied.
+
+### Preview scenarios
+
+Run `npm run dev:sermons` and visit `http://localhost:8088/_preview/sermons/bulletin/home/`.
+The preview bar switches between **no content**, **bulletin published**,
+**recording published** and **this week not published**, using the actual homepage,
+archive, detail and bulletin templates in all three languages. Dates are generated
+relative to the current Pacific Sunday. The sample speaker, program and titles
+are illustrative, and sample videos never request a real recording or thumbnail.
+
+Feature-branch builds generate these review routes automatically. Ordinary local
+builds omit them unless `SERMONS_PREVIEW=1` is set. `main` and `live` always omit them,
+even with that override. They are noindex, excluded from the sitemap, and never
+mixed into the empty canonical collection. `npm run check` checks real/preview
+links and production isolation, alongside the existing website checks.

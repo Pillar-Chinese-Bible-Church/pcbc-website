@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import { parseHTML } from "linkedom";
 import { locales } from "../lib/locales.js";
 import { readEvents } from "../lib/content.js";
+import { readSermons, sermonData } from "../lib/sermons.js";
 
 export function checkSite(directory = "_site", production = false) {
   const root = path.resolve(directory);
@@ -49,6 +50,11 @@ export function checkSite(directory = "_site", production = false) {
     }
   }
   if (production) {
+    assert.ok(!files.some(file => file.replaceAll(path.sep, "/").includes("_preview/sermons/")), "Sermon preview routes leaked into production");
+    const retained = new Set(sermonData(readSermons()).items.map(entry => entry.date));
+    for (const entry of readSermons().items.filter(entry => !retained.has(entry.date))) {
+      for (const locale of locales) assert.ok(!fs.existsSync(path.join(root, locale.prefix, "sermons", entry.date)), `Excluded sermon leaked into production: ${entry.date}`);
+    }
     for (const event of readEvents().filter(event => event.sample || !event.published || Date.parse(event.end) <= Date.now())) {
       for (const locale of locales) assert.ok(!fs.existsSync(path.join(root, locale.prefix, "events", event.slug, "index.html")), `Excluded event leaked into production: ${event.slug}`);
     }

@@ -1,0 +1,14 @@
+---
+pagination:
+  data: langs
+  size: 1
+  alias: L
+permalink: "{{ L.prefix }}/sermons/index.html"
+pagePath: "/sermons/"
+layout: base.njk
+eleventyComputed:
+  pageTitle: "{{ sermonUi[L.code].title }} · {{ site.name | t(L.code) }}"
+  pageDescription: "{{ sermonUi[L.code].intro }}"
+---
+{% set sd = sermonData %}{% set sermonBase = L.prefix %}{% set sermonHome = L.prefix + '/' %}
+{% include "sermons/archive.njk" %}

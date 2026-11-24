@@ -8,6 +8,58 @@ media:
   output: /images
 
 content:
+  - name: sermons
+    label: 主日讲道与周报 Sermons and bulletins
+    type: file
+    path: content/sermons.yml
+    format: yaml
+    fields:
+      - { name: version, label: Content version, type: number, default: 1 }
+      - { name: current_bulletin, label: 本周周报日期 Current bulletin date (YYYY-MM-DD; blank when not ready), type: string }
+      - name: items
+        label: 主日信息 Sundays (latest 52 weeks)
+        type: object
+        list: true
+        fields:
+          - { name: date, label: 主日日期 Sunday date (YYYY-MM-DD), type: string }
+          - { name: published, label: 发布 Publish, type: boolean, default: false }
+          - name: title
+            label: 讲道题目 Sermon title
+            type: object
+            fields: &sermon_text
+              - { name: zh, label: 简体, type: string }
+              - { name: hant, label: 繁體（可以不填）, type: string }
+              - { name: en, label: English, type: string }
+          - { name: passage, label: 经文 Scripture passage, type: object, fields: *sermon_text }
+          - { name: speaker, label: 讲员 Speaker, type: object, fields: *sermon_text }
+          - { name: recording, label: 录像状态 Recording (pending / ready / unavailable), type: string, default: pending }
+          - { name: youtube_id, label: YouTube video ID (only when ready; remove otherwise), type: string }
+          - name: bulletin
+            label: 周报 Bulletin (optional)
+            type: object
+            fields:
+              - name: program
+                label: 崇拜程序 Order of worship
+                type: object
+                list: true
+                fields:
+                  - { name: label, label: 项目 Item, type: object, fields: *sermon_text }
+                  - { name: detail, label: 内容 Details, type: object, fields: *sermon_text }
+              - name: announcements
+                label: 家事分享 Announcements
+                type: object
+                list: true
+                fields:
+                  - { name: heading, label: 标题 Heading, type: object, fields: *sermon_text }
+                  - name: text
+                    label: 内容 Text
+                    type: object
+                    fields:
+                      - { name: zh, label: 简体, type: text }
+                      - { name: hant, label: 繁體（可以不填）, type: text }
+                      - { name: en, label: English, type: text }
+                  - { name: link, label: 链接 HTTPS link (optional), type: string }
+                  - { name: link_label, label: 链接文字 Link label (only with link), type: object, fields: *sermon_text }
   - name: site
     label: 基本信息 Basics
     type: file

@@ -2,13 +2,15 @@
   "name": "pillar-cbc-website",
   "private": true,
   "type": "module",
-  "description": "柱石华人圣经教会 Pillar Chinese Bible Church website",
+  "description": "\u67f1\u77f3\u534e\u4eba\u5723\u7ecf\u6559\u4f1a Pillar Chinese Bible Church website",
   "scripts": {
     "dev": "eleventy --serve --port 8080",
     "build": "node scripts/build.mjs",
     "test": "node --test tests/*.test.js",
     "validate": "node scripts/validate-content.mjs",
-    "check": "node scripts/check.mjs"
+    "check": "node scripts/check.mjs",
+    "sermons:prune": "node scripts/prune-sermons.mjs",
+    "dev:sermons": "SERMONS_PREVIEW=1 eleventy --serve --port 8088"
   },
   "engines": {
     "node": ">=22.12"

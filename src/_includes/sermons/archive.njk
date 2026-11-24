@@ -1,0 +1,35 @@
+{% set s = sermonUi[L.code] %}
+<main id="main" class="sermons-page">
+  <section class="page-heading"><div class="wrap"><h1>{{ s.title }}</h1><p>{{ s.intro }}</p></div></section>
+  {% if sd.current %}
+  <section class="sermon-current"><div class="wrap sermon-columns">
+    <h2>{{ s.current }}</h2><div>
+      <p class="sermon-date"><time datetime="{{ sd.current.date }}">{{ sd.current.date | sermonDate(L.code) }}</time></p>
+      <h3>{{ sd.current.title | t(L.code) | escape }}</h3>
+      <p class="sermon-meta">{{ sd.current.passage | t(L.code) | escape }} · {{ sd.current.speaker | t(L.code) | escape }}</p>
+      <div class="sermon-actions"><a class="btn dark" href="{{ sermonBase }}/bulletin/">{{ s.thisBulletin }}</a><a class="sermon-text-link" href="{{ sermonBase }}/sermons/{{ sd.current.date }}/">{{ s.watch if sd.current.recording == 'ready' else s.details }}</a></div>
+      {% if sd.current.recording != 'ready' %}<p class="sermon-status">{{ s.unavailable if sd.current.recording == 'unavailable' else s.pending }}</p>{% endif %}
+    </div>
+  </div></section>
+  {% elif sd.hasContent %}<div class="wrap sermon-not-ready"><p>{{ s.notReady }}</p></div>{% endif %}
+  <section class="wrap sermon-history">
+    {% if not sd.hasContent %}
+      <div class="sermon-empty"><h2>{{ s.emptyTitle }}</h2><p>{{ s.emptyText }}</p><p>{{ site.sunday.time | t(L.code) }} · {{ site.address }}</p><a class="sermon-text-link" href="{{ sermonHome }}#sunday">{{ ui[L.code].nav.sunday }}</a></div>
+    {% else %}
+      {% if sd.recent.length %}<div class="sermon-history-heading"><h2>{{ s.past }}</h2><p>{{ s.history }}</p></div>{% endif %}
+      {% for e in sd.recent %}
+      <article class="sermon-row">
+        {% if e.recording == 'ready' %}
+          <a class="sermon-thumbnail{% if e.sample %} sermon-sample-thumbnail{% endif %}" href="{{ sermonBase }}/sermons/{{ e.date }}/" aria-label="{{ s.watch }}: {{ e.title | t(L.code) | escape }}">
+            {% if e.sample %}<span>{{ s.sampleVideo }}</span>{% else %}<img eleventy:ignore src="https://i.ytimg.com/vi/{{ e.youtube_id }}/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">{% endif %}
+            <span class="sermon-play" aria-hidden="true">▶</span>
+          </a>
+        {% else %}<div class="sermon-thumbnail sermon-no-recording"><p>{{ s.unavailable if e.recording == 'unavailable' else s.pending }}</p></div>{% endif %}
+        <div><p class="sermon-date"><time datetime="{{ e.date }}">{{ e.date | sermonDate(L.code) }}</time></p><h3><a href="{{ sermonBase }}/sermons/{{ e.date }}/">{{ e.title | t(L.code) | escape }}</a></h3><p class="sermon-meta">{{ e.passage | t(L.code) | escape }} · {{ e.speaker | t(L.code) | escape }}</p><div class="sermon-actions"><a class="sermon-text-link" href="{{ sermonBase }}/sermons/{{ e.date }}/">{{ s.watch if e.recording == 'ready' else s.details }}</a>{% if e.bulletin %}<a class="sermon-text-link" href="{{ sermonBase }}/sermons/{{ e.date }}/bulletin/">{{ s.readBulletin }}</a>{% endif %}</div></div>
+      </article>
+      {% endfor %}
+      {% if site.links.youtube %}<p class="sermon-channel">{{ s.more }} <a href="{{ site.links.youtube }}" target="_blank" rel="noopener">{{ s.channel }}</a></p>{% endif %}
+    {% endif %}
+    {% if sd.preview %}<p class="sample-label">{{ s.sample }}</p>{% endif %}
+  </section>
+</main>
