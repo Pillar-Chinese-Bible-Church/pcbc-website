@@ -23,7 +23,7 @@ eleventyComputed:
     <section class="contact-form-section" aria-labelledby="contact-form-heading">
       <h2 id="contact-form-heading">{{ f.formTitle }}</h2>
       <p class="contact-intro">{{ f.formIntro }}</p>
-      <form id="contact-form" method="post" action="/api/contact" data-language="{{ c }}" data-sending="{{ f.sending }}" data-success="{{ f.success }}" data-unavailable="{{ f.unavailable }}" data-error="{{ f.error }}" data-verification="{{ f.verification }}" data-retry-verification="{{ f.retryVerification }}" data-verifying="{{ f.verifying }}" data-verified-label="{{ f.verifiedLabel }}" data-verified="{{ f.verified }}" data-verification-retry="{{ f.verificationRetry }}" data-verification-expired="{{ f.verificationExpired }}" data-rate-limited="{{ f.rateLimited }}" aria-labelledby="contact-form-heading">
+      <form id="contact-form" method="post" action="/api/contact" data-language="{{ c }}" data-sending="{{ f.sending }}" data-success="{{ f.success }}" data-unavailable="{{ f.unavailable }}" data-error="{{ f.error }}" data-verification="{{ f.verification }}" data-loading="{{ f.loading }}" data-verified="{{ f.verified }}" data-verification-retry="{{ f.verificationRetry }}" data-verification-expired="{{ f.verificationExpired }}" data-rate-limited="{{ f.rateLimited }}" aria-labelledby="contact-form-heading">
         <p class="contact-required">{{ f.required }}</p>
         <p class="contact-context" hidden>{{ f.regarding }}: <span id="contact-context"></span></p>
         <div class="contact-fields">
@@ -49,9 +49,9 @@ eleventyComputed:
           <div class="contact-message-hint"><small id="message-hint">{{ f.messageHint }}</small><span id="message-count" aria-hidden="true">0 / 4,000</span></div>
         </div>
         <div class="contact-trap" hidden aria-hidden="true"><label for="contact-website">Website</label><input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
-        <button id="contact-verify" class="btn contact-verify" type="button" aria-describedby="contact-status">{{ f.verify }}</button>
         <div id="contact-verification"></div>
-        <p id="contact-status" class="contact-status" role="status" aria-live="polite" tabindex="-1">{{ f.verification }}</p>
+        <button id="contact-retry" class="btn contact-retry" type="button" aria-describedby="contact-status" hidden>{{ f.retryVerification }}</button>
+        <p id="contact-status" class="contact-status" role="status" aria-live="polite" tabindex="-1">{{ f.loading }}</p>
         <noscript><p>{{ f.noScript }}</p></noscript>
         <button class="btn dark contact-send" type="submit" aria-describedby="contact-status" disabled>{{ f.send }}</button>
       </form>
