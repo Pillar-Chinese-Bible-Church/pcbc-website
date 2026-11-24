@@ -2,7 +2,7 @@
 <main id="main" class="sermons-page">
   <section class="page-heading"><div class="wrap"><h1>{{ s.title }}</h1><p>{{ s.intro }}</p></div></section>
   {% if sd.current %}
-  <section class="sermon-current"><div class="wrap sermon-columns">
+  <section class="sermon-current" id="current-sunday"><div class="wrap sermon-columns">
     <h2>{{ s.current }}</h2><div>
       <p class="sermon-date"><time datetime="{{ sd.current.date }}">{{ sd.current.date | sermonDate(L.code) }}</time></p>
       <h3>{{ sd.current.title | t(L.code) | escape }}</h3>

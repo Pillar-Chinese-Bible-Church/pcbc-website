@@ -4,7 +4,7 @@ import * as OpenCC from "opencc-js";
 import { eleventyImageTransformPlugin } from "@11ty/eleventy-img";
 import { eventData, formatEventDate } from "./lib/events.js";
 import { readEvents } from "./lib/content.js";
-import { readSermons, sermonData, formatSermonDate, previewAllowed, paginatePastSermons } from "./lib/sermons.js";
+import { readSermons, sermonData, formatSermonDate, previewAllowed, paginatePastSermons, sermonArchiveReturn } from "./lib/sermons.js";
 import { sermonPreviewPages } from "./lib/sermon-previews.js";
 import { locales, timeZone } from "./lib/locales.js";
 import { validateContent } from "./scripts/validate-content.mjs";
@@ -64,6 +64,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("tt", (field, lang) => escape(pick(field, lang)).replace(/\n/g, "<br>"));
   eleventyConfig.addFilter("hant", (s) => toHant(s || ""));
   eleventyConfig.addFilter("sermonDate", formatSermonDate);
+  eleventyConfig.addFilter("sermonArchiveReturn", sermonArchiveReturn);
   eleventyConfig.addFilter("eventDate", (s, lang) => formatEventDate(s, lang));
   eleventyConfig.addFilter("eventTime", (s, lang) => formatEventDate(s, lang, true));
   for (const [name, part] of [["eventMonth", "month"], ["eventDay", "day"]]) {

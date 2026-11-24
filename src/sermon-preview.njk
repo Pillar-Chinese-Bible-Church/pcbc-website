@@ -12,6 +12,7 @@ eleventyComputed:
 ---
 {% set L = sermonPreviewPage.language %}{% set sd = sermonPreviewPage.data %}{% set e = sermonPreviewPage.entry %}{% set sermonBase = L.prefix + sermonPreviewPage.prefix %}{% set sermonHome = sermonBase + '/home/' %}
 {% set archivePage = sermonPreviewPage.archivePage %}
+{% set newer = sermonPreviewPage.newer %}{% set older = sermonPreviewPage.older %}
 {% if sermonPreviewPage.view == 'home' %}
   {% include "home-content.njk" %}
 {% elif sermonPreviewPage.view == 'archive' %}

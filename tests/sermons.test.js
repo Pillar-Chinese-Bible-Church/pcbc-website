@@ -1,12 +1,17 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { assertSermon, assertSermonCollection, sermonData, sundayWindow, dateString, dateNumber, previewAllowed, pruneSermons, formatSermonDate, paginatePastSermons, SERMONS_PER_PAGE } from "../lib/sermons.js";
+import { assertSermon, assertSermonCollection, sermonData, sundayWindow, dateString, dateNumber, previewAllowed, pruneSermons, formatSermonDate, paginatePastSermons, SERMONS_PER_PAGE, sermonArchiveReturn } from "../lib/sermons.js";
 import { sermonPreviewScenarios, sermonPreviewPages } from "../lib/sermon-previews.js";
 import { readFileSync } from "node:fs";
 import { parseHTML } from "linkedom";
 import nunjucks from "nunjucks";
 import sermonUi from "../src/_data/sermonUi.js";
 import vm from "node:vm";
+import fs from "node:fs";
+import path from "node:path";
+import os from "node:os";
+import yaml from "js-yaml";
+import { execFileSync } from "node:child_process";
 
 const now = Date.parse("2026-11-23T12:00:00Z");
 const entry = { date: "2026-11-22", published: true, title: { zh: "感谢", en: "Thanks" }, passage: { zh: "诗篇100", en: "Psalm 100" }, speaker: { zh: "讲员", en: "Speaker" }, recording: "pending" };
@@ -93,6 +98,7 @@ test("preview UI covers empty, bulletin-first, recorded and past-only without a 
   env.addFilter("t", x => typeof x === "string" ? x : x?.en || "");
   env.addFilter("tt", x => (x?.en || "").replaceAll("<", "&lt;"));
   env.addFilter("sermonDate", formatSermonDate);
+  env.addFilter("sermonArchiveReturn", sermonArchiveReturn);
   const s = sermonUi.en;
   for (const scene of sermonPreviewScenarios(now)) {
     const context = { L: { code: "en", prefix: "/en" }, archivePage: paginatePastSermons(scene.data.recent)[0], sermonUi, sd: scene.data, sermonBase: "/preview", sermonHome: "/", site: { sunday: { time: { en: "Sunday" } }, name: { en: "Church" }, links: {} }, ui: { en: { nav: { sunday: "Sunday" } } } };
@@ -113,6 +119,7 @@ test("past-sermon pages preserve current Sunday and render working first/middle/
   const env = new nunjucks.Environment(new nunjucks.FileSystemLoader("src/_includes"));
   env.addFilter("t", value => typeof value === "string" ? value : value?.en || "");
   env.addFilter("sermonDate", formatSermonDate);
+  env.addFilter("sermonArchiveReturn", sermonArchiveReturn);
   const scenario = sermonPreviewScenarios(now).find(scene => scene.id === "recorded");
   const pages = paginatePastSermons(scenario.data.recent);
   assert.equal(pages.length, 3);
@@ -142,10 +149,60 @@ test("preview archives generate a route for every page and locale", () => {
     assert.equal(pages.filter(page => page.language.prefix === prefix && page.id === "empty" && page.view === "archive").length, 1);
   }
 });
+test("detail return links preserve the containing archive page, including the current Sunday", () => {
+  const data = sermonPreviewScenarios(now).find(scene => scene.id === "recorded").data;
+  assert.equal(sermonArchiveReturn(data, data.current.date), "/sermons/#current-sunday");
+  for (const page of paginatePastSermons(data.recent)) {
+    for (const entry of page.items) assert.equal(sermonArchiveReturn(data, entry.date), `${page.path}#past-sermons`);
+  }
+  assert.equal(sermonArchiveReturn(data, "1900-01-07"), "/sermons/");
+});
+test("recent-bulletin fallback skips newer sermons that have no bulletin", () => {
+  const previous = { ...entry, date: "2026-11-15", bulletin };
+  const data = sermonData(collection([entry, previous]), now);
+  assert.equal(data.current, null);
+  assert.equal(data.latestBulletin.date, previous.date);
+  const env = new nunjucks.Environment(new nunjucks.FileSystemLoader("src/_includes"));
+  env.addFilter("t", value => value?.en || "");
+  env.addFilter("sermonDate", formatSermonDate);
+  env.addFilter("sermonArchiveReturn", sermonArchiveReturn);
+  const document = parseHTML(env.render("sermons/bulletin.njk", { L: { code: "en" }, e: null, sd: data, sermonUi, sermonBase: "/en", sermonHome: "/en/", site: { sunday: { time: { en: "Sunday" } } }, ui: { en: { nav: { sunday: "Sunday" } } } })).document;
+  assert.equal(document.querySelector(".sermon-recent-bulletin a").getAttribute("href"), "/en/sermons/2026-11-15/bulletin/");
+});
+test("preview detail neighbors match production first, middle and last navigation", () => {
+  const pages = sermonPreviewPages(now).filter(page => page.id === "recorded" && page.language.code === "en" && page.view === "sermon");
+  assert.equal(pages[0].newer, undefined);
+  assert.equal(pages.at(-1).older, undefined);
+  for (const [index, page] of pages.entries()) {
+    assert.equal(page.newer?.date, pages[index - 1]?.entry.date);
+    assert.equal(page.older?.date, pages[index + 1]?.entry.date);
+  }
+});
+test("real detail and dated-bulletin metadata escape special characters exactly once", t => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "pcbc-sermon-metadata-"));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  for (const directory of ["src", "lib", "schemas", "scripts", "content"]) fs.cpSync(directory, path.join(root, directory), { recursive: true });
+  for (const file of ["package.json", ".pages.yml", "eleventy.config.js"]) fs.copyFileSync(file, path.join(root, file));
+  fs.symlinkSync(fs.realpathSync("node_modules"), path.join(root, "node_modules"));
+  const example = sermonPreviewScenarios().find(scene => scene.id === "bulletin").data.current;
+  const title = "God's love & grace <script>notCode()</script>";
+  const real = { ...example, sample: false, title: { zh: title, en: title } };
+  fs.writeFileSync(path.join(root, "content/sermons.yml"), yaml.dump(collection([real], real.date), { noRefs: true }));
+  execFileSync(process.execPath, ["scripts/build.mjs"], { cwd: root, env: { ...process.env, CF_PAGES_BRANCH: "live", SERMONS_PREVIEW: "1" }, timeout: 60000, stdio: "pipe" });
+  const siteName = yaml.load(fs.readFileSync("src/_data/site.yml", "utf8")).name.en;
+  for (const suffix of ["", "bulletin/"]) {
+    const document = parseHTML(fs.readFileSync(path.join(root, "_site/en/sermons", real.date, suffix, "index.html"), "utf8")).document;
+    assert.equal(document.title, `${title} · ${siteName}`);
+    assert.equal(document.querySelector('meta[property="og:title"]').getAttribute("content"), `${title} · ${siteName}`);
+    assert.equal(document.querySelector("script:not([src])"), null);
+    if (!suffix) assert.equal(document.querySelector("h1").textContent, title);
+  }
+});
 test("real recording creates exactly one privacy-enhanced player after Play; no script leaves a YouTube link", () => {
   const env = new nunjucks.Environment(new nunjucks.FileSystemLoader("src/_includes"));
   env.addFilter("t", value => value?.en || "");
   env.addFilter("sermonDate", formatSermonDate);
+  env.addFilter("sermonArchiveReturn", sermonArchiveReturn);
   const e = { ...entry, recording: "ready", youtube_id: "abcdefghijk" };
   const html = env.render("sermons/detail.njk", { L: { code: "en" }, e, sermonUi, sermonBase: "", site: {} });
   const { document, window } = parseHTML(html);
