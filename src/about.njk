@@ -29,19 +29,6 @@ eleventyComputed:
     </div>
   </section>
 
-  <section class="about-values wrap" id="core-values" aria-labelledby="values-heading">
-    <h2 id="values-heading">{{ homepage.values.heading | t(c) }}</h2>
-    <ol class="core-values-list">
-      {%- for value in values.items %}
-      <li>
-        <h3>{{ value.title | t(c) }}</h3>
-        <p>{{ value.text | t(c) }}</p>
-        <p class="refs">{{ value.refs | t(c) }}</p>
-      </li>
-      {%- endfor %}
-    </ol>
-  </section>
-
   <section class="about-pastor wrap" aria-labelledby="pastor-heading">
     <div class="pastor-card">
       <div class="pastor-portrait"><img src="{{ a.pastor.image }}" alt="{{ a.pastor.image_alt | t(c) }}" sizes="315px"></div>
@@ -58,6 +45,19 @@ eleventyComputed:
         <p class="pastor-email">{{ a.pastor.email }}</p>
       </div>
     </div>
+  </section>
+
+  <section class="about-values wrap" id="core-values" aria-labelledby="values-heading">
+    <h2 id="values-heading">{{ homepage.values.heading | t(c) }}</h2>
+    <ol class="core-values-list">
+      {%- for value in values.items %}
+      <li>
+        <h3>{{ value.title | t(c) }}</h3>
+        <p>{{ value.text | t(c) }}</p>
+        <p class="refs">{{ value.refs | t(c) }}</p>
+      </li>
+      {%- endfor %}
+    </ol>
   </section>
 
   <section class="together wrap" id="church-life">
